@@ -1,4 +1,4 @@
-package cn.junhua.android.agent.utils;
+package cn.junhua.android.permission.utils;
 
 import android.app.Activity;
 import android.content.Context;

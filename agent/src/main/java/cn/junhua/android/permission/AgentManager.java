@@ -1,4 +1,4 @@
-package cn.junhua.android.agent;
+package cn.junhua.android.permission;
 
 import android.app.Activity;
 import android.content.pm.PackageManager;
@@ -8,18 +8,20 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.junhua.android.agent.manager.LifecycleListener;
-import cn.junhua.android.agent.manager.PermissionAction;
-import cn.junhua.android.agent.manager.PermissionAgentCreator;
-import cn.junhua.android.agent.manager.PermissionAgentRepeater;
-import cn.junhua.android.agent.manager.ResultManagerFragment;
-import cn.junhua.android.agent.manager.ResultManagerV4Fragment;
-import cn.junhua.android.agent.utils.PermissionUtil;
+import cn.junhua.android.permission.core.Action;
+import cn.junhua.android.permission.core.Rationale;
+import cn.junhua.android.permission.core.AgentCreator;
+import cn.junhua.android.permission.core.AgentExecutor;
+import cn.junhua.android.permission.core.AgentHandler;
+import cn.junhua.android.permission.manager.PermissionHandler;
+import cn.junhua.android.permission.manager.ResultCallback;
+import cn.junhua.android.permission.manager.ResultManagerFragment;
+import cn.junhua.android.permission.manager.ResultManagerV4Fragment;
+import cn.junhua.android.permission.utils.PermissionUtil;
 
 /**
  * 处理权限请求
@@ -27,8 +29,7 @@ import cn.junhua.android.agent.utils.PermissionUtil;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/7 11:15
  */
-public class AgentManager implements PermissionAgentCreator {
-    private static String TAG = "AgentManager";
+class AgentManager implements AgentCreator, AgentHandler {
     private static String FRAGMENT_TAG = "AgentManager_143";
     private static int REQUEST_CODE = 0x3223;
 
@@ -36,31 +37,16 @@ public class AgentManager implements PermissionAgentCreator {
     private Activity mActivity;
 
     private String[] mPermissions;
-    private OnPermissionGrantedListener mOnPermissionGrantedListener;
-    private OnPermissionDeniedListener mOnPermissionDeniedListener;
-    private OnPermissionRationaleListener mOnPermissionRationaleListener;
+    private Action mOnGrantedAction;
+    private Action mOnDeniedAction;
+    private Rationale mRationale;
 
-    private PermissionAction mPermissionAction;
+    private PermissionHandler mPermissionHandler;
 
-    private LifecycleListener mLifecycleListener = new LifecycleListener() {
+    private ResultCallback mResultCallback = new ResultCallback() {
 
         @Override
         public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-            StringBuilder stringBuilder = new StringBuilder();
-            for (String per : permissions) {
-                stringBuilder.append(per).append(",");
-            }
-
-            StringBuilder stringBuilder1 = new StringBuilder();
-            for (int g : grantResults) {
-                if (g == PackageManager.PERMISSION_GRANTED) {
-                    stringBuilder1.append("PackageManager.PERMISSION_GRANTED").append(",");
-                } else {
-                    stringBuilder1.append("PackageManager.PERMISSION_DENIED").append(",");
-                }
-            }
-
-            Log.d(TAG, "onRequestPermissionsResult() called with: requestCode = [" + requestCode + "], permissions = [" + stringBuilder.toString() + "], grantResults = [" + stringBuilder1.toString() + "]");
             if (requestCode != REQUEST_CODE || grantResults.length <= 0) return;
 
             List<String> grantedList = new ArrayList<>();
@@ -73,16 +59,16 @@ public class AgentManager implements PermissionAgentCreator {
                 }
             }
 
-            if (!grantedList.isEmpty() && mOnPermissionGrantedListener != null) {
+            if (!grantedList.isEmpty() && mOnGrantedAction != null) {
                 String[] grantedArr = new String[grantedList.size()];
                 grantedList.toArray(grantedArr);
-                mOnPermissionGrantedListener.onGranted(grantedArr);
+                mOnGrantedAction.onAction(grantedArr);
             }
 
-            if (!deniedList.isEmpty() && mOnPermissionDeniedListener != null) {
+            if (!deniedList.isEmpty() && mOnDeniedAction != null) {
                 String[] deniedArr = new String[deniedList.size()];
                 deniedList.toArray(deniedArr);
-                mOnPermissionDeniedListener.onDenied(deniedArr);
+                mOnDeniedAction.onAction(deniedArr);
             }
         }
     };
@@ -100,8 +86,8 @@ public class AgentManager implements PermissionAgentCreator {
                     .commitAllowingStateLoss();
         }
 
-        ((ResultManagerV4Fragment) mResultFragment).setLifecycle(mLifecycleListener);
-        mPermissionAction = (PermissionAction) mResultFragment;
+        ((ResultManagerV4Fragment) mResultFragment).setResultCallback(mResultCallback);
+        mPermissionHandler = (PermissionHandler) mResultFragment;
     }
 
     AgentManager(@NonNull final Activity activity) {
@@ -116,24 +102,24 @@ public class AgentManager implements PermissionAgentCreator {
                     .commitAllowingStateLoss();
         }
 
-        ((ResultManagerFragment) mResultFragment).setLifecycle(mLifecycleListener);
-        mPermissionAction = (PermissionAction) mResultFragment;
+        ((ResultManagerFragment) mResultFragment).setResultCallback(mResultCallback);
+        mPermissionHandler = (PermissionHandler) mResultFragment;
     }
 
 
     @Override
-    public AgentManager request(String... permissions) {
+    public AgentHandler request(String... permissions) {
         mPermissions = permissions;
         return this;
     }
 
-    public AgentManager onGranted(OnPermissionGrantedListener onPermissionGrantedListener) {
-        this.mOnPermissionGrantedListener = onPermissionGrantedListener;
+    public AgentHandler onGranted(Action onGrantedAction) {
+        this.mOnGrantedAction = onGrantedAction;
         return this;
     }
 
-    public AgentManager onDenied(OnPermissionDeniedListener onPermissionDeniedListener) {
-        this.mOnPermissionDeniedListener = onPermissionDeniedListener;
+    public AgentHandler onDenied(Action onDeniedAction) {
+        this.mOnDeniedAction = onDeniedAction;
         return this;
     }
 
@@ -146,8 +132,8 @@ public class AgentManager implements PermissionAgentCreator {
      * </p>
      * 当shouldShowRequestPermissionRationale()返回true是起作用
      */
-    public AgentManager onShouldShowRationale(OnPermissionRationaleListener onPermissionRationaleListener) {
-        this.mOnPermissionRationaleListener = onPermissionRationaleListener;
+    public AgentHandler onRationale(Rationale rationale) {
+        this.mRationale = rationale;
         return this;
     }
 
@@ -157,14 +143,14 @@ public class AgentManager implements PermissionAgentCreator {
      */
     public void apply() {
         if (PermissionUtil.hasPermission(mActivity, mPermissions)) {
-            if (mOnPermissionGrantedListener != null) {
-                mOnPermissionGrantedListener.onGranted(mPermissions);
+            if (mOnGrantedAction != null) {
+                mOnGrantedAction.onAction(mPermissions);
             }
             return;
         }
 
         //直接请求权限
-        if (mOnPermissionRationaleListener == null) {
+        if (mRationale == null) {
             requestPermissions();
             return;
         }
@@ -181,9 +167,9 @@ public class AgentManager implements PermissionAgentCreator {
         } else {
             String[] rationaleArr = new String[rationaleList.size()];
             rationaleList.toArray(rationaleArr);
-            mOnPermissionRationaleListener.onShowRationale(rationaleArr, new PermissionAgentRepeater() {
+            mRationale.onShowRationale(rationaleArr, new AgentExecutor() {
                 @Override
-                public void repeat() {
+                public void execute() {
                     requestPermissions();
                 }
             });
@@ -194,7 +180,7 @@ public class AgentManager implements PermissionAgentCreator {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                mPermissionAction.requestPermissions(mPermissions, REQUEST_CODE);
+                mPermissionHandler.requestPermissions(mPermissions, REQUEST_CODE);
             }
         });
     }

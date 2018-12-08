@@ -1,4 +1,4 @@
-package cn.junhua.android.agent.manager;
+package cn.junhua.android.permission.manager;
 
 import android.support.annotation.NonNull;
 
@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/7 14:42
  */
-public interface PermissionAction {
+public interface PermissionHandler {
 
     /**
      * 请求权限

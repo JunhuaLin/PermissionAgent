@@ -6,10 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import java.util.Arrays;
+
 import cn.junhua.android.permission.PermissionAgent;
-import cn.junhua.android.permission.core.Action;
+import cn.junhua.android.permission.core.callback.Action;
 import cn.junhua.android.permission.core.AgentExecutor;
-import cn.junhua.android.permission.core.Rationale;
+import cn.junhua.android.permission.core.callback.Rationale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,31 +29,19 @@ public class MainActivity extends AppCompatActivity {
                 .onGranted(new Action() {
                     @Override
                     public void onAction(String[] permissions) {
-                        StringBuilder stringBuilder = new StringBuilder();
-                        for (String per : permissions) {
-                            stringBuilder.append(per).append(",");
-                        }
-                        Log.d(TAG, "onGranted() called with: permissions = [" + stringBuilder.toString() + "]");
+                        Log.d(TAG, "onGranted() called with: permissions = " + Arrays.toString(permissions));
                     }
                 })
                 .onDenied(new Action() {
                     @Override
                     public void onAction(String[] permissions) {
-                        StringBuilder stringBuilder = new StringBuilder();
-                        for (String per : permissions) {
-                            stringBuilder.append(per).append(",");
-                        }
-                        Log.d(TAG, "onDenied() called with: permissions = [" + stringBuilder.toString() + "]");
+                        Log.d(TAG, "onDenied() called with: permissions = " + Arrays.toString(permissions));
                     }
                 })
                 .onRationale(new Rationale() {
                     @Override
                     public void onShowRationale(String[] permissions, AgentExecutor repeater) {
-                        StringBuilder stringBuilder = new StringBuilder();
-                        for (String per : permissions) {
-                            stringBuilder.append(per).append(",");
-                        }
-                        Log.d(TAG, "onShowRationale() called with: permissions = [" + stringBuilder.toString() + "], repeater = [" + repeater + "]");
+                        Log.d(TAG, "onShowRationale() called with: permissions = " + Arrays.toString(permissions));
                         repeater.execute();
                     }
                 })
@@ -61,22 +51,23 @@ public class MainActivity extends AppCompatActivity {
     public void requestLocation(View view) {
         PermissionAgent.with(view)
                 .request(Manifest.permission.ACCESS_FINE_LOCATION)
-                .onDenied(new Action() {
-                    @Override
-                    public void onAction(String[] permissions) {
-
-                    }
-                })
                 .onGranted(new Action() {
                     @Override
                     public void onAction(String[] permissions) {
-
+                        Log.d(TAG, "onGranted() called with: permissions = " + Arrays.toString(permissions));
+                    }
+                })
+                .onDenied(new Action() {
+                    @Override
+                    public void onAction(String[] permissions) {
+                        Log.d(TAG, "onDenied() called with: permissions = " + Arrays.toString(permissions));
                     }
                 })
                 .onRationale(new Rationale() {
                     @Override
                     public void onShowRationale(String[] permissions, AgentExecutor repeater) {
-
+                        Log.d(TAG, "onShowRationale() called with: permissions = " + Arrays.toString(permissions));
+                        repeater.execute();
                     }
                 })
                 .apply();

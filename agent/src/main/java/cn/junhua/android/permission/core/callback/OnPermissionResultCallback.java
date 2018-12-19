@@ -1,4 +1,4 @@
-package cn.junhua.android.permission.manager;
+package cn.junhua.android.permission.core.callback;
 
 import android.support.annotation.NonNull;
 
@@ -8,6 +8,6 @@ import android.support.annotation.NonNull;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/6 16:29
  */
-public interface ResultCallback {
+public interface OnPermissionResultCallback {
     void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults);
 }

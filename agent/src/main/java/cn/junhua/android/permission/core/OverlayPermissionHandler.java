@@ -16,4 +16,6 @@ public interface OverlayPermissionHandler {
     void requestAlertWindowPermission(int requestCode);
 
     void setActivityResultCallback(OnActivityResultCallback onActivityResultCallback);
+
+    boolean canDrawOverlays();
 }

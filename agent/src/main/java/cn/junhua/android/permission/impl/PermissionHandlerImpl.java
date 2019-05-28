@@ -109,4 +109,9 @@ public class PermissionHandlerImpl implements DangerousPermissionHandler, Overla
     public void setActivityResultCallback(OnActivityResultCallback onActivityResultCallback) {
         mOverlayPermissionHandler.setActivityResultCallback(onActivityResultCallback);
     }
+
+    @Override
+    public boolean canDrawOverlays() {
+        return false;
+    }
 }

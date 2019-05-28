@@ -1,7 +1,8 @@
 package cn.junhua.android.permission.core;
 
-import cn.junhua.android.permission.core.callback.Action;
-import cn.junhua.android.permission.core.callback.Rationale;
+import cn.junhua.android.permission.core.callback.OnDeniedCallback;
+import cn.junhua.android.permission.core.callback.OnGrantedCallback;
+import cn.junhua.android.permission.core.callback.OnRationaleCallback;
 
 /**
  * 申请权限相关操作
@@ -19,12 +20,12 @@ public interface Agent {
     /**
      * 当用户同意权限时候的操作
      */
-    Agent onGranted(Action onGrantedAction);
+    Agent onGranted(OnGrantedCallback onGrantedCallback);
 
     /**
      * 当用户拒绝权限时候的操作
      */
-    Agent onDenied(Action onDeniedAction);
+    Agent onDenied(OnDeniedCallback onDeniedCallback);
 
     /**
      * <p>
@@ -35,7 +36,7 @@ public interface Agent {
      * </p>
      * 当shouldShowRequestPermissionRationale()返回true是起作用
      */
-    Agent onRationale(Rationale rationale);
+    Agent onRationale(OnRationaleCallback rationale);
 
 
     /**

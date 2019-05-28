@@ -6,7 +6,7 @@ package cn.junhua.android.permission.core.callback;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/7 14:51
  */
-public interface Action {
+public interface OnGrantedCallback {
     /**
      * 多个权限同时申请时：<br/>
      * 允许时permissions为接受的权限列表<br/>
@@ -14,5 +14,5 @@ public interface Action {
      *
      * @param permissions 权限列表
      */
-    void onAction(String[] permissions);
+    void onGranted(String[] permissions);
 }

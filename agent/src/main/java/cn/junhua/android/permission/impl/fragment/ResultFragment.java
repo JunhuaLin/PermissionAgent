@@ -9,9 +9,10 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 
 import cn.junhua.android.permission.core.DangerousPermissionHandler;
+import cn.junhua.android.permission.core.OverlayPermissionHandler;
 import cn.junhua.android.permission.core.callback.OnActivityResultCallback;
 import cn.junhua.android.permission.core.callback.OnPermissionResultCallback;
-import cn.junhua.android.permission.core.OverlayPermissionHandler;
+import cn.junhua.android.permission.utils.PermissionUtil;
 
 /**
  * 用于处理Agent权限请求相关操作
@@ -28,7 +29,7 @@ public class ResultFragment extends Fragment implements DangerousPermissionHandl
     @Override
     public void requestAlertWindowPermission(int requestCode) {
         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-        intent.setData(Uri.parse("package:" + getContext().getPackageName()));
+        intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
         startActivityForResult(intent, requestCode);
     }
 
@@ -38,17 +39,22 @@ public class ResultFragment extends Fragment implements DangerousPermissionHandl
 
     @Override
     public boolean hasPermission(@NonNull String... permissions) {
-        return false;
+        return PermissionUtil.hasPermission(getActivity(), permissions);
     }
 
     @Override
     public boolean shouldShowRationale(@NonNull String permission) {
-        return false;
+        return PermissionUtil.shouldShowRationale(getActivity(), permission);
     }
 
     @Override
     public void setActivityResultCallback(OnActivityResultCallback onActivityResultCallback) {
         this.mOnActivityResultCallback = onActivityResultCallback;
+    }
+
+    @Override
+    public boolean canDrawOverlays() {
+        return PermissionUtil.canDrawOverlays(getActivity());
     }
 
     @Override

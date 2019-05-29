@@ -7,23 +7,52 @@
     tools:context=".MainActivity">
 
     <TextView
+        android:id="@+id/tv_cwc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:onClick="requestPermission"
         android:padding="20dp"
         android:text="CAMERA+WRITE_CONTACTS" />
 
     <TextView
+        android:id="@+id/tv_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:onClick="requestLocation"
         android:padding="20dp"
         android:text="LOCATION" />
 
+    <TextView
+        android:id="@+id/tv_amws"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="ACTION_MANAGE_OVERLAY_PERMISSION" />
+
+    <TextView
+        android:id="@+id/tv_ws"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="WRITE_SETTINGS" />
+
+    <TextView
+        android:id="@+id/tv_amuas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:padding="20dp"
+        android:text="ACTION_MANAGE_UNKNOWN_APP_SOURCES" />
 </LinearLayout>

@@ -3,7 +3,12 @@
 
 
 ```java
-PermissionAgent.with(view)
+//Application中初始化
+PermissionAgent.setDebug(BuildConfig.DEBUG);
+PermissionAgent.getInstance().init(this);
+
+//动态权限
+PermissionAgent.getInstance()
                 .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_CONTACTS)
                 .onGranted(new OnGrantedCallback() {
                     @Override
@@ -21,9 +26,27 @@ PermissionAgent.with(view)
                     @Override
                     public void onRationale(String[] permissions, AgentExecutor repeater) {
                         Log.d(TAG, "onRationale() called with: permissions = " + Arrays.toString(permissions));
-                        //继续执行请求
                         repeater.execute();
                     }
                 })
                 .apply();
+
+
+//特殊权限
+PermissionAgent.getInstance()
+                .request(SpecialPermission.SYSTEM_ALERT_WINDOW)
+                .onGranted(new OnGrantedCallback() {
+                    @Override
+                    public void onGranted(String[] permissions) {
+                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
+                    }
+                })
+                .onDenied(new OnDeniedCallback() {
+                    @Override
+                    public void onDenied(String[] permissions) {
+                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+                    }
+                })
+                .apply();
+
 ```

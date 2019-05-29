@@ -1,6 +1,6 @@
-package cn.junhua.android.permission.core.callback;
+package cn.junhua.android.permission.agent.callback;
 
-import cn.junhua.android.permission.core.AgentExecutor;
+import cn.junhua.android.permission.agent.AgentExecutor;
 
 /**
  * 向用户解释说明

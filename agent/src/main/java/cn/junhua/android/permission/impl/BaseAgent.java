@@ -1,9 +1,13 @@
 package cn.junhua.android.permission.impl;
 
-import cn.junhua.android.permission.core.Agent;
-import cn.junhua.android.permission.core.callback.OnDeniedCallback;
-import cn.junhua.android.permission.core.callback.OnGrantedCallback;
-import cn.junhua.android.permission.core.callback.OnRationaleCallback;
+import android.os.Handler;
+import android.os.Looper;
+
+import cn.junhua.android.permission.agent.Agent;
+import cn.junhua.android.permission.agent.AgentExecutor;
+import cn.junhua.android.permission.agent.callback.OnDeniedCallback;
+import cn.junhua.android.permission.agent.callback.OnGrantedCallback;
+import cn.junhua.android.permission.agent.callback.OnRationaleCallback;
 
 /**
  * @author junhua.lin@jinfuzi.com<br/>
@@ -14,6 +18,7 @@ public abstract class BaseAgent implements Agent {
     protected OnGrantedCallback mOnGrantedCallback;
     protected OnDeniedCallback mOnDeniedCallback;
     protected OnRationaleCallback mOnRationaleCallback;
+    protected Handler mHandler = new Handler(Looper.getMainLooper());
 
     protected int mRequestCode = REQUEST_CODE;
 
@@ -39,6 +44,24 @@ public abstract class BaseAgent implements Agent {
     public Agent onRationale(OnRationaleCallback rationale) {
         this.mOnRationaleCallback = rationale;
         return this;
+    }
+
+    protected void dispatchGranted(String[] permissions) {
+        if (this.mOnGrantedCallback != null) {
+            this.mOnGrantedCallback.onGranted(permissions);
+        }
+    }
+
+    protected void dispatchDenied(String[] permissions) {
+        if (this.mOnDeniedCallback != null) {
+            this.mOnDeniedCallback.onDenied(permissions);
+        }
+    }
+
+    protected void dispatchRationale(String[] permissions, AgentExecutor executor) {
+        if (this.mOnRationaleCallback != null) {
+            this.mOnRationaleCallback.onRationale(permissions, executor);
+        }
     }
 
 }

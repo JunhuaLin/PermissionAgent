@@ -1,4 +1,4 @@
-package cn.junhua.android.permission.core;
+package cn.junhua.android.permission.agent;
 
 /**
  * 用于继续执行权限申请操作

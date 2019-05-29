@@ -1,4 +1,4 @@
-package cn.junhua.android.permission.core.callback;
+package cn.junhua.android.permission.agent.callback;
 
 import android.support.annotation.NonNull;
 

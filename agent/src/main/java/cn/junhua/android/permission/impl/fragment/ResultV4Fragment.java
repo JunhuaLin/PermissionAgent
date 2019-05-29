@@ -1,18 +1,14 @@
 package cn.junhua.android.permission.impl.fragment;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Build;
-import android.provider.Settings;
+import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 
-import cn.junhua.android.permission.core.DangerousPermissionHandler;
-import cn.junhua.android.permission.core.OverlayPermissionHandler;
-import cn.junhua.android.permission.core.callback.OnActivityResultCallback;
-import cn.junhua.android.permission.core.callback.OnPermissionResultCallback;
-import cn.junhua.android.permission.utils.PermissionUtil;
+import cn.junhua.android.permission.agent.PermissionHandler;
+import cn.junhua.android.permission.agent.callback.OnActivityResultCallback;
+import cn.junhua.android.permission.agent.callback.OnPermissionResultCallback;
 
 /**
  * 用于处理Agent权限请求相关操作
@@ -20,31 +16,14 @@ import cn.junhua.android.permission.utils.PermissionUtil;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/6 16:28
  */
-public class ResultV4Fragment extends Fragment implements DangerousPermissionHandler, OverlayPermissionHandler {
+public class ResultV4Fragment extends Fragment implements PermissionHandler {
+    public final static String FRAGMENT_TAG = "ResultV4Fragment_143";
 
     private OnPermissionResultCallback mOnPermissionResultCallback;
     private OnActivityResultCallback mOnActivityResultCallback;
 
-    @TargetApi(Build.VERSION_CODES.M)
-    @Override
-    public void requestAlertWindowPermission(int requestCode) {
-        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-        intent.setData(Uri.parse("package:" + getActivity().getPackageName()));
-        startActivityForResult(intent, requestCode);
-    }
-
     public void setOnPermissionResultCallback(OnPermissionResultCallback mOnPermissionResultCallback) {
         this.mOnPermissionResultCallback = mOnPermissionResultCallback;
-    }
-
-    @Override
-    public boolean hasPermission(@NonNull String... permissions) {
-        return PermissionUtil.hasPermission(getActivity(), permissions);
-    }
-
-    @Override
-    public boolean shouldShowRationale(@NonNull String permission) {
-        return PermissionUtil.shouldShowRationale(getActivity(), permission);
     }
 
     @Override
@@ -53,8 +32,13 @@ public class ResultV4Fragment extends Fragment implements DangerousPermissionHan
     }
 
     @Override
-    public boolean canDrawOverlays() {
-        return PermissionUtil.canDrawOverlays(getActivity());
+    public boolean hasPermission(String permission) {
+        return PackageManager.PERMISSION_GRANTED == ActivityCompat.checkSelfPermission(getContext(), permission);
+    }
+
+    @Override
+    public boolean shouldShowRationale(String permission) {
+        return ActivityCompat.shouldShowRequestPermissionRationale(getActivity(), permission);
     }
 
     @Override

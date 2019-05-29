@@ -1,4 +1,4 @@
-package cn.junhua.android.permission.core.callback;
+package cn.junhua.android.permission.agent.callback;
 
 /**
  * 权限操作回调处理

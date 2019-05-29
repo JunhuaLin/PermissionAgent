@@ -1,8 +1,8 @@
-package cn.junhua.android.permission.core;
+package cn.junhua.android.permission.agent;
 
-import cn.junhua.android.permission.core.callback.OnDeniedCallback;
-import cn.junhua.android.permission.core.callback.OnGrantedCallback;
-import cn.junhua.android.permission.core.callback.OnRationaleCallback;
+import cn.junhua.android.permission.agent.callback.OnDeniedCallback;
+import cn.junhua.android.permission.agent.callback.OnGrantedCallback;
+import cn.junhua.android.permission.agent.callback.OnRationaleCallback;
 
 /**
  * 申请权限相关操作
@@ -13,7 +13,10 @@ import cn.junhua.android.permission.core.callback.OnRationaleCallback;
 public interface Agent {
 
     /**
-     * 处理请求code
+     * 一般情况下不需要设置
+     * 当面默认值与你项目的code重复时，可以选择设置新的requestCode
+     *
+     * @param requestCode requestCode
      */
     Agent code(int requestCode);
 

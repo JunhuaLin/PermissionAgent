@@ -1,15 +1,16 @@
 package cn.junhua.android.permission;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
-import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.view.View;
+import android.app.Application;
 
-import cn.junhua.android.permission.core.AgentCreator;
-import cn.junhua.android.permission.impl.AgentCreatorImpl;
+import cn.junhua.android.permission.agent.Agent;
+import cn.junhua.android.permission.agent.PermissionHandler;
+import cn.junhua.android.permission.agent.PermissionHandlerFactory;
+import cn.junhua.android.permission.dangerous.DangerousPermissionAgent;
+import cn.junhua.android.permission.impl.PermissionHandlerFactoryImp;
+import cn.junhua.android.permission.special.SpecialPermission;
+import cn.junhua.android.permission.special.SpecialPermissionAgent;
+import cn.junhua.android.permission.utils.AgentLog;
+
 
 /**
  * 权限申请代理类
@@ -19,40 +20,51 @@ import cn.junhua.android.permission.impl.AgentCreatorImpl;
  */
 public class PermissionAgent {
 
+    private PermissionHandlerFactory mPermissionHandlerFactory;
+
     private PermissionAgent() {
-        throw new IllegalStateException("不能实例化");
     }
 
-    public static AgentCreator with(@NonNull View view) {
-        return with(view.getContext());
+    public static PermissionAgent getInstance() {
+        return PermissionAgent.InstanceHolder.INSTANCE;
     }
 
-    public static AgentCreator with(@NonNull Context context) {
-        if (context instanceof FragmentActivity) {
-            return with((FragmentActivity) context);
-        } else if (context instanceof Activity) {
-            return with((Activity) context);
-        } else if (context instanceof ContextWrapper) {
-            return with(((ContextWrapper) context).getBaseContext());
-        } else {
-            throw new IllegalArgumentException("不支持ApplicationContext");
+    public static void setDebug(boolean debug) {
+        AgentLog.setDebug(debug);
+    }
+
+    public void init(Application application) {
+        if (mPermissionHandlerFactory == null) {
+            mPermissionHandlerFactory = new PermissionHandlerFactoryImp(application);
         }
     }
 
-    public static AgentCreator with(@NonNull Activity activity) {
-        return new AgentCreatorImpl(activity);
+    /**
+     * 危险(Dangerous)权限
+     *
+     * @param permissions 权限列表
+     * @return Agent权限申请操作
+     */
+    public Agent request(String... permissions) {
+        return new DangerousPermissionAgent(getPermissionHandler(), permissions);
     }
 
-    public static AgentCreator with(@NonNull android.app.Fragment fragment) {
-        return new AgentCreatorImpl(fragment.getActivity());
+    /**
+     * 特殊权限
+     *
+     * @param permission 特殊权限枚举
+     * @return Agent权限申请操作
+     */
+    public Agent request(SpecialPermission permission) {
+        return new SpecialPermissionAgent(getPermissionHandler(), permission);
     }
 
-    public static AgentCreator with(@NonNull FragmentActivity fragmentActivity) {
-        return new AgentCreatorImpl(fragmentActivity);
+    private PermissionHandler getPermissionHandler() {
+        return mPermissionHandlerFactory.create();
     }
 
-    public static AgentCreator with(@NonNull Fragment fragment) {
-        return new AgentCreatorImpl(fragment.getActivity());
+    private static class InstanceHolder {
+        private static final PermissionAgent INSTANCE = new PermissionAgent();
     }
 
 }

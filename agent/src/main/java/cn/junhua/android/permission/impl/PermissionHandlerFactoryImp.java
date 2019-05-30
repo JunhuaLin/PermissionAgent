@@ -9,8 +9,8 @@ import android.support.v4.app.FragmentManager;
 
 import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.agent.PermissionHandlerFactory;
-import cn.junhua.android.permission.impl.fragment.ResultFragment;
-import cn.junhua.android.permission.impl.fragment.ResultV4Fragment;
+import cn.junhua.android.permission.impl.fragment.DefaultPermissionHandler;
+import cn.junhua.android.permission.impl.fragment.SupportV4PermissionHandler;
 
 /**
  * @author junhua.lin@jinfuzi.com<br/>
@@ -26,37 +26,37 @@ public class PermissionHandlerFactoryImp implements PermissionHandlerFactory {
 
     @Override
     public PermissionHandler create() {
-        Activity activity = mActivityHolder.getActivity();
+        Activity activity = mActivityHolder.getCurrentActivity();
         if (activity instanceof FragmentActivity) {
-            return genHandler((FragmentActivity) activity);
+            return genV4Handler((FragmentActivity) activity);
         }
         return genHandler(activity);
     }
 
-    private PermissionHandler genHandler(@NonNull FragmentActivity fragmentActivity) {
+    private PermissionHandler genV4Handler(@NonNull FragmentActivity fragmentActivity) {
         FragmentManager fragmentManager = fragmentActivity.getSupportFragmentManager();
-        Fragment mResultFragment = fragmentManager.findFragmentByTag(ResultV4Fragment.FRAGMENT_TAG);
-        if (!(mResultFragment instanceof ResultV4Fragment)) {
-            mResultFragment = new ResultV4Fragment();
+        Fragment fragment = fragmentManager.findFragmentByTag(SupportV4PermissionHandler.FRAGMENT_TAG);
+        if (!(fragment instanceof SupportV4PermissionHandler)) {
+            fragment = new SupportV4PermissionHandler();
             fragmentManager.beginTransaction()
-                    .add(mResultFragment, ResultV4Fragment.FRAGMENT_TAG)
+                    .add(fragment, SupportV4PermissionHandler.FRAGMENT_TAG)
                     .commitAllowingStateLoss();
         }
 
-        return (PermissionHandler) mResultFragment;
+        return (PermissionHandler) fragment;
     }
 
 
     private PermissionHandler genHandler(@NonNull Activity activity) {
         android.app.FragmentManager fragmentManager = activity.getFragmentManager();
-        android.app.Fragment mResultFragment = fragmentManager.findFragmentByTag(ResultFragment.FRAGMENT_TAG);
-        if (!(mResultFragment instanceof ResultFragment)) {
-            mResultFragment = new ResultFragment();
+        android.app.Fragment fragment = fragmentManager.findFragmentByTag(DefaultPermissionHandler.FRAGMENT_TAG);
+        if (!(fragment instanceof DefaultPermissionHandler)) {
+            fragment = new DefaultPermissionHandler();
             fragmentManager.beginTransaction()
-                    .add(mResultFragment, ResultFragment.FRAGMENT_TAG)
+                    .add(fragment, DefaultPermissionHandler.FRAGMENT_TAG)
                     .commitAllowingStateLoss();
         }
 
-        return (PermissionHandler) mResultFragment;
+        return (PermissionHandler) fragment;
     }
 }

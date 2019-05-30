@@ -2,6 +2,8 @@ package cn.junhua.android.permission;
 
 import android.app.Application;
 
+import java.util.List;
+
 import cn.junhua.android.permission.agent.Agent;
 import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.agent.PermissionHandlerFactory;
@@ -45,7 +47,7 @@ public class PermissionAgent {
      * @param permissions 权限列表
      * @return Agent权限申请操作
      */
-    public Agent request(String... permissions) {
+    public Agent<List<String>> request(String... permissions) {
         return new DangerousPermissionAgent(getPermissionHandler(), permissions);
     }
 
@@ -55,7 +57,7 @@ public class PermissionAgent {
      * @param permission 特殊权限枚举
      * @return Agent权限申请操作
      */
-    public Agent request(SpecialPermission permission) {
+    public Agent<SpecialPermission> request(SpecialPermission permission) {
         return new SpecialPermissionAgent(getPermissionHandler(), permission);
     }
 

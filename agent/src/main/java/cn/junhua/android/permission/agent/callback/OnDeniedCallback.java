@@ -6,7 +6,7 @@ package cn.junhua.android.permission.agent.callback;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/7 14:51
  */
-public interface OnDeniedCallback {
+public interface OnDeniedCallback<T> {
     /**
      * 多个权限同时申请时：<br/>
      * 允许时permissions为接受的权限列表<br/>
@@ -14,5 +14,5 @@ public interface OnDeniedCallback {
      *
      * @param permissions 权限列表
      */
-    void onDenied(String[] permissions);
+    void onDenied(T permissions);
 }

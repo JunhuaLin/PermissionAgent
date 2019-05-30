@@ -1,12 +1,7 @@
 package cn.junhua.android.permission.utils;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.PermissionChecker;
 
 /**
@@ -32,15 +27,4 @@ public class PermissionUtil {
         return true;
     }
 
-    /**
-     * 判断权限是否需要向用户解释
-     */
-    public static boolean shouldShowRationale(@NonNull Activity activity, @NonNull String permission) {
-        return ActivityCompat.shouldShowRequestPermissionRationale(activity, permission);
-    }
-
-    @TargetApi(Build.VERSION_CODES.M)
-    public static boolean canDrawOverlays(@NonNull Context context) {
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && Settings.canDrawOverlays(context);
-    }
 }

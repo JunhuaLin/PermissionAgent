@@ -16,8 +16,8 @@ import cn.junhua.android.permission.agent.callback.OnPermissionResultCallback;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/6 16:28
  */
-public class ResultV4Fragment extends Fragment implements PermissionHandler {
-    public final static String FRAGMENT_TAG = "ResultV4Fragment_143";
+public class SupportV4PermissionHandler extends Fragment implements PermissionHandler {
+    public final static String FRAGMENT_TAG = "ResultV4Fragment_1206";
 
     private OnPermissionResultCallback mOnPermissionResultCallback;
     private OnActivityResultCallback mOnActivityResultCallback;

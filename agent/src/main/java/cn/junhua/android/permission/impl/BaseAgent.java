@@ -13,52 +13,52 @@ import cn.junhua.android.permission.agent.callback.OnRationaleCallback;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/26 19:18
  */
-public abstract class BaseAgent implements Agent {
-    public static final int REQUEST_CODE = 0x123;
-    protected OnGrantedCallback mOnGrantedCallback;
-    protected OnDeniedCallback mOnDeniedCallback;
-    protected OnRationaleCallback mOnRationaleCallback;
+public abstract class BaseAgent<T> implements Agent<T> {
+    private static final int REQUEST_CODE = 0x1226;
+    protected OnGrantedCallback<T> mOnGrantedCallback;
+    protected OnDeniedCallback<T> mOnDeniedCallback;
+    protected OnRationaleCallback<T> mOnRationaleCallback;
     protected Handler mHandler = new Handler(Looper.getMainLooper());
 
     protected int mRequestCode = REQUEST_CODE;
 
     @Override
-    public Agent code(int requestCode) {
+    public Agent<T> code(int requestCode) {
         this.mRequestCode = requestCode;
         return this;
     }
 
     @Override
-    public Agent onGranted(OnGrantedCallback onGrantedCallback) {
+    public Agent<T> onGranted(OnGrantedCallback<T> onGrantedCallback) {
         this.mOnGrantedCallback = onGrantedCallback;
         return this;
     }
 
     @Override
-    public Agent onDenied(OnDeniedCallback onDeniedCallback) {
+    public Agent<T> onDenied(OnDeniedCallback<T> onDeniedCallback) {
         this.mOnDeniedCallback = onDeniedCallback;
         return this;
     }
 
     @Override
-    public Agent onRationale(OnRationaleCallback rationale) {
+    public Agent<T> onRationale(OnRationaleCallback<T> rationale) {
         this.mOnRationaleCallback = rationale;
         return this;
     }
 
-    protected void dispatchGranted(String[] permissions) {
+    protected void dispatchGranted(T permissions) {
         if (this.mOnGrantedCallback != null) {
             this.mOnGrantedCallback.onGranted(permissions);
         }
     }
 
-    protected void dispatchDenied(String[] permissions) {
+    protected void dispatchDenied(T permissions) {
         if (this.mOnDeniedCallback != null) {
             this.mOnDeniedCallback.onDenied(permissions);
         }
     }
 
-    protected void dispatchRationale(String[] permissions, AgentExecutor executor) {
+    protected void dispatchRationale(T permissions, AgentExecutor executor) {
         if (this.mOnRationaleCallback != null) {
             this.mOnRationaleCallback.onRationale(permissions, executor);
         }

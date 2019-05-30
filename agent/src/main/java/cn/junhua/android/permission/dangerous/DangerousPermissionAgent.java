@@ -15,11 +15,13 @@ import cn.junhua.android.permission.utils.AgentLog;
 import cn.junhua.android.permission.utils.PermissionUtil;
 
 /**
+ * 危险权限申请
+ *
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/19 13:39
  */
-public class DangerousPermissionAgent extends BaseAgent implements OnPermissionResultCallback {
-    private static final String TAG = "Agent";
+public class DangerousPermissionAgent extends BaseAgent<List<String>> implements AgentExecutor, OnPermissionResultCallback {
+    private static final String TAG = DangerousPermissionAgent.class.getSimpleName();
 
     private PermissionHandler mPermissionHandler;
     private String[] mPermissions;
@@ -39,13 +41,13 @@ public class DangerousPermissionAgent extends BaseAgent implements OnPermissionR
             @Override
             public void run() {
                 if (PermissionUtil.hasPermission(mPermissionHandler.getActivity(), mPermissions)) {
-                    dispatchGranted(mPermissions);
+                    dispatchGranted(Arrays.asList(mPermissions));
                     return;
                 }
 
                 //直接请求权限
                 if (mOnRationaleCallback == null) {
-                    requestPermissions();
+                    execute();
                     return;
                 }
 
@@ -57,26 +59,10 @@ public class DangerousPermissionAgent extends BaseAgent implements OnPermissionR
                     }
                 }
                 if (rationaleList.isEmpty()) {
-                    requestPermissions();
+                    execute();
                 } else {
-                    String[] rationaleArr = new String[rationaleList.size()];
-                    rationaleList.toArray(rationaleArr);
-                    dispatchRationale(rationaleArr, new AgentExecutor() {
-                        @Override
-                        public void execute() {
-                            requestPermissions();
-                        }
-                    });
+                    dispatchRationale(rationaleList, DangerousPermissionAgent.this);
                 }
-            }
-        });
-    }
-
-    private void requestPermissions() {
-        mHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                mPermissionHandler.requestPermissions(mPermissions, mRequestCode);
             }
         });
     }
@@ -100,16 +86,22 @@ public class DangerousPermissionAgent extends BaseAgent implements OnPermissionR
                 }
 
                 if (!grantedList.isEmpty()) {
-                    String[] grantedArr = new String[grantedList.size()];
-                    grantedList.toArray(grantedArr);
-                    dispatchGranted(grantedArr);
+                    dispatchGranted(grantedList);
                 }
 
                 if (!deniedList.isEmpty()) {
-                    String[] deniedArr = new String[deniedList.size()];
-                    deniedList.toArray(deniedArr);
-                    dispatchDenied(deniedArr);
+                    dispatchDenied(deniedList);
                 }
+            }
+        });
+    }
+
+    @Override
+    public void execute() {
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mPermissionHandler.requestPermissions(mPermissions, mRequestCode);
             }
         });
     }

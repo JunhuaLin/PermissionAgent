@@ -10,25 +10,25 @@ import cn.junhua.android.permission.agent.callback.OnRationaleCallback;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/6 17:01
  */
-public interface Agent {
+public interface Agent<T> {
 
     /**
      * 一般情况下不需要设置
-     * 当面默认值与你项目的code重复时，可以选择设置新的requestCode
+     * 当默认值与你项目的code重复时，可以选择设置新的requestCode
      *
      * @param requestCode requestCode
      */
-    Agent code(int requestCode);
+    Agent<T> code(int requestCode);
 
     /**
      * 当用户同意权限时候的操作
      */
-    Agent onGranted(OnGrantedCallback onGrantedCallback);
+    Agent<T> onGranted(OnGrantedCallback<T> onGrantedCallback);
 
     /**
      * 当用户拒绝权限时候的操作
      */
-    Agent onDenied(OnDeniedCallback onDeniedCallback);
+    Agent<T> onDenied(OnDeniedCallback<T> onDeniedCallback);
 
     /**
      * <p>
@@ -39,7 +39,7 @@ public interface Agent {
      * </p>
      * 当shouldShowRequestPermissionRationale()返回true是起作用
      */
-    Agent onRationale(OnRationaleCallback rationale);
+    Agent<T> onRationale(OnRationaleCallback<T> rationale);
 
 
     /**

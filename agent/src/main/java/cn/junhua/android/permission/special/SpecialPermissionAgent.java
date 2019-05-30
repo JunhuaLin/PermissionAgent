@@ -1,35 +1,34 @@
 package cn.junhua.android.permission.special;
 
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Looper;
 
 import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.agent.callback.OnActivityResultCallback;
 import cn.junhua.android.permission.impl.BaseAgent;
+import cn.junhua.android.permission.utils.AgentLog;
 
 import static android.app.Activity.RESULT_OK;
 
 /**
+ * 特殊权限申请
+ *
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/19 13:39
  */
-public class SpecialPermissionAgent extends BaseAgent implements OnActivityResultCallback {
+public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> implements OnActivityResultCallback {
+    private static final String TAG = SpecialPermissionAgent.class.getSimpleName();
 
     private PermissionHandler mPermissionHandler;
     private SpecialPermission mSpecialPermission;
-    private String[] mPermission;
-    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     public SpecialPermissionAgent(PermissionHandler permissionHandler, SpecialPermission specialPermission) {
         mPermissionHandler = permissionHandler;
         mSpecialPermission = specialPermission;
         mPermissionHandler.setActivityResultCallback(this);
-        mPermission = new String[]{mSpecialPermission.getPermission()};
     }
 
     private boolean checkPermission() {
-        return mSpecialPermission.checkPermission(mPermissionHandler.getActivity());
+        return mSpecialPermission.checkPermission(mPermissionHandler.getContext());
     }
 
     @Override
@@ -38,10 +37,10 @@ public class SpecialPermissionAgent extends BaseAgent implements OnActivityResul
             @Override
             public void run() {
                 if (checkPermission()) {
-                    dispatchGranted(mPermission);
+                    dispatchGranted(mSpecialPermission);
                     return;
                 }
-                Intent intent = mSpecialPermission.getIntent(mPermissionHandler.getActivity());
+                Intent intent = mSpecialPermission.getIntent(mPermissionHandler.getContext());
                 mPermissionHandler.startActivityForResult(intent, mRequestCode);
             }
         });
@@ -49,14 +48,15 @@ public class SpecialPermissionAgent extends BaseAgent implements OnActivityResul
 
     @Override
     public void onActivityResultCallback(final int requestCode, final int resultCode, Intent data) {
+        AgentLog.d(TAG, "onActivityResultCallback() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data + "]");
         mHandler.post(new Runnable() {
             @Override
             public void run() {
                 if (mRequestCode == requestCode) {
                     if (resultCode == RESULT_OK && checkPermission()) {
-                        dispatchGranted(mPermission);
+                        dispatchGranted(mSpecialPermission);
                     } else {
-                        dispatchDenied(mPermission);
+                        dispatchDenied(mSpecialPermission);
                     }
                 }
             }

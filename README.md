@@ -1,6 +1,9 @@
 # Prermission
-链式编程动态申请权限
+一次初始化处处可用的链式编程动态权限请求库
 
+> implementation 'cn.junhua.android:permission-agent:<latest-version>'
+
+最新版本见release页面
 
 ```java
 //Application中初始化

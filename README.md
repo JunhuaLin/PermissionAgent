@@ -1,10 +1,13 @@
 # Prermission
 一次初始化处处可用的链式编程动态权限请求库
 
-> implementation 'cn.junhua.android:permission-agent:<latest-version>'
-
+### 添加依赖
 最新版本见release页面
+```groovy
+implementation 'cn.junhua.android:permission-agent:<latest-version>'
+```
 
+### 使用
 ```java
 //Application中初始化
 PermissionAgent.setDebug(BuildConfig.DEBUG);

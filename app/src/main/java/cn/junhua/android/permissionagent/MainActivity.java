@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.Arrays;
+import java.util.List;
 
 import cn.junhua.android.permission.PermissionAgent;
 import cn.junhua.android.permission.agent.AgentExecutor;
@@ -26,7 +26,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,23 +68,24 @@ public class MainActivity extends AppCompatActivity {
     public void requestPermission(View view) {
         PermissionAgent.getInstance()
                 .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_CONTACTS)
-                .onGranted(new OnGrantedCallback() {
+                //.code(123)//与你自定义code冲突时可以设置，一般不用自己设置
+                .onGranted(new OnGrantedCallback<List<String>>() {
                     @Override
-                    public void onGranted(String[] permissions) {
-                        Log.d(TAG, "onGranted() called with: permissions = " + Arrays.toString(permissions));
+                    public void onGranted(List<String> permissions) {
+                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
-                .onDenied(new OnDeniedCallback() {
+                .onDenied(new OnDeniedCallback<List<String>>() {
                     @Override
-                    public void onDenied(String[] permissions) {
-                        Log.d(TAG, "onDenied() called with: permissions = " + Arrays.toString(permissions));
+                    public void onDenied(List<String> permissions) {
+                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
-                .onRationale(new OnRationaleCallback() {
+                .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
-                    public void onRationale(String[] permissions, AgentExecutor repeater) {
-                        Log.d(TAG, "onRationale() called with: permissions = " + Arrays.toString(permissions));
-                        repeater.execute();
+                    public void onRationale(List<String> permissions, AgentExecutor executor) {
+                        executor.execute();
+                        Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
                     }
                 })
                 .apply();
@@ -122,19 +122,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     public void requestOverlay(View view) {
         PermissionAgent.getInstance()
                 .request(SpecialPermission.SYSTEM_ALERT_WINDOW)
-                .onGranted(new OnGrantedCallback() {
+                .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
-                    public void onGranted(String[] permissions) {
+                    public void onGranted(SpecialPermission permissions) {
                         Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
-                .onDenied(new OnDeniedCallback() {
+                .onDenied(new OnDeniedCallback<SpecialPermission>() {
                     @Override
-                    public void onDenied(String[] permissions) {
+                    public void onDenied(SpecialPermission permissions) {
                         Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
@@ -142,19 +141,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestWriteSettings(View v) {
         PermissionAgent.getInstance()
                 .request(SpecialPermission.WRITE_SETTINGS)
-                .onGranted(new OnGrantedCallback() {
+                .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
-                    public void onGranted(String[] permissions) {
+                    public void onGranted(SpecialPermission permissions) {
                         Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
-                .onDenied(new OnDeniedCallback() {
+                .onDenied(new OnDeniedCallback<SpecialPermission>() {
                     @Override
-                    public void onDenied(String[] permissions) {
+                    public void onDenied(SpecialPermission permissions) {
                         Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
@@ -162,19 +160,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     private void requestInstallApk(View v) {
         PermissionAgent.getInstance()
                 .request(SpecialPermission.REQUEST_INSTALL_PACKAGES)
-                .onGranted(new OnGrantedCallback() {
+                .code(123)//与你自定义code冲突时可以设置，一般不用自己设置
+                .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
-                    public void onGranted(String[] permissions) {
+                    public void onGranted(SpecialPermission permissions) {
                         Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
-                .onDenied(new OnDeniedCallback() {
+                .onDenied(new OnDeniedCallback<SpecialPermission>() {
                     @Override
-                    public void onDenied(String[] permissions) {
+                    public void onDenied(SpecialPermission permissions) {
                         Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })

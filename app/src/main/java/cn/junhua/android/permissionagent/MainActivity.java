@@ -1,13 +1,9 @@
 package cn.junhua.android.permissionagent;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -92,34 +88,30 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
     public void requestLocation() {
-        // Here, thisActivity is the current activity
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS)
-                != PackageManager.PERMISSION_GRANTED) {
-
-            // Should we show an explanation?
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
-                    Manifest.permission.READ_CONTACTS)) {
-
-                // Show an expanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
-                // sees the explanation, try again to request the permission.
-                toast("READ_CONTACTS shouldShowRequestPermissionRationale");
-            }
-
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.READ_CONTACTS},
-                    123);
-        } else {
-            toast("READ_CONTACTS true");
-        }
-
-
+        PermissionAgent.getInstance()
+                .request(Manifest.permission.ACCESS_FINE_LOCATION)
+                //.code(123)//与你自定义code冲突时可以设置，一般不用自己设置
+                .onGranted(new OnGrantedCallback<List<String>>() {
+                    @Override
+                    public void onGranted(List<String> permissions) {
+                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
+                    }
+                })
+                .onDenied(new OnDeniedCallback<List<String>>() {
+                    @Override
+                    public void onDenied(List<String> permissions) {
+                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+                    }
+                })
+                .onRationale(new OnRationaleCallback<List<String>>() {
+                    @Override
+                    public void onRationale(List<String> permissions, AgentExecutor executor) {
+                        executor.execute();
+                        Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
+                    }
+                })
+                .apply();
     }
 
     public void requestOverlay(View view) {

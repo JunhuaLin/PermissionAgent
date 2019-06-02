@@ -31,6 +31,10 @@ public enum SpecialPermission implements SpecialOperation {
 
     SpecialPermission(SpecialOperationFactory operationFactory) {
         mOperation = operationFactory.create();
+
+        if (mOperation == null) {
+            mOperation = new DefaultSpecialOperation();
+        }
     }
 
     @Override
@@ -46,4 +50,5 @@ public enum SpecialPermission implements SpecialOperation {
     @Override
     public boolean checkPermission(Context context) {
         return mOperation.checkPermission(context);
-    }}
+    }
+}

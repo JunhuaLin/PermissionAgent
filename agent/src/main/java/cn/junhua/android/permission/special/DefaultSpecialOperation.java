@@ -1,9 +1,7 @@
-package cn.junhua.android.permission.special.operation;
+package cn.junhua.android.permission.special;
 
 import android.content.Context;
 import android.content.Intent;
-
-import cn.junhua.android.permission.special.SpecialOperation;
 
 /**
  * 默认同意所有特殊权限

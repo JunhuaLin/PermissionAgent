@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import cn.junhua.android.permission.agent.AgentExecutor;
 import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.agent.callback.OnPermissionResultCallback;
 import cn.junhua.android.permission.impl.BaseAgent;
@@ -20,7 +19,7 @@ import cn.junhua.android.permission.utils.PermissionUtil;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/19 13:39
  */
-public class DangerousPermissionAgent extends BaseAgent<List<String>> implements AgentExecutor, OnPermissionResultCallback {
+public class DangerousPermissionAgent extends BaseAgent<List<String>> implements OnPermissionResultCallback {
     private static final String TAG = DangerousPermissionAgent.class.getSimpleName();
 
     private PermissionHandler mPermissionHandler;
@@ -37,17 +36,11 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
      * 执行请求操作
      */
     public void apply() {
-        mHandler.post(new Runnable() {
+        post(new Runnable() {
             @Override
             public void run() {
                 if (PermissionUtil.hasPermission(mPermissionHandler.getActivity(), mPermissions)) {
                     dispatchGranted(Arrays.asList(mPermissions));
-                    return;
-                }
-
-                //直接请求权限
-                if (mOnRationaleCallback == null) {
-                    execute();
                     return;
                 }
 
@@ -72,7 +65,7 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
         AgentLog.d(TAG, "onRequestPermissionsResult() called with: requestCode = [" + requestCode + "], permissions = " + Arrays.toString(permissions) + ", grantResults = " + Arrays.toString(grantResults));
         if (requestCode != mRequestCode || grantResults.length <= 0) return;
 
-        mHandler.post(new Runnable() {
+        post(new Runnable() {
             @Override
             public void run() {
                 List<String> grantedList = new ArrayList<>();
@@ -98,11 +91,16 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
 
     @Override
     public void execute() {
-        mHandler.post(new Runnable() {
+        post(new Runnable() {
             @Override
             public void run() {
                 mPermissionHandler.requestPermissions(mPermissions, mRequestCode);
             }
         });
+    }
+
+    @Override
+    public void cancel() {
+        dispatchDenied(Arrays.asList(mPermissions));
     }
 }

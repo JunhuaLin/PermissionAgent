@@ -4,7 +4,6 @@ import android.os.Build;
 
 import cn.junhua.android.permission.special.SpecialOperation;
 import cn.junhua.android.permission.special.SpecialOperationFactory;
-import cn.junhua.android.permission.special.operation.DefaultSpecialOperation;
 
 /**
  * 浮窗权限操作工厂
@@ -18,6 +17,6 @@ public class OverlaySpecialOperationFactory implements SpecialOperationFactory {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return new OverlaySpecialOperation();
         }
-        return new DefaultSpecialOperation();
+        return null;
     }
 }

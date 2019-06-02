@@ -4,7 +4,6 @@ import android.os.Build;
 
 import cn.junhua.android.permission.special.SpecialOperation;
 import cn.junhua.android.permission.special.SpecialOperationFactory;
-import cn.junhua.android.permission.special.operation.DefaultSpecialOperation;
 
 /**
  * 修改设置权限操作工厂
@@ -18,6 +17,6 @@ public class SettingsSpecialOperationFactory implements SpecialOperationFactory 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return new WriteSettingsSpecialOperation();
         }
-        return new DefaultSpecialOperation();
+        return null;
     }
 }

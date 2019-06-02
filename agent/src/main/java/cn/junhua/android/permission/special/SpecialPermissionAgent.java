@@ -33,15 +33,16 @@ public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> impleme
 
     @Override
     public void apply() {
-        mHandler.post(new Runnable() {
+        post(new Runnable() {
             @Override
             public void run() {
                 if (checkPermission()) {
                     dispatchGranted(mSpecialPermission);
                     return;
                 }
-                Intent intent = mSpecialPermission.getIntent(mPermissionHandler.getContext());
-                mPermissionHandler.startActivityForResult(intent, mRequestCode);
+
+                //特殊权限默认提前提示用户
+                dispatchRationale(mSpecialPermission, SpecialPermissionAgent.this);
             }
         });
     }
@@ -49,17 +50,35 @@ public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> impleme
     @Override
     public void onActivityResultCallback(final int requestCode, final int resultCode, Intent data) {
         AgentLog.d(TAG, "onActivityResultCallback() called with: requestCode = [" + requestCode + "], resultCode = [" + resultCode + "], data = [" + data + "]");
-        mHandler.post(new Runnable() {
+        if (mRequestCode != requestCode) {
+            return;
+        }
+
+        post(new Runnable() {
             @Override
             public void run() {
-                if (mRequestCode == requestCode) {
-                    if (resultCode == RESULT_OK && checkPermission()) {
-                        dispatchGranted(mSpecialPermission);
-                    } else {
-                        dispatchDenied(mSpecialPermission);
-                    }
+                if (resultCode == RESULT_OK && checkPermission()) {
+                    dispatchGranted(mSpecialPermission);
+                } else {
+                    dispatchDenied(mSpecialPermission);
                 }
             }
         });
+    }
+
+    @Override
+    public void execute() {
+        post(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = mSpecialPermission.getIntent(mPermissionHandler.getContext());
+                mPermissionHandler.startActivityForResult(intent, mRequestCode);
+            }
+        });
+    }
+
+    @Override
+    public void cancel() {
+        dispatchDenied(mSpecialPermission);
     }
 }

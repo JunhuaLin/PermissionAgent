@@ -13,14 +13,22 @@ import cn.junhua.android.permission.agent.callback.OnRationaleCallback;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/26 19:18
  */
-public abstract class BaseAgent<T> implements Agent<T> {
+public abstract class BaseAgent<T> implements Agent<T>, AgentExecutor {
     private static final int REQUEST_CODE = 0x1226;
-    protected OnGrantedCallback<T> mOnGrantedCallback;
-    protected OnDeniedCallback<T> mOnDeniedCallback;
-    protected OnRationaleCallback<T> mOnRationaleCallback;
-    protected Handler mHandler = new Handler(Looper.getMainLooper());
 
     protected int mRequestCode = REQUEST_CODE;
+    private Handler mHandler = new Handler(Looper.getMainLooper());
+
+    private OnGrantedCallback<T> mOnGrantedCallback;
+    private OnDeniedCallback<T> mOnDeniedCallback;
+    //默认直接请求权限
+    private OnRationaleCallback<T> mOnRationaleCallback = new OnRationaleCallback<T>() {
+        @Override
+        public void onRationale(T permissions, AgentExecutor executor) {
+            executor.execute();
+        }
+    };
+
 
     @Override
     public Agent<T> code(int requestCode) {
@@ -46,22 +54,42 @@ public abstract class BaseAgent<T> implements Agent<T> {
         return this;
     }
 
-    protected void dispatchGranted(T permissions) {
-        if (this.mOnGrantedCallback != null) {
-            this.mOnGrantedCallback.onGranted(permissions);
+    protected void dispatchGranted(final T permissions) {
+        if (mOnGrantedCallback != null) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    mOnGrantedCallback.onGranted(permissions);
+                }
+            });
         }
     }
 
-    protected void dispatchDenied(T permissions) {
-        if (this.mOnDeniedCallback != null) {
-            this.mOnDeniedCallback.onDenied(permissions);
+    protected void dispatchDenied(final T permissions) {
+        if (mOnDeniedCallback != null) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    mOnDeniedCallback.onDenied(permissions);
+                }
+            });
         }
     }
 
-    protected void dispatchRationale(T permissions, AgentExecutor executor) {
-        if (this.mOnRationaleCallback != null) {
-            this.mOnRationaleCallback.onRationale(permissions, executor);
+    protected void dispatchRationale(final T permissions, final AgentExecutor executor) {
+        if (mOnRationaleCallback != null) {
+            post(new Runnable() {
+                @Override
+                public void run() {
+                    mOnRationaleCallback.onRationale(permissions, executor);
+                }
+            });
         }
+    }
+
+    protected void post(Runnable runnable) {
+        mHandler.post(runnable);
+//        mHandler.postDelayed(runnable, 100);
     }
 
 }

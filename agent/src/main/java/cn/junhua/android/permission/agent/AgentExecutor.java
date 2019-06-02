@@ -11,4 +11,9 @@ public interface AgentExecutor {
      * 处理后续权限请求
      */
     void execute();
+
+    /**
+     * 取消后续操作，会回调拒绝OnDeniedCallback
+     */
+    void cancel();
 }

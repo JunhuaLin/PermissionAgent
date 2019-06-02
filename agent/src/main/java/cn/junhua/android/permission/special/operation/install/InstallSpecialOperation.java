@@ -27,6 +27,7 @@ public class InstallSpecialOperation implements SpecialOperation {
     public Intent getIntent(Context context) {
         Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
         intent.setData(Uri.parse("package:" + context.getPackageName()));
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
     }
 

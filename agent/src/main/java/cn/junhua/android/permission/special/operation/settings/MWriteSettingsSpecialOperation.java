@@ -16,7 +16,7 @@ import cn.junhua.android.permission.special.SpecialOperation;
  * CREATED 2019/5/29 14:08
  */
 @TargetApi(Build.VERSION_CODES.M)
-public class WriteSettingsSpecialOperation implements SpecialOperation {
+public class MWriteSettingsSpecialOperation implements SpecialOperation {
 
     @Override
     public String getPermission() {

@@ -15,7 +15,7 @@ public class SettingsSpecialOperationFactory implements SpecialOperationFactory 
     @Override
     public SpecialOperation create() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return new WriteSettingsSpecialOperation();
+            return new MWriteSettingsSpecialOperation();
         }
         return null;
     }

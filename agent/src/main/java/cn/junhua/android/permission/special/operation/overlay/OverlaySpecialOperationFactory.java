@@ -15,7 +15,7 @@ public class OverlaySpecialOperationFactory implements SpecialOperationFactory {
     @Override
     public SpecialOperation create() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return new OverlaySpecialOperation();
+            return new MOverlaySpecialOperation();
         }
         return null;
     }

@@ -15,7 +15,7 @@ public class InstallSpecialOperationFactory implements SpecialOperationFactory {
     @Override
     public SpecialOperation create() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            return new InstallSpecialOperation();
+            return new OInstallSpecialOperation();
         }
         return null;
     }

@@ -1,8 +1,9 @@
 package cn.junhua.android.permission.special;
 
 import android.content.Context;
-import android.content.Intent;
 
+import cn.junhua.android.permission.agent.PermissionHandler;
+import cn.junhua.android.permission.special.operation.DefaultSpecialOperation;
 import cn.junhua.android.permission.special.operation.install.InstallSpecialOperationFactory;
 import cn.junhua.android.permission.special.operation.overlay.OverlaySpecialOperationFactory;
 import cn.junhua.android.permission.special.operation.settings.SettingsSpecialOperationFactory;
@@ -38,13 +39,8 @@ public enum SpecialPermission implements SpecialOperation {
     }
 
     @Override
-    public String getPermission() {
-        return mOperation.getPermission();
-    }
-
-    @Override
-    public Intent getIntent(Context context) {
-        return mOperation.getIntent(context);
+    public void startActivityForResult(PermissionHandler permissionHandler, int requestCode) {
+        mOperation.startActivityForResult(permissionHandler, requestCode);
     }
 
     @Override

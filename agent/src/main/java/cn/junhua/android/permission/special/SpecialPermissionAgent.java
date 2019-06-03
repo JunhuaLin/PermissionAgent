@@ -71,8 +71,7 @@ public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> impleme
         post(new Runnable() {
             @Override
             public void run() {
-                Intent intent = mSpecialPermission.getIntent(mPermissionHandler.getContext());
-                mPermissionHandler.startActivityForResult(intent, mRequestCode);
+                mSpecialPermission.startActivityForResult(mPermissionHandler, mRequestCode);
             }
         });
     }

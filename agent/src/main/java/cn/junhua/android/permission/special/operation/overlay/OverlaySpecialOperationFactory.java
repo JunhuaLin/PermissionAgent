@@ -16,7 +16,10 @@ public class OverlaySpecialOperationFactory implements SpecialOperationFactory {
     public SpecialOperation create() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             return new MOverlaySpecialOperation();
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            return new KOverlaySpecialOperation();
         }
+
         return null;
     }
 }

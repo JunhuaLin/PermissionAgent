@@ -1,5 +1,7 @@
 package cn.junhua.android.permission.special;
 
+import cn.junhua.android.permission.special.operation.DefaultSpecialOperation;
+
 /**
  * 特殊权限操作工厂
  *

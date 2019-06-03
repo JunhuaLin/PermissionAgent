@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
 
+import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.special.SpecialOperation;
 
 /**
@@ -19,16 +20,12 @@ import cn.junhua.android.permission.special.SpecialOperation;
 public class MWriteSettingsSpecialOperation implements SpecialOperation {
 
     @Override
-    public String getPermission() {
-        return Settings.ACTION_MANAGE_WRITE_SETTINGS;
-    }
-
-    @Override
-    public Intent getIntent(Context context) {
+    public void startActivityForResult(PermissionHandler permissionHandler, int requestCode) {
+        Context context = permissionHandler.getContext();
         Intent intent = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
         intent.setData(Uri.parse("package:" + context.getPackageName()));
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        return intent;
+        permissionHandler.startActivityForResult(intent, requestCode);
     }
 
     @Override

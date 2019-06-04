@@ -16,6 +16,8 @@ public class NotificationSpecialOperationFactory implements SpecialOperationFact
     public SpecialOperation create() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             return new ONotificationSpecialOperation();
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            return new KNotificationSpecialOperation();
         }
         return null;
     }

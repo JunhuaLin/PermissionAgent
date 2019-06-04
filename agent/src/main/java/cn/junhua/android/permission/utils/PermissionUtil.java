@@ -36,7 +36,7 @@ public class PermissionUtil {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    public static boolean checkOpNoThrow(Context context, String opFieldName) {
+    public static boolean checkOpNoThrow(Context context, @Const.OP_PERMISSION String opFieldName) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return true;
         try {
             Class<AppOpsManager> appOpsClass = AppOpsManager.class;

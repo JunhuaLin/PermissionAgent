@@ -1,9 +1,7 @@
 package cn.junhua.android.permissionagent;
 
 import android.Manifest;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -52,12 +50,36 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         findViewById(R.id.tv_amuas).setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 requestInstallApk(v);
+
             }
         });
+        findViewById(R.id.tv_nofity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestNotify(v);
+            }
+        });
+    }
+
+    private void requestNotify(View v) {
+        PermissionAgent.getInstance()
+                .request(SpecialPermission.POST_NOTIFICATION)
+                .onGranted(new OnGrantedCallback<SpecialPermission>() {
+                    @Override
+                    public void onGranted(SpecialPermission permissions) {
+                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
+                    }
+                })
+                .onDenied(new OnDeniedCallback<SpecialPermission>() {
+                    @Override
+                    public void onDenied(SpecialPermission permissions) {
+                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+                    }
+                })
+                .apply();
     }
 
 

@@ -27,7 +27,7 @@ public class ExceptionFlat {
     }
 
     public interface Action {
-        void onAction() throws Exception;
+        void onAction();
     }
 
     class NullExceptionFlat extends ExceptionFlat {

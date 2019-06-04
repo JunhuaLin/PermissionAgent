@@ -25,7 +25,7 @@ public class MOverlaySpecialOperation extends BaseOverlaySpecialOperation {
         ExceptionFlat.create()
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                         intent.setData(Uri.fromParts("package", context.getPackageName(), null));
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -34,7 +34,7 @@ public class MOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         permissionHandler.startActivityForResult(appDetailsIntent(context), requestCode);
                     }
                 });

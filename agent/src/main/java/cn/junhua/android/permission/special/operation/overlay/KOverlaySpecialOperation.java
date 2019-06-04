@@ -47,7 +47,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
         ExceptionFlat.create()
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         permissionHandler.startActivityForResult(appDetailsIntent(context), requestCode);
                     }
                 });
@@ -60,7 +60,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
         ExceptionFlat.create()
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.setClassName("com.huawei.systemmanager",
                                 "com.huawei.notificationmanager.ui.NotificationManagmentActivity");
@@ -70,7 +70,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.setClassName("com.huawei.systemmanager",
                                 "com.huawei.permissionmanager.ui.MainActivity");
@@ -80,7 +80,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.setClassName("com.huawei.systemmanager",
                                 "com.huawei.systemmanager.addviewmonitor.AddViewMonitorActivity");
@@ -90,7 +90,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.setClassName("com.Android.settings",
                                 "com.android.settings.permission.TabItem");
@@ -100,7 +100,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         permissionHandler.startActivityForResult(appDetailsIntent(context), requestCode);
                     }
                 });
@@ -112,7 +112,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
         ExceptionFlat.create()
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.setAction("com.meizu.safe.security.SHOW_APPSEC");
                         intent.putExtra("packageName", context.getPackageName());
@@ -123,7 +123,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.setAction("com.meizu.safe.security.SHOW_APPSEC");
                         intent.putExtra("packageName", context.getPackageName());
@@ -134,7 +134,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         permissionHandler.startActivityForResult(appDetailsIntent(context), requestCode);
                     }
                 });
@@ -145,7 +145,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
         ExceptionFlat.create()
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                         intent.putExtra("extra_pkgname", context.getPackageName());
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -154,7 +154,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                         intent.putExtra("extra_pkgname", context.getPackageName());
                         intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
@@ -164,7 +164,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent("miui.intent.action.APP_PERM_EDITOR");
                         intent.putExtra("extra_pkgname", context.getPackageName());
                         intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
@@ -175,7 +175,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         permissionHandler.startActivityForResult(appDetailsIntent(context), requestCode);
                     }
                 });
@@ -186,7 +186,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
         ExceptionFlat.create()
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.putExtra("packageName", context.getPackageName());
                         intent.setClassName("com.coloros.safecenter",
@@ -197,7 +197,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.putExtra("packageName", context.getPackageName());
                         intent.setClassName("com.color.safecenter",
@@ -208,7 +208,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.putExtra("packageName", context.getPackageName());
                         intent.setClassName("com.oppo.safe",
@@ -219,7 +219,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         permissionHandler.startActivityForResult(appDetailsIntent(context), requestCode);
                     }
                 });
@@ -230,7 +230,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
         ExceptionFlat.create()
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.setClassName("com.iqoo.secure",
                                 "com.iqoo.secure.ui.phoneoptimize.FloatWindowManager");
@@ -241,7 +241,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.setClassName("com.iqoo.secure",
                                 "com.iqoo.secure.safeguard.SoftPermissionDetailActivity");
@@ -252,7 +252,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         permissionHandler.startActivityForResult(appDetailsIntent(context), requestCode);
                     }
                 });
@@ -263,7 +263,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
         ExceptionFlat.create()
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.setClassName("com.android.settings",
                                 "com.android.settings.Settings$OverlaySettingsActivity");
@@ -273,7 +273,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         Intent intent = new Intent();
                         intent.setClassName("com.qihoo360.mobilesafe",
                                 "com.qihoo360.mobilesafe.ui.index.AppEnterActivity");
@@ -284,7 +284,7 @@ public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
                 })
                 .onCatch(new ExceptionFlat.Action() {
                     @Override
-                    public void onAction() throws Exception {
+                    public void onAction() {
                         permissionHandler.startActivityForResult(appDetailsIntent(context), requestCode);
                     }
                 });

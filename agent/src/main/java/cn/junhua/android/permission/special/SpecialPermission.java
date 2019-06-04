@@ -5,6 +5,7 @@ import android.content.Context;
 import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.special.operation.DefaultSpecialOperation;
 import cn.junhua.android.permission.special.operation.install.InstallSpecialOperationFactory;
+import cn.junhua.android.permission.special.operation.notification.NotificationSpecialOperationFactory;
 import cn.junhua.android.permission.special.operation.overlay.OverlaySpecialOperationFactory;
 import cn.junhua.android.permission.special.operation.settings.SettingsSpecialOperationFactory;
 
@@ -26,7 +27,11 @@ public enum SpecialPermission implements SpecialOperation {
     /**
      * 系统窗口权限
      */
-    SYSTEM_ALERT_WINDOW(new OverlaySpecialOperationFactory());
+    SYSTEM_ALERT_WINDOW(new OverlaySpecialOperationFactory()),
+    /**
+     * 推送通知权限
+     */
+    POST_NOTIFICATION(new NotificationSpecialOperationFactory());
 
     private SpecialOperation mOperation;
 

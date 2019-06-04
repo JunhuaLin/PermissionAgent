@@ -1,10 +1,10 @@
 package cn.junhua.android.permission.utils;
 
-import android.annotation.TargetApi;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.PermissionChecker;
 
 import java.lang.reflect.Field;
@@ -35,7 +35,7 @@ public class PermissionUtil {
         return true;
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static boolean checkOpNoThrow(Context context, String opFieldName) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return true;
         try {

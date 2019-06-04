@@ -2,8 +2,11 @@ package cn.junhua.android.permission.special.operation.overlay;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 import cn.junhua.android.permission.agent.PermissionHandler;
+import cn.junhua.android.permission.special.operation.BaseOverlaySpecialOperation;
 import cn.junhua.android.permission.utils.Const;
 import cn.junhua.android.permission.utils.ExceptionFlat;
 import cn.junhua.android.permission.utils.PermissionUtil;
@@ -15,6 +18,7 @@ import cn.junhua.android.permission.utils.RomUtils;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2019/5/29 14:08
  */
+@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class KOverlaySpecialOperation extends BaseOverlaySpecialOperation {
 
     @Override

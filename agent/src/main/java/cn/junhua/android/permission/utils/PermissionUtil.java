@@ -20,7 +20,7 @@ public class PermissionUtil {
     /**
      * 判断权限是否授权
      */
-    public static boolean hasPermission(@NonNull Context context, @NonNull String... permissions) {
+    public static boolean hasPermissions(@NonNull Context context, @NonNull String... permissions) {
         if (permissions.length == 0) {
             return false;
         }

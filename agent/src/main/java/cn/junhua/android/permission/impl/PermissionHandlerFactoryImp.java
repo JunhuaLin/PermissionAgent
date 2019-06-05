@@ -1,7 +1,6 @@
 package cn.junhua.android.permission.impl;
 
 import android.app.Activity;
-import android.app.Application;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -20,8 +19,8 @@ public class PermissionHandlerFactoryImp implements PermissionHandlerFactory {
 
     private ActivityHolder mActivityHolder;
 
-    public PermissionHandlerFactoryImp(Application application) {
-        mActivityHolder = new ActivityHolder(application);
+    public PermissionHandlerFactoryImp(ActivityHolder activityHolder) {
+        mActivityHolder = activityHolder;
     }
 
     @Override

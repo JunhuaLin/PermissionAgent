@@ -39,7 +39,7 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
         post(new Runnable() {
             @Override
             public void run() {
-                if (PermissionUtil.hasPermission(mPermissionHandler.getActivity(), mPermissions)) {
+                if (PermissionUtil.hasPermissions(mPermissionHandler.getActivity(), mPermissions)) {
                     dispatchGranted(Arrays.asList(mPermissions));
                     return;
                 }

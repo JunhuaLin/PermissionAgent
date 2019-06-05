@@ -18,11 +18,11 @@ public class ActivityHolder implements Application.ActivityLifecycleCallbacks {
 
     private List<Activity> mActivityList = new ArrayList<>();
 
-    ActivityHolder(Application application) {
+    public ActivityHolder(Application application) {
         application.registerActivityLifecycleCallbacks(this);
     }
 
-    Activity getCurrentActivity() {
+    public Activity getCurrentActivity() {
         if (mActivityList.isEmpty()) {
             throw new IllegalStateException("请在Application的onCreate中初始化");
         }

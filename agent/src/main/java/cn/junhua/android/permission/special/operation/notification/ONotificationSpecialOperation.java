@@ -9,7 +9,7 @@ import android.support.annotation.RequiresApi;
 
 import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.special.operation.BaseOverlaySpecialOperation;
-import cn.junhua.android.permission.utils.ExceptionFlat;
+import cn.junhua.android.permission.utils.ActivitiesFlat;
 
 /**
  * 推送通知权限操作,api>=26
@@ -22,23 +22,17 @@ public class ONotificationSpecialOperation extends BaseOverlaySpecialOperation {
 
     @Override
     public void startActivityForResult(final PermissionHandler permissionHandler, final int requestCode) {
-        final Context context = permissionHandler.getContext();
-        ExceptionFlat.create()
-                .onCatch(new ExceptionFlat.Action() {
+        ActivitiesFlat.create(permissionHandler, requestCode)
+                .addAction(new ActivitiesFlat.OnIntentAction() {
                     @Override
-                    public void onAction() {
-                        Intent intent = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+                    public void onIntentAction(Context context, Intent intent) {
+                        intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
                         intent.putExtra(Settings.EXTRA_APP_PACKAGE, context.getPackageName());
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        permissionHandler.startActivityForResult(intent, requestCode);
                     }
                 })
-                .onCatch(new ExceptionFlat.Action() {
-                    @Override
-                    public void onAction() {
-                        permissionHandler.startActivityForResult(appDetailsIntent(context), requestCode);
-                    }
-                });
+                .addAction(getAppDetailsIntentAction())
+                .start();
     }
 
     @Override

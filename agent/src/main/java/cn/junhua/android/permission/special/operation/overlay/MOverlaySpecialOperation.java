@@ -9,7 +9,7 @@ import android.support.annotation.RequiresApi;
 
 import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.special.operation.BaseOverlaySpecialOperation;
-import cn.junhua.android.permission.utils.ExceptionFlat;
+import cn.junhua.android.permission.utils.ActivitiesFlat;
 
 /**
  * 浮窗权限操作 api>=23
@@ -22,23 +22,17 @@ public class MOverlaySpecialOperation extends BaseOverlaySpecialOperation {
 
     @Override
     public void startActivityForResult(final PermissionHandler permissionHandler, final int requestCode) {
-        final Context context = permissionHandler.getContext();
-        ExceptionFlat.create()
-                .onCatch(new ExceptionFlat.Action() {
+        ActivitiesFlat.create(permissionHandler, requestCode)
+                .addAction(new ActivitiesFlat.OnIntentAction() {
                     @Override
-                    public void onAction() {
-                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                    public void onIntentAction(Context context, Intent intent) {
+                        intent.setAction(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                         intent.setData(Uri.fromParts("package", context.getPackageName(), null));
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        permissionHandler.startActivityForResult(intent, requestCode);
                     }
                 })
-                .onCatch(new ExceptionFlat.Action() {
-                    @Override
-                    public void onAction() {
-                        permissionHandler.startActivityForResult(appDetailsIntent(context), requestCode);
-                    }
-                });
+                .addAction(getAppDetailsIntentAction())
+                .start();
     }
 
     @Override

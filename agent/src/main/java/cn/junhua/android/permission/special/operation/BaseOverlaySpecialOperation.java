@@ -9,14 +9,24 @@ import android.provider.Settings;
 import android.view.WindowManager;
 
 import cn.junhua.android.permission.special.SpecialOperation;
+import cn.junhua.android.permission.utils.ActivitiesFlat;
 
 /**
- * 浮窗权限操作
+ * 权限操作
  *
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2019/5/29 14:08
  */
 public abstract class BaseOverlaySpecialOperation implements SpecialOperation {
+
+    private ActivitiesFlat.OnIntentAction mAppDetailsIntentAction = new ActivitiesFlat.OnIntentAction() {
+        @Override
+        public void onIntentAction(Context context, Intent intent) {
+            intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent.setData(Uri.fromParts("package", context.getPackageName(), null));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        }
+    };
 
     /**
      * app详情页面
@@ -26,6 +36,13 @@ public abstract class BaseOverlaySpecialOperation implements SpecialOperation {
         intent.setData(Uri.fromParts("package", context.getPackageName(), null));
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         return intent;
+    }
+
+    /**
+     * app详情页面
+     */
+    public ActivitiesFlat.OnIntentAction getAppDetailsIntentAction() {
+        return mAppDetailsIntentAction;
     }
 
     public boolean tryDisplayDialog(Context context) {

@@ -1,5 +1,7 @@
-[![GitHub license](https://img.shields.io/github/license/JunhuaLin/PermissionAgent.svg)](https://github.com/JunhuaLin/PermissionAgent/blob/master/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/JunhuaLin/PermissionAgent.svg)](https://github.com/JunhuaLin/PermissionAgent/releases)
+[![GitHub license](https://img.shields.io/github/license/JunhuaLin/PermissionAgent.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/JunhuaLin/PermissionAgent.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/releases)
+![android 14](https://img.shields.io/badge/android-%5E14-ff6900.svg?style=plastic)
+
 
 # Prermission Agent
 

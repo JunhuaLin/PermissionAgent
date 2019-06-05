@@ -29,7 +29,8 @@ PermissionAgent.setDebug(BuildConfig.DEBUG);//开启debug
 PermissionAgent.getInstance().init(this);
 ```
 
-#### 动态权限
+#### 单个权限申请
+
 ```java
 PermissionAgent.getInstance()
                 .request(Manifest.permission.CAMERA)
@@ -118,6 +119,9 @@ PermissionAgent.getInstance()
 ```
 
 #### 检测权限
+
+权限检测的工具方法，供单独使用时调用。
+
 ```java
 //检测单个权限
 PermissionAgent.getInstance().checkPermission(Manifest.permission.ACCESS_FINE_LOCATION)

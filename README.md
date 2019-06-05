@@ -1,4 +1,8 @@
-# Prermission
+[![GitHub license](https://img.shields.io/github/license/JunhuaLin/PermissionAgent.svg)](https://github.com/JunhuaLin/PermissionAgent/blob/master/LICENSE)
+[![GitHub release](https://img.shields.io/github/release/JunhuaLin/PermissionAgent.svg)](https://github.com/JunhuaLin/PermissionAgent/releases)
+
+# Prermission Agent
+
 一次初始化处处可用的链式编程动态权限请求库
 
 ### 添加依赖

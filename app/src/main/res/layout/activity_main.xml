@@ -1,68 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tv_cwc"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="CAMERA+WRITE_CONTACTS" />
+        android:orientation="vertical"
+        tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/tv_location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="LOCATION" />
+        <TextView
+            android:id="@+id/tv_check_permission"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="check_permission" />
 
-    <TextView
-        android:id="@+id/tv_amws"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="ACTION_MANAGE_OVERLAY_PERMISSION" />
+        <TextView
+            android:id="@+id/tv_cwc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="CAMERA+WRITE_CONTACTS" />
 
-    <TextView
-        android:id="@+id/tv_ws"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="WRITE_SETTINGS" />
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="LOCATION" />
 
-    <TextView
-        android:id="@+id/tv_amuas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="ACTION_MANAGE_UNKNOWN_APP_SOURCES" />
+        <TextView
+            android:id="@+id/tv_amws"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="ACTION_MANAGE_OVERLAY_PERMISSION" />
 
-    <TextView
-        android:id="@+id/tv_nofity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:padding="20dp"
-        android:text="ACTION_APP_NOTIFICATION_SETTINGS" />
-</LinearLayout>
+        <TextView
+            android:id="@+id/tv_ws"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="WRITE_SETTINGS" />
+
+        <TextView
+            android:id="@+id/tv_amuas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="ACTION_MANAGE_UNKNOWN_APP_SOURCES" />
+
+        <TextView
+            android:id="@+id/tv_nofity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="ACTION_APP_NOTIFICATION_SETTINGS" />
+    </LinearLayout>
+</ScrollView>

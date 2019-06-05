@@ -3,7 +3,6 @@ package cn.junhua.android.permissionagent;
 import android.Manifest;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,6 +23,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.tv_check_permission).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testCheckPermission(v);
+            }
+        });
 
         findViewById(R.id.tv_cwc).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,19 +69,32 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void testCheckPermission(View v) {
+        String stringBuilder = "ACCESS_FINE_LOCATION:" +
+                PermissionAgent.getInstance().checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) +
+                "\n" +
+                "CALL_PHONE,CAMERA:" +
+                PermissionAgent.getInstance().checkPermission(Manifest.permission.CALL_PHONE,
+                        Manifest.permission.CAMERA) +
+                "\n" +
+                "POST_NOTIFICATION:" +
+                PermissionAgent.getInstance().checkPermission(SpecialPermission.POST_NOTIFICATION);
+        toast(stringBuilder);
+    }
+
     private void requestNotify(View v) {
         PermissionAgent.getInstance()
                 .request(SpecialPermission.POST_NOTIFICATION)
                 .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
                     public void onGranted(SpecialPermission permissions) {
-                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
+                        toast("onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<SpecialPermission>() {
                     @Override
                     public void onDenied(SpecialPermission permissions) {
-                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+                        toast("onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .apply();
@@ -90,20 +108,20 @@ public class MainActivity extends AppCompatActivity {
                 .onGranted(new OnGrantedCallback<List<String>>() {
                     @Override
                     public void onGranted(List<String> permissions) {
-                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
+                        toast("onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<List<String>>() {
                     @Override
                     public void onDenied(List<String> permissions) {
-                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+                        toast("onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
                     public void onRationale(List<String> permissions, AgentExecutor executor) {
                         executor.execute();
-                        Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
+                        toast("onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
                     }
                 })
                 .apply();
@@ -117,20 +135,20 @@ public class MainActivity extends AppCompatActivity {
                 .onGranted(new OnGrantedCallback<List<String>>() {
                     @Override
                     public void onGranted(List<String> permissions) {
-                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
+                        toast("onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<List<String>>() {
                     @Override
                     public void onDenied(List<String> permissions) {
-                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+                        toast("onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
                     public void onRationale(List<String> permissions, AgentExecutor executor) {
                         executor.execute();
-                        Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
+                        toast("onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
                     }
                 })
                 .apply();
@@ -142,13 +160,13 @@ public class MainActivity extends AppCompatActivity {
                 .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
                     public void onGranted(SpecialPermission permissions) {
-                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
+                        toast("onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<SpecialPermission>() {
                     @Override
                     public void onDenied(SpecialPermission permissions) {
-                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+                        toast("onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .apply();
@@ -161,13 +179,13 @@ public class MainActivity extends AppCompatActivity {
                 .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
                     public void onGranted(SpecialPermission permissions) {
-                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
+                        toast("onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<SpecialPermission>() {
                     @Override
                     public void onDenied(SpecialPermission permissions) {
-                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+                        toast("onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .apply();
@@ -181,13 +199,13 @@ public class MainActivity extends AppCompatActivity {
                 .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
                     public void onGranted(SpecialPermission permissions) {
-                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
+                        toast("onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<SpecialPermission>() {
                     @Override
                     public void onDenied(SpecialPermission permissions) {
-                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+                        toast("onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .apply();

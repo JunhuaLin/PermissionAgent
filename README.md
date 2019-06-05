@@ -2,9 +2,8 @@
 一次初始化处处可用的链式编程动态权限请求库
 
 ### 添加依赖
-最新版本见release页面
 ```groovy
-implementation 'cn.junhua.android:permission-agent:<latest-version>'
+implementation 'cn.junhua.android:permission-agent:0.0.1-bate2'
 ```
 
 ### 使用

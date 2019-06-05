@@ -77,14 +77,14 @@ public class MainActivity extends AppCompatActivity {
                 PermissionAgent.getInstance().checkPermission(Manifest.permission.CALL_PHONE,
                         Manifest.permission.CAMERA) +
                 "\n" +
-                "POST_NOTIFICATION:" +
-                PermissionAgent.getInstance().checkPermission(SpecialPermission.POST_NOTIFICATION);
+                "ACCESS_NOTIFICATION_POLICY:" +
+                PermissionAgent.getInstance().checkPermission(SpecialPermission.ACCESS_NOTIFICATION_POLICY);
         toast(stringBuilder);
     }
 
     private void requestNotify(View v) {
         PermissionAgent.getInstance()
-                .request(SpecialPermission.POST_NOTIFICATION)
+                .request(SpecialPermission.ACCESS_NOTIFICATION_POLICY)
                 .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
                     public void onGranted(SpecialPermission permissions) {

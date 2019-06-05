@@ -31,7 +31,7 @@ public enum SpecialPermission implements SpecialOperation {
     /**
      * 推送通知权限
      */
-    POST_NOTIFICATION(new NotificationSpecialOperationFactory());
+    ACCESS_NOTIFICATION_POLICY(new NotificationSpecialOperationFactory());
 
     private SpecialOperation mOperation;
 

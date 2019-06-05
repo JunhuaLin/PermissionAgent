@@ -133,6 +133,8 @@ PermissionAgent.getInstance().checkPermission(SpecialPermission.ACCESS_NOTIFICAT
 #### Debug日志输出
 
 log标签分类两级：
-一级:TAG1=PermissionAgent可以过滤出本库所有的log日志，通过标签过滤可得。
-二级:TAG2=xxx.class.getSimpleName()可以过滤出xxx类的log日志，通过内容过滤可得。
+
+- 一级:TAG1=PermissionAgent可以过滤出本库所有的log日志，通过标签过滤可得。
+- 二级:TAG2=xxx.class.getSimpleName()可以过滤出xxx类的log日志，通过内容过滤可得。
+
 log格式：D/{TAG1}: {TAG2}/{log msg}

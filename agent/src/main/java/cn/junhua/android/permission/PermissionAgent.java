@@ -70,17 +70,6 @@ public class PermissionAgent {
     /**
      * 检测危险权限
      *
-     * @param permission {@link android.Manifest} 单个权限
-     * @return 是否有该权限
-     */
-    public boolean checkPermission(String permission) {
-        int result = PermissionChecker.checkSelfPermission(getCurrentActivity(), permission);
-        return result == PermissionChecker.PERMISSION_GRANTED;
-    }
-
-    /**
-     * 检测危险权限
-     *
      * @param permissions {@link android.Manifest} 权限列表
      * @return 如果存在权限没有授予就返回false
      */

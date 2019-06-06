@@ -15,12 +15,13 @@
 - 最小支持android 14
 - 多版本适配
 
-### 添加依赖
+### 使用
+
+#### 添加依赖
 ```groovy
 implementation 'cn.junhua.android:permission-agent:0.0.1-bate2'
 ```
 
-### 使用
 
 #### 初始化
 ```java

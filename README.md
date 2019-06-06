@@ -3,8 +3,8 @@
 
 [![GitHub license](https://img.shields.io/github/license/JunhuaLin/PermissionAgent.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/blob/master/LICENSE)
 [![latest release](https://img.shields.io/github/release/JunhuaLin/PermissionAgent.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/releases)
-[![pull requests welcome](https://img.shields.io/badge/pull%20requests-welcome-brightgreen.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/blob/master/config.gradle)
-[![issues welcome](https://img.shields.io/badge/issues-welcome-brightgreen.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/blob/master/config.gradle)
+[![pull requests welcome](https://img.shields.io/badge/pull%20requests-welcome-brightgreen.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/pulls)
+[![issues welcome](https://img.shields.io/badge/issues-welcome-brightgreen.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/issues)
 
 
 一次初始化处处可用的链式编程动态权限请求库

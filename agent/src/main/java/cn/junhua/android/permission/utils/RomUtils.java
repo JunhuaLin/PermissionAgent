@@ -1,6 +1,7 @@
 package cn.junhua.android.permission.utils;
 
 import android.os.Build;
+import android.text.TextUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -32,6 +33,15 @@ public class RomUtils {
             }
         }
         return line;
+    }
+
+    public static boolean checkSystemProperty(String propName) {
+        return !TextUtils.isEmpty(RomUtils.getSystemProperty(propName));
+    }
+
+    public static boolean checkSystemProperty(String propName, String feature) {
+        propName = RomUtils.getSystemProperty(propName);
+        return !TextUtils.isEmpty(propName) && propName.toLowerCase().contains(feature);
     }
 
     public static boolean checkManufacturer(String rom) {

@@ -1,7 +1,5 @@
 package cn.junhua.android.permission.rom;
 
-import android.text.TextUtils;
-
 import cn.junhua.android.permission.utils.RomUtils;
 
 /**
@@ -20,16 +18,18 @@ public enum Rom implements RomChecker {
     Xiaomi(new RomChecker() {
         @Override
         public boolean check() {
-            if (RomUtils.checkManufacturer("xiaomi")) {
-                return true;
-            }
-            return !TextUtils.isEmpty(RomUtils.getSystemProperty("ro.miui.ui.version.name"));
+            return RomUtils.checkManufacturer("xiaomi")
+                    || RomUtils.checkSystemProperty("ro.miui.ui.version.name")
+                    || RomUtils.checkSystemProperty("ro.miui.internal.storage")
+                    || RomUtils.checkSystemProperty("ro.miui.ui.version.code");
         }
     }),
     Vivo(new RomChecker() {
         @Override
         public boolean check() {
-            return RomUtils.checkManufacturer("vivo");
+            return RomUtils.checkManufacturer("vivo")
+                    || RomUtils.checkSystemProperty("ro.vivo.os.name")
+                    || RomUtils.checkSystemProperty("ro.vivo.os.version");
         }
     }),
     Oppo(new RomChecker() {
@@ -41,11 +41,9 @@ public enum Rom implements RomChecker {
     Meizu(new RomChecker() {
         @Override
         public boolean check() {
-            if (RomUtils.checkManufacturer("meizu")) {
-                return true;
-            }
-            String meizuFlymeOSFlag = RomUtils.getSystemProperty("ro.build.display.id");
-            return meizuFlymeOSFlag.toLowerCase().contains("flyme");
+            return RomUtils.checkManufacturer("meizu")
+                    || RomUtils.checkSystemProperty("ro.build.display.id", "flyme")
+                    || RomUtils.checkSystemProperty("ro.flyme.published");
         }
     }),
     Qihu360(new RomChecker() {

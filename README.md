@@ -14,7 +14,7 @@
 - 支持多个权限同时申请
 - 支持特殊权限申请，如REQUEST_INSTALL_PACKAGES，SYSTEM_ALERT_WINDOW，ACCESS_NOTIFICATION_POLICY，WRITE_SETTINGS
 - 最小支持android 14
-- 多版本适配
+- 多ROM多版本适配
 
 ### 使用
 

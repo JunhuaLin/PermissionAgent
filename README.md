@@ -2,8 +2,9 @@
 # Permission Agent
 
 [![GitHub license](https://img.shields.io/github/license/JunhuaLin/PermissionAgent.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/blob/master/LICENSE)
-[![GitHub release](https://img.shields.io/github/release/JunhuaLin/PermissionAgent.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/releases)
-[![android 14](https://img.shields.io/badge/android-%5E14-ff6900.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/blob/master/config.gradle)
+[![latest release](https://img.shields.io/github/release/JunhuaLin/PermissionAgent.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/releases)
+[![pull requests welcome](https://img.shields.io/badge/pull%20requests-welcome-brightgreen.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/blob/master/config.gradle)
+[![issues welcome](https://img.shields.io/badge/issues-welcome-brightgreen.svg?style=plastic)](https://github.com/JunhuaLin/PermissionAgent/blob/master/config.gradle)
 
 
 一次初始化处处可用的链式编程动态权限请求库
@@ -19,7 +20,7 @@
 
 #### 添加依赖
 ```groovy
-implementation 'cn.junhua.android:permission-agent:0.0.1-bate2'
+implementation 'cn.junhua.android:permission-agent:<latest-release>'
 ```
 
 

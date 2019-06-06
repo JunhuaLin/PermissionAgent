@@ -1,7 +1,6 @@
 package cn.junhua.android.permission.utils;
 
 import android.os.Build;
-import android.text.TextUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -12,7 +11,7 @@ public class RomUtils {
 
     private static final String MANUFACTURER = Build.MANUFACTURER.toLowerCase();
 
-    private static String getSystemProperty(String propName) {
+    public static String getSystemProperty(String propName) {
         String line;
         BufferedReader input = null;
         try {
@@ -22,7 +21,7 @@ public class RomUtils {
             input.close();
         } catch (IOException ex) {
             AgentLog.d(TAG, "Unable to read sysprop " + propName);
-            return null;
+            return "";
         } finally {
             if (input != null) {
                 try {
@@ -35,39 +34,8 @@ public class RomUtils {
         return line;
     }
 
-    public static boolean checkIsHuaweiRom() {
-        return MANUFACTURER.contains("huawei");
+    public static boolean checkManufacturer(String rom) {
+        return rom != null && MANUFACTURER.contains(rom.toLowerCase());
     }
 
-    /**
-     * check if is miui ROM
-     */
-    public static boolean checkIsMiuiRom() {
-        if (MANUFACTURER.contains("xiaomi")) {
-            return true;
-        }
-        return !TextUtils.isEmpty(getSystemProperty("ro.miui.ui.version.name"));
-    }
-
-    public static boolean checkIsMeizuRom() {
-        if (MANUFACTURER.contains("meizu")) {
-            return true;
-        }
-        String meizuFlymeOSFlag = getSystemProperty("ro.build.display.id");
-        return !TextUtils.isEmpty(meizuFlymeOSFlag) && meizuFlymeOSFlag.toLowerCase().contains("flyme");
-
-    }
-
-    public static boolean checkIs360Rom() {
-        return MANUFACTURER.contains("qiku")
-                || MANUFACTURER.contains("360");
-    }
-
-    public static boolean checkIsOppoRom() {
-        return MANUFACTURER.contains("oppo");
-    }
-
-    public static boolean checkIsVivoRom() {
-        return Build.MANUFACTURER.contains("vivo");
-    }
 }

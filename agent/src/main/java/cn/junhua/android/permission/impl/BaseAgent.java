@@ -1,13 +1,11 @@
 package cn.junhua.android.permission.impl;
 
-import android.os.Handler;
-import android.os.Looper;
-
 import cn.junhua.android.permission.agent.Agent;
 import cn.junhua.android.permission.agent.AgentExecutor;
 import cn.junhua.android.permission.agent.callback.OnDeniedCallback;
 import cn.junhua.android.permission.agent.callback.OnGrantedCallback;
 import cn.junhua.android.permission.agent.callback.OnRationaleCallback;
+import cn.junhua.android.permission.utils.Executor;
 
 /**
  * @author junhua.lin@jinfuzi.com<br/>
@@ -17,7 +15,7 @@ public abstract class BaseAgent<T> implements Agent<T>, AgentExecutor {
     private static final int REQUEST_CODE = 0x1226;
 
     protected int mRequestCode = REQUEST_CODE;
-    private Handler mHandler = new Handler(Looper.getMainLooper());
+    private Executor mExecutor;
 
     private OnGrantedCallback<T> mOnGrantedCallback;
     private OnDeniedCallback<T> mOnDeniedCallback;
@@ -29,6 +27,9 @@ public abstract class BaseAgent<T> implements Agent<T>, AgentExecutor {
         }
     };
 
+    public BaseAgent(Executor executor) {
+        mExecutor = executor;
+    }
 
     @Override
     public Agent<T> code(int requestCode) {
@@ -88,8 +89,11 @@ public abstract class BaseAgent<T> implements Agent<T>, AgentExecutor {
     }
 
     protected void post(Runnable runnable) {
-        mHandler.post(runnable);
-//        mHandler.postDelayed(runnable, 100);
+        mExecutor.post(runnable);
+    }
+
+    protected void asyncPost(Runnable runnable) {
+        mExecutor.asyncPost(runnable);
     }
 
 }

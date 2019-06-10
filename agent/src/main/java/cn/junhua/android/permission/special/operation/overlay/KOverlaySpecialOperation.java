@@ -6,8 +6,8 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import cn.junhua.android.permission.agent.PermissionHandler;
-import cn.junhua.android.permission.rom.Rom;
-import cn.junhua.android.permission.rom.OnRomAction;
+import cn.junhua.android.permission.special.rom.Rom;
+import cn.junhua.android.permission.special.rom.OnRomAction;
 import cn.junhua.android.permission.special.operation.RomOverlaySpecialOperation;
 import cn.junhua.android.permission.utils.ActivitiesFlat;
 import cn.junhua.android.permission.utils.Const;

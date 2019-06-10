@@ -2,20 +2,21 @@ package cn.junhua.android.permission;
 
 import android.app.Activity;
 import android.app.Application;
-import android.support.v4.content.PermissionChecker;
 
 import java.util.List;
 
 import cn.junhua.android.permission.agent.Agent;
 import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.agent.PermissionHandlerFactory;
+import cn.junhua.android.permission.agent.check.PermissionChecker;
 import cn.junhua.android.permission.dangerous.DangerousPermissionAgent;
+import cn.junhua.android.permission.dangerous.checker.DoublePermissionChecker;
 import cn.junhua.android.permission.impl.ActivityHolder;
 import cn.junhua.android.permission.impl.PermissionHandlerFactoryImp;
 import cn.junhua.android.permission.special.SpecialPermission;
 import cn.junhua.android.permission.special.SpecialPermissionAgent;
 import cn.junhua.android.permission.utils.AgentLog;
-import cn.junhua.android.permission.utils.PermissionUtil;
+import cn.junhua.android.permission.utils.Executor;
 
 
 /**
@@ -28,8 +29,12 @@ public class PermissionAgent {
 
     private PermissionHandlerFactory mPermissionHandlerFactory;
     private ActivityHolder mActivityHolder;
+    private Executor mExecutor;
+    private PermissionChecker DOUBLE_CHECKER;
 
     private PermissionAgent() {
+        mExecutor = new Executor();
+        DOUBLE_CHECKER = new DoublePermissionChecker();
     }
 
     public static PermissionAgent getInstance() {
@@ -54,7 +59,7 @@ public class PermissionAgent {
      * @return Agent危险权限申请操作
      */
     public Agent<List<String>> request(String... permissions) {
-        return new DangerousPermissionAgent(getPermissionHandler(), permissions);
+        return new DangerousPermissionAgent(mExecutor, getPermissionHandler(), permissions);
     }
 
     /**
@@ -64,7 +69,7 @@ public class PermissionAgent {
      * @return Agent特殊权限申请操作
      */
     public Agent<SpecialPermission> request(SpecialPermission permission) {
-        return new SpecialPermissionAgent(getPermissionHandler(), permission);
+        return new SpecialPermissionAgent(mExecutor, getPermissionHandler(), permission);
     }
 
     /**
@@ -74,7 +79,7 @@ public class PermissionAgent {
      * @return 如果存在权限没有授予就返回false
      */
     public boolean checkPermission(String... permissions) {
-        return PermissionUtil.hasPermissions(getCurrentActivity(), permissions);
+        return DOUBLE_CHECKER.hasPermissions(getCurrentActivity(), permissions);
     }
 
     /**

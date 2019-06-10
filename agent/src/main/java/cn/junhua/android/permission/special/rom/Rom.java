@@ -1,5 +1,6 @@
-package cn.junhua.android.permission.rom;
+package cn.junhua.android.permission.special.rom;
 
+import cn.junhua.android.permission.agent.check.RomChecker;
 import cn.junhua.android.permission.utils.RomUtils;
 
 /**

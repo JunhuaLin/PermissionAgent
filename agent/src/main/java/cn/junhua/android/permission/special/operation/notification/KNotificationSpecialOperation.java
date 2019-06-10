@@ -9,8 +9,8 @@ import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.special.operation.RomOverlaySpecialOperation;
 import cn.junhua.android.permission.utils.ActivitiesFlat;
 import cn.junhua.android.permission.utils.Const;
-import cn.junhua.android.permission.rom.Rom;
-import cn.junhua.android.permission.rom.OnRomAction;
+import cn.junhua.android.permission.special.rom.Rom;
+import cn.junhua.android.permission.special.rom.OnRomAction;
 
 /**
  * 推送通知权限操作,api>=19

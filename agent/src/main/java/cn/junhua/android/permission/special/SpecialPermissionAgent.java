@@ -6,6 +6,7 @@ import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.agent.callback.OnActivityResultCallback;
 import cn.junhua.android.permission.impl.BaseAgent;
 import cn.junhua.android.permission.utils.AgentLog;
+import cn.junhua.android.permission.utils.Executor;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -21,7 +22,8 @@ public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> impleme
     private PermissionHandler mPermissionHandler;
     private SpecialPermission mSpecialPermission;
 
-    public SpecialPermissionAgent(PermissionHandler permissionHandler, SpecialPermission specialPermission) {
+    public SpecialPermissionAgent(Executor executor, PermissionHandler permissionHandler, SpecialPermission specialPermission) {
+        super(executor);
         mPermissionHandler = permissionHandler;
         mSpecialPermission = specialPermission;
         mPermissionHandler.setActivityResultCallback(this);
@@ -57,7 +59,7 @@ public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> impleme
         post(new Runnable() {
             @Override
             public void run() {
-                if (resultCode == RESULT_OK && checkPermission()) {
+                if (checkPermission()) {
                     dispatchGranted(mSpecialPermission);
                 } else {
                     dispatchDenied(mSpecialPermission);

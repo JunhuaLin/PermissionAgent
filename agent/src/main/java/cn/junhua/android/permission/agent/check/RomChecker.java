@@ -1,4 +1,4 @@
-package cn.junhua.android.permission.rom;
+package cn.junhua.android.permission.agent.check;
 
 /**
  * 检测厂商操作接口

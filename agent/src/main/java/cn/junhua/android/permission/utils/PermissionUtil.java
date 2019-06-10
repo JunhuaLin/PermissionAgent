@@ -3,12 +3,14 @@ package cn.junhua.android.permission.utils;
 import android.app.AppOpsManager;
 import android.content.Context;
 import android.os.Build;
-import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
-import android.support.v4.content.PermissionChecker;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+import cn.junhua.android.permission.agent.check.PermissionChecker;
 
 /**
  * @author junhua.lin@jinfuzi.com<br/>
@@ -17,27 +19,21 @@ import java.lang.reflect.Method;
 public class PermissionUtil {
     private static final String CHECK_OP_NO_THROW = "checkOpNoThrow";
 
-    /**
-     * 判断权限是否授权
-     */
-    public static boolean hasPermissions(@NonNull Context context, @NonNull String... permissions) {
-        if (permissions.length == 0) {
-            return false;
-        }
-
-        for (String permission : permissions) {
-            int result = PermissionChecker.checkSelfPermission(context, permission);
-            if (result != PermissionChecker.PERMISSION_GRANTED) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     public static boolean checkOpNoThrow(Context context, @Const.OP_PERMISSION String opFieldName) {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return true;
+
+       /* String opValue = AppOpsManagerCompat.permissionToOp(opFieldName);
+        if (opValue == null) return false;
+
+        int result = AppOpsManagerCompat.noteOpNoThrow(
+                context,
+                opValue,
+                context.getApplicationInfo().uid,
+                context.getPackageName());
+
+        return result == AppOpsManagerCompat.MODE_ALLOWED;*/
+
         try {
             Class<AppOpsManager> appOpsClass = AppOpsManager.class;
             Method method = appOpsClass.getMethod(CHECK_OP_NO_THROW, int.class, int.class, String.class);
@@ -52,6 +48,19 @@ public class PermissionUtil {
         } catch (Throwable e) {
             return true;
         }
+    }
+
+    /**
+     * 回去拒绝的权限列表
+     */
+    public static List<String> getDeniedPermissions(Context context, PermissionChecker checker, String... permissions) {
+        List<String> deniedPermissions = new ArrayList<>();
+        for (String permission : permissions) {
+            if (!checker.hasPermissions(context, permission)) {
+                deniedPermissions.add(permission);
+            }
+        }
+        return deniedPermissions;
     }
 
 }

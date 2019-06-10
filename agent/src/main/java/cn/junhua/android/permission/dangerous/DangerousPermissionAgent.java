@@ -1,6 +1,6 @@
 package cn.junhua.android.permission.dangerous;
 
-import android.content.pm.PackageManager;
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import java.util.ArrayList;
@@ -9,9 +9,12 @@ import java.util.List;
 
 import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.agent.callback.OnPermissionResultCallback;
+import cn.junhua.android.permission.agent.check.PermissionChecker;
+import cn.junhua.android.permission.dangerous.checker.DoublePermissionChecker;
+import cn.junhua.android.permission.dangerous.checker.StandardPermissionChecker;
 import cn.junhua.android.permission.impl.BaseAgent;
 import cn.junhua.android.permission.utils.AgentLog;
-import cn.junhua.android.permission.utils.PermissionUtil;
+import cn.junhua.android.permission.utils.Executor;
 
 /**
  * 危险权限申请
@@ -22,10 +25,14 @@ import cn.junhua.android.permission.utils.PermissionUtil;
 public class DangerousPermissionAgent extends BaseAgent<List<String>> implements OnPermissionResultCallback {
     private static final String TAG = DangerousPermissionAgent.class.getSimpleName();
 
+    private static final PermissionChecker DOUBLE_CHECKER = new DoublePermissionChecker();
+    private static final PermissionChecker STANDARD_CHECKER = new StandardPermissionChecker();
+
     private PermissionHandler mPermissionHandler;
     private String[] mPermissions;
 
-    public DangerousPermissionAgent(PermissionHandler permissionHandler, String[] permissions) {
+    public DangerousPermissionAgent(Executor executor, PermissionHandler permissionHandler, String[] permissions) {
+        super(executor);
         mPermissionHandler = permissionHandler;
         mPermissions = permissions;
         mPermissionHandler.setOnPermissionResultCallback(this);
@@ -39,13 +46,13 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
         post(new Runnable() {
             @Override
             public void run() {
-                if (PermissionUtil.hasPermissions(mPermissionHandler.getActivity(), mPermissions)) {
+                if (STANDARD_CHECKER.hasPermissions(mPermissionHandler.getActivity(), mPermissions)) {
                     dispatchGranted(Arrays.asList(mPermissions));
                     return;
                 }
 
                 //给用户提示再请求权限
-                List<String> rationaleList = new ArrayList<>();
+                List<String> rationaleList = new ArrayList<>(1);
                 for (String permission : mPermissions) {
                     if (mPermissionHandler.shouldShowRationale(permission)) {
                         rationaleList.add(permission);
@@ -54,6 +61,7 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
                 if (rationaleList.isEmpty()) {
                     execute();
                 } else {
+                    AgentLog.d(TAG, "dispatchRationale() called with: rationaleList = [" + rationaleList + "]");
                     dispatchRationale(rationaleList, DangerousPermissionAgent.this);
                 }
             }
@@ -65,18 +73,24 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
         AgentLog.d(TAG, "onRequestPermissionsResult() called with: requestCode = [" + requestCode + "], permissions = " + Arrays.toString(permissions) + ", grantResults = " + Arrays.toString(grantResults));
         if (requestCode != mRequestCode || grantResults.length <= 0) return;
 
-        post(new Runnable() {
+        asyncPost(new Runnable() {
             @Override
             public void run() {
-                List<String> grantedList = new ArrayList<>();
-                List<String> deniedList = new ArrayList<>();
-                for (int index = 0; index < grantResults.length; index++) {
-                    if (grantResults[index] == PackageManager.PERMISSION_GRANTED) {
-                        grantedList.add(permissions[index]);
+                Context context = mPermissionHandler.getContext();
+                List<String> grantedList = new ArrayList<>(1);
+                List<String> deniedList = new ArrayList<>(1);
+
+                for (String permission : mPermissions) {
+                    if (DOUBLE_CHECKER.hasPermissions(context, permission)) {
+                        grantedList.add(permission);
                     } else {
-                        deniedList.add(permissions[index]);
+                        deniedList.add(permission);
                     }
                 }
+
+                AgentLog.d(TAG, "strict check -->onRequestPermissionsResult() called with:  permissions = "
+                        + Arrays.toString(mPermissions) + ", grantedList = "
+                        + grantedList + ", deniedList = " + grantedList);
 
                 if (!grantedList.isEmpty()) {
                     dispatchGranted(grantedList);

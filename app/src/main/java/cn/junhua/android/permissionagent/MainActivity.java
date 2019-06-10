@@ -2,6 +2,7 @@ package cn.junhua.android.permissionagent;
 
 import android.Manifest;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;
@@ -130,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void requestLocation() {
         PermissionAgent.getInstance()
-                .request(Manifest.permission.ACCESS_FINE_LOCATION)
+//                .request(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION)
+                .request(Manifest.permission_group.LOCATION)
                 //.code(123)//与你自定义code冲突时可以设置，一般不用自己设置
                 .onGranted(new OnGrantedCallback<List<String>>() {
                     @Override

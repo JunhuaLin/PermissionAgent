@@ -20,6 +20,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.os.Build;
 
+import java.util.Arrays;
 import java.util.List;
 
 import cn.junhua.android.permission.agent.check.PermissionChecker;
@@ -127,14 +128,7 @@ public final class StrictPermissionChecker implements PermissionChecker {
 
     @Override
     public boolean hasPermissions(Context context, String... permissions) {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) return true;
-
-        for (String permission : permissions) {
-            if (!hasPermissions(context, permission)) {
-                return false;
-            }
-        }
-        return true;
+        return hasPermissions(context, Arrays.asList(permissions));
     }
 
     @Override

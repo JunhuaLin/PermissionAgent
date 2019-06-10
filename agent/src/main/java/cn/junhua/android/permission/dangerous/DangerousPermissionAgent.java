@@ -11,6 +11,7 @@ import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.agent.callback.OnPermissionResultCallback;
 import cn.junhua.android.permission.agent.check.PermissionChecker;
 import cn.junhua.android.permission.dangerous.checker.DoublePermissionChecker;
+import cn.junhua.android.permission.dangerous.checker.Permission;
 import cn.junhua.android.permission.dangerous.checker.StandardPermissionChecker;
 import cn.junhua.android.permission.impl.BaseAgent;
 import cn.junhua.android.permission.utils.AgentLog;
@@ -29,12 +30,12 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
     private static final PermissionChecker STANDARD_CHECKER = new StandardPermissionChecker();
 
     private PermissionHandler mPermissionHandler;
-    private String[] mPermissions;
+    private List<String> mPermissions;
 
     public DangerousPermissionAgent(Executor executor, PermissionHandler permissionHandler, String[] permissions) {
         super(executor);
         mPermissionHandler = permissionHandler;
-        mPermissions = permissions;
+        mPermissions = Permission.handleGroup(permissions);//处理权限组
         mPermissionHandler.setOnPermissionResultCallback(this);
     }
 
@@ -47,7 +48,7 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
             @Override
             public void run() {
                 if (STANDARD_CHECKER.hasPermissions(mPermissionHandler.getActivity(), mPermissions)) {
-                    dispatchGranted(Arrays.asList(mPermissions));
+                    dispatchGranted(mPermissions);
                     return;
                 }
 
@@ -89,8 +90,8 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
                 }
 
                 AgentLog.d(TAG, "strict check -->onRequestPermissionsResult() called with:  permissions = "
-                        + Arrays.toString(mPermissions) + ", grantedList = "
-                        + grantedList + ", deniedList = " + grantedList);
+                        + mPermissions + ", grantedList = "
+                        + grantedList + ", deniedList = " + deniedList);
 
                 if (!grantedList.isEmpty()) {
                     dispatchGranted(grantedList);
@@ -108,13 +109,13 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
         post(new Runnable() {
             @Override
             public void run() {
-                mPermissionHandler.requestPermissions(mPermissions, mRequestCode);
+                mPermissionHandler.requestPermissions(mPermissions.toArray(new String[0]), mRequestCode);
             }
         });
     }
 
     @Override
     public void cancel() {
-        dispatchDenied(Arrays.asList(mPermissions));
+        dispatchDenied(mPermissions);
     }
 }

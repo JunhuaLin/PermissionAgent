@@ -32,7 +32,7 @@ import cn.junhua.android.permission.agent.check.PermissionChecker;
  */
 public final class DoublePermissionChecker implements PermissionChecker {
 
-    private static final PermissionChecker STANDARD_CHECKER = new StandardChecker();
+    private static final PermissionChecker STANDARD_CHECKER = new StandardPermissionChecker();
     private static final PermissionChecker STRICT_CHECKER = new StrictPermissionChecker();
 
     @Override

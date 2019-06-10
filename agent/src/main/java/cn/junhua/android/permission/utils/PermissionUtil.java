@@ -7,10 +7,6 @@ import android.support.annotation.RequiresApi;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.junhua.android.permission.agent.check.PermissionChecker;
 
 /**
  * @author junhua.lin@jinfuzi.com<br/>
@@ -48,19 +44,6 @@ public class PermissionUtil {
         } catch (Throwable e) {
             return true;
         }
-    }
-
-    /**
-     * 回去拒绝的权限列表
-     */
-    public static List<String> getDeniedPermissions(Context context, PermissionChecker checker, String... permissions) {
-        List<String> deniedPermissions = new ArrayList<>();
-        for (String permission : permissions) {
-            if (!checker.hasPermissions(context, permission)) {
-                deniedPermissions.add(permission);
-            }
-        }
-        return deniedPermissions;
     }
 
 }

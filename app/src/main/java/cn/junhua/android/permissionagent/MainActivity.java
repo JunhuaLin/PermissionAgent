@@ -2,7 +2,6 @@ package cn.junhua.android.permissionagent;
 
 import android.Manifest;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Toast;

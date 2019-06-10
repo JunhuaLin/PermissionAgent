@@ -120,6 +120,13 @@ PermissionAgent.getInstance()
                 .apply();
 ```
 
+#### 检测永久拒绝权限
+
+```java
+//当权限被拒绝时候调用此方法，检测权限是否永远被拒绝
+PermissionAgent.getInstance().hasAlwaysDeniedPermission(Manifest.permission.ACCESS_FINE_LOCATION)
+```
+
 #### 检测权限
 
 权限检测的工具方法，供单独使用时调用。

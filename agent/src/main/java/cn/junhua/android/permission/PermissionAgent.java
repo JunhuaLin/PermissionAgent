@@ -93,6 +93,22 @@ public class PermissionAgent {
         return specialPermission.checkPermission(getCurrentActivity());
     }
 
+    /**
+     * 当权限被拒绝时候调用此方法，检测权限是否永远被拒绝
+     *
+     * @param deniedPermissions 拒绝的权限列表
+     * @return true 永远拒绝.
+     */
+    public boolean hasAlwaysDeniedPermission(String... deniedPermissions) {
+        PermissionHandler permissionHandler = getPermissionHandler();
+        for (String permission : deniedPermissions) {
+            if (!permissionHandler.shouldShowRationale(permission)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private Activity getCurrentActivity() {
         return mActivityHolder.getCurrentActivity();
     }

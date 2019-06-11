@@ -64,6 +64,16 @@ public class PermissionAgent {
     }
 
     /**
+     * 危险(Dangerous)权限
+     *
+     * @param permissions 权限列表
+     * @return Agent危险权限申请操作
+     */
+    public Agent<List<String>> request(List<String> permissions) {
+        return request(permissions.toArray(new String[0]));
+    }
+
+    /**
      * 特殊(Special)权限
      *
      * @param permission 特殊权限枚举
@@ -81,6 +91,16 @@ public class PermissionAgent {
      */
     public boolean checkPermission(String... permissions) {
         return mDoubleChecker.hasPermissions(getCurrentActivity(), Permission.handleGroup(permissions));
+    }
+
+    /**
+     * 检测危险权限
+     *
+     * @param permissions {@link android.Manifest} 权限列表
+     * @return 如果存在权限没有授予就返回false
+     */
+    public boolean checkPermission(List<String> permissions) {
+        return checkPermission(permissions.toArray(new String[0]));
     }
 
     /**
@@ -107,6 +127,16 @@ public class PermissionAgent {
             }
         }
         return false;
+    }
+
+    /**
+     * 当权限被拒绝时候调用此方法，检测权限是否永远被拒绝
+     *
+     * @param deniedPermissions 拒绝的权限列表
+     * @return true 永远拒绝.
+     */
+    public boolean hasAlwaysDeniedPermission(List<String> deniedPermissions) {
+        return hasAlwaysDeniedPermission(deniedPermissions.toArray(new String[0]));
     }
 
     private Activity getCurrentActivity() {

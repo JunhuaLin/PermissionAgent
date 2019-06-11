@@ -15,6 +15,7 @@
  */
 package cn.junhua.android.permission.dangerous.checker;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
@@ -39,6 +40,7 @@ class PhoneStateReadTester implements PermissionTester {
         this.mContext = context;
     }
 
+    @SuppressLint("MissingPermission")
     @Override
     public boolean test() throws Throwable {
         PackageManager packageManager = mContext.getPackageManager();

@@ -15,10 +15,13 @@
  */
 package cn.junhua.android.permission.dangerous.checker;
 
+import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Build;
 import android.provider.Telephony;
+import android.support.annotation.RequiresApi;
 
 import cn.junhua.android.permission.agent.check.PermissionTester;
 
@@ -39,6 +42,7 @@ class SmsReadTester implements PermissionTester {
         mResolver = context.getContentResolver();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public boolean test() throws Throwable {
         String[] projection = new String[] {Telephony.Sms._ID, Telephony.Sms.ADDRESS, Telephony.Sms.PERSON,

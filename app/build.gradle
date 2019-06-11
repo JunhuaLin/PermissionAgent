@@ -28,5 +28,6 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
-    implementation project(':agent')
+//    implementation project(':agent')
+    implementation 'cn.junhua.android:permission-agent:1.0.0'
 }

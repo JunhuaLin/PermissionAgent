@@ -1,6 +1,7 @@
 package cn.junhua.android.permission.dangerous.checker;
 
 import android.content.Context;
+import android.os.Build;
 
 import java.util.Arrays;
 import java.util.List;
@@ -22,6 +23,8 @@ public class StandardPermissionChecker implements PermissionChecker {
 
     @Override
     public boolean hasPermissions(Context context, List<String> permissions) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return true;
+
         if (permissions.size() == 0) {
             return false;
         }

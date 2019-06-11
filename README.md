@@ -151,3 +151,10 @@ log标签分类两级：
 - 二级:TAG2=xxx.class.getSimpleName()可以过滤出xxx类的log日志，通过内容过滤可得。
 
 log格式：D/{TAG1}: {TAG2}/{log msg}
+
+### 感谢
+
+感谢以下库或文章提供的思路和适配方案：
+
+- [https://github.com/yanzhenjie/AndPermission](https://github.com/yanzhenjie/AndPermission)
+- [https://github.com/zhaozepeng/FloatWindowPermission](https://github.com/zhaozepeng/FloatWindowPermission)

@@ -11,7 +11,10 @@
 
 - 链式编程
 - 运行时权限申请
-- 支持多个权限同时申请
+- 运行时权限组申请
+- 运行时权限和权限组混合申请
+- 支持多个权限并行申请
+- 支持多个权限串行申请
 - 支持特殊权限申请，如REQUEST_INSTALL_PACKAGES，SYSTEM_ALERT_WINDOW，ACCESS_NOTIFICATION_POLICY，WRITE_SETTINGS
 - 最小支持android 14
 - 多ROM多版本适配
@@ -60,7 +63,9 @@ PermissionAgent.getInstance()
                 })
                 .apply();
 ```
-#### 一次请求多个权限
+#### 并行请求多个权限
+
+并行请求时，结果会同时返回。当用户取消单个权限时，其他权限也不会请求并回调拒绝。
 ```java
 PermissionAgent.getInstance()
                 .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_CONTACTS)
@@ -84,6 +89,38 @@ PermissionAgent.getInstance()
                        executor.execute();//继续
                        executor.cancel();//取消
                        //do something
+                    }
+                })
+                .apply();
+```
+
+#### 串行请求多个权限
+
+串行请求时，权限会顺序请求，当前一个请求处理完成后才会请求后一个权限。
+注意：``AgentExecutor``必须回调``execute()``或者``cancel()``之一，才能执行后续请求。
+```java
+PermissionAgent.getInstance()
+                .requestEach(Manifest.permission_group.CONTACTS, Manifest.permission.ACCESS_COARSE_LOCATION)
+                .onGranted(new OnGrantedCallback<List<String>>() {
+                    @Override
+                    public void onGranted(List<String> permissions) {
+                        toast("onGranted() called with: permissions = [" + permissions + "]");
+                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
+                    }
+                })
+                .onDenied(new OnDeniedCallback<List<String>>() {
+                    @Override
+                    public void onDenied(List<String> permissions) {
+                        toast("onDenied() called with: permissions = [" + permissions + "]");
+                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+                    }
+                })
+                .onRationale(new OnRationaleCallback<List<String>>() {
+                    @Override
+                    public void onRationale(List<String> permissions, AgentExecutor executor) {
+                        executor.execute();
+                        toast("onRationale() called with: permissions = [" + permissions + "]");
+                        Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
                     }
                 })
                 .apply();

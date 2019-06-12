@@ -3,6 +3,7 @@ package cn.junhua.android.permissionagent;
 import android.Manifest;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -40,6 +41,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 requestLocation();
+            }
+        });
+        findViewById(R.id.tv_serial_requests).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestSerialRequests();
             }
         });
         findViewById(R.id.tv_amws).setOnClickListener(new View.OnClickListener() {
@@ -150,6 +157,34 @@ public class MainActivity extends AppCompatActivity {
                     public void onRationale(List<String> permissions, AgentExecutor executor) {
                         executor.execute();
                         toast("onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
+                    }
+                })
+                .apply();
+    }
+
+    private void requestSerialRequests() {
+        PermissionAgent.getInstance()
+                .requestEach(Manifest.permission_group.CONTACTS, Manifest.permission.ACCESS_COARSE_LOCATION)
+                .onGranted(new OnGrantedCallback<List<String>>() {
+                    @Override
+                    public void onGranted(List<String> permissions) {
+                        toast("onGranted() called with: permissions = [" + permissions + "]");
+                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
+                    }
+                })
+                .onDenied(new OnDeniedCallback<List<String>>() {
+                    @Override
+                    public void onDenied(List<String> permissions) {
+                        toast("onDenied() called with: permissions = [" + permissions + "]");
+                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+                    }
+                })
+                .onRationale(new OnRationaleCallback<List<String>>() {
+                    @Override
+                    public void onRationale(List<String> permissions, AgentExecutor executor) {
+                        executor.execute();
+                        toast("onRationale() called with: permissions = [" + permissions + "]");
+                        Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
                     }
                 })
                 .apply();

@@ -31,6 +31,10 @@ public class Executor {
         mHandler.post(runnable);
     }
 
+    public void post(Runnable runnable, long delayMillis) {
+        mHandler.postDelayed(runnable, delayMillis);
+    }
+
     public void asyncPost(Runnable runnable) {
         mExecutor.execute(runnable);
     }

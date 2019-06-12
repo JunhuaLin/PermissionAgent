@@ -10,6 +10,7 @@ import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.agent.PermissionHandlerFactory;
 import cn.junhua.android.permission.agent.check.PermissionChecker;
 import cn.junhua.android.permission.dangerous.DangerousPermissionAgent;
+import cn.junhua.android.permission.dangerous.EachDangerousPermissionAgent;
 import cn.junhua.android.permission.dangerous.checker.DoublePermissionChecker;
 import cn.junhua.android.permission.dangerous.checker.Permission;
 import cn.junhua.android.permission.impl.ActivityHolder;
@@ -54,7 +55,7 @@ public class PermissionAgent {
     }
 
     /**
-     * 危险(Dangerous)权限
+     * 并行申请危险(Dangerous)权限
      *
      * @param permissions 权限列表
      * @return Agent危险权限申请操作
@@ -64,13 +65,33 @@ public class PermissionAgent {
     }
 
     /**
-     * 危险(Dangerous)权限
+     * 并行申请危险(Dangerous)权限
      *
      * @param permissions 权限列表
      * @return Agent危险权限申请操作
      */
     public Agent<List<String>> request(List<String> permissions) {
         return request(permissions.toArray(new String[0]));
+    }
+
+    /**
+     * 串行申请危险(Dangerous)权限
+     *
+     * @param permissions 权限列表
+     * @return Agent危险权限申请操作
+     */
+    public Agent<List<String>> requestEach(String... permissions) {
+        return new EachDangerousPermissionAgent(mExecutor, getPermissionHandler(), permissions);
+    }
+
+    /**
+     * 串行申请危险(Dangerous)权限
+     *
+     * @param permissions 权限列表
+     * @return Agent危险权限申请操作
+     */
+    public Agent<List<String>> requestEach(List<String> permissions) {
+        return requestEach(permissions.toArray(new String[0]));
     }
 
     /**

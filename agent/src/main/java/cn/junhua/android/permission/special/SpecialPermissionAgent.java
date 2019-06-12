@@ -8,8 +8,6 @@ import cn.junhua.android.permission.impl.BaseAgent;
 import cn.junhua.android.permission.utils.AgentLog;
 import cn.junhua.android.permission.utils.Executor;
 
-import static android.app.Activity.RESULT_OK;
-
 /**
  * 特殊权限申请
  *
@@ -35,7 +33,7 @@ public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> impleme
 
     @Override
     public void apply() {
-        post(new Runnable() {
+        mExecutor.post(new Runnable() {
             @Override
             public void run() {
                 if (checkPermission()) {
@@ -56,7 +54,7 @@ public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> impleme
             return;
         }
 
-        post(new Runnable() {
+        mExecutor.post(new Runnable() {
             @Override
             public void run() {
                 if (checkPermission()) {
@@ -70,7 +68,7 @@ public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> impleme
 
     @Override
     public void execute() {
-        post(new Runnable() {
+        mExecutor.post(new Runnable() {
             @Override
             public void run() {
                 mSpecialPermission.startActivityForResult(mPermissionHandler, mRequestCode);

@@ -15,7 +15,7 @@ public abstract class BaseAgent<T> implements Agent<T>, AgentExecutor {
     private static final int REQUEST_CODE = 0x1226;
 
     protected int mRequestCode = REQUEST_CODE;
-    private Executor mExecutor;
+    protected Executor mExecutor;
 
     private OnGrantedCallback<T> mOnGrantedCallback;
     private OnDeniedCallback<T> mOnDeniedCallback;
@@ -57,7 +57,7 @@ public abstract class BaseAgent<T> implements Agent<T>, AgentExecutor {
 
     protected void dispatchGranted(final T permissions) {
         if (mOnGrantedCallback != null) {
-            post(new Runnable() {
+            mExecutor.post(new Runnable() {
                 @Override
                 public void run() {
                     mOnGrantedCallback.onGranted(permissions);
@@ -68,7 +68,7 @@ public abstract class BaseAgent<T> implements Agent<T>, AgentExecutor {
 
     protected void dispatchDenied(final T permissions) {
         if (mOnDeniedCallback != null) {
-            post(new Runnable() {
+            mExecutor.post(new Runnable() {
                 @Override
                 public void run() {
                     mOnDeniedCallback.onDenied(permissions);
@@ -79,21 +79,13 @@ public abstract class BaseAgent<T> implements Agent<T>, AgentExecutor {
 
     protected void dispatchRationale(final T permissions, final AgentExecutor executor) {
         if (mOnRationaleCallback != null) {
-            post(new Runnable() {
+            mExecutor.post(new Runnable() {
                 @Override
                 public void run() {
                     mOnRationaleCallback.onRationale(permissions, executor);
                 }
             });
         }
-    }
-
-    protected void post(Runnable runnable) {
-        mExecutor.post(runnable);
-    }
-
-    protected void asyncPost(Runnable runnable) {
-        mExecutor.asyncPost(runnable);
     }
 
 }

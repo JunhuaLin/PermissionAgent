@@ -35,26 +35,34 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
     public DangerousPermissionAgent(Executor executor, PermissionHandler permissionHandler, String[] permissions) {
         super(executor);
         mPermissionHandler = permissionHandler;
-        mPermissions = Permission.handleGroup(permissions);//处理权限组
+        mPermissions = onInitPermissions(permissions);
         mPermissionHandler.setOnPermissionResultCallback(this);
     }
 
+    public List<String> onInitPermissions(String[] permissions) {
+        //处理权限组
+        return Permission.handleGroup(permissions);
+    }
+
+    public List<String> getPermissions() {
+        return mPermissions;
+    }
 
     /**
      * 执行请求操作
      */
     public void apply() {
-        post(new Runnable() {
+        mExecutor.post(new Runnable() {
             @Override
             public void run() {
-                if (STANDARD_CHECKER.hasPermissions(mPermissionHandler.getActivity(), mPermissions)) {
-                    dispatchGranted(mPermissions);
+                if (STANDARD_CHECKER.hasPermissions(mPermissionHandler.getActivity(), getPermissions())) {
+                    dispatchGranted(getPermissions());
                     return;
                 }
 
                 //给用户提示再请求权限
                 List<String> rationaleList = new ArrayList<>(1);
-                for (String permission : mPermissions) {
+                for (String permission : getPermissions()) {
                     if (mPermissionHandler.shouldShowRationale(permission)) {
                         rationaleList.add(permission);
                     }
@@ -66,7 +74,7 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
                     dispatchRationale(rationaleList, DangerousPermissionAgent.this);
                 }
             }
-        });
+        }, 100);
     }
 
     @Override
@@ -74,14 +82,14 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
         AgentLog.d(TAG, "onRequestPermissionsResult() called with: requestCode = [" + requestCode + "], permissions = " + Arrays.toString(permissions) + ", grantResults = " + Arrays.toString(grantResults));
         if (requestCode != mRequestCode || grantResults.length <= 0) return;
 
-        asyncPost(new Runnable() {
+        mExecutor.asyncPost(new Runnable() {
             @Override
             public void run() {
                 Context context = mPermissionHandler.getContext();
                 List<String> grantedList = new ArrayList<>(1);
                 List<String> deniedList = new ArrayList<>(1);
 
-                for (String permission : mPermissions) {
+                for (String permission : permissions) {
                     if (DOUBLE_CHECKER.hasPermissions(context, permission)) {
                         grantedList.add(permission);
                     } else {
@@ -106,16 +114,16 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
 
     @Override
     public void execute() {
-        post(new Runnable() {
+        mExecutor.post(new Runnable() {
             @Override
             public void run() {
-                mPermissionHandler.requestPermissions(mPermissions.toArray(new String[0]), mRequestCode);
+                mPermissionHandler.requestPermissions(getPermissions().toArray(new String[0]), mRequestCode);
             }
         });
     }
 
     @Override
     public void cancel() {
-        dispatchDenied(mPermissions);
+        dispatchDenied(getPermissions());
     }
 }

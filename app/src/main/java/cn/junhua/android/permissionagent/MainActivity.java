@@ -116,19 +116,22 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onGranted(List<String> permissions) {
                         toast("onGranted() called with: permissions = [" + permissions + "]");
+                        Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<List<String>>() {
                     @Override
                     public void onDenied(List<String> permissions) {
                         toast("onDenied() called with: permissions = [" + permissions + "]");
+                        Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
                     public void onRationale(List<String> permissions, AgentExecutor executor) {
-                        executor.execute();
+                        executor.cancel();
                         toast("onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
+                        Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
                     }
                 })
                 .apply();

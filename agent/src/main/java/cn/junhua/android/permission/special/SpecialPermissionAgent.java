@@ -2,6 +2,7 @@ package cn.junhua.android.permission.special;
 
 import android.content.Intent;
 
+import cn.junhua.android.permission.agent.AgentExecutor;
 import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.agent.callback.OnActivityResultCallback;
 import cn.junhua.android.permission.impl.BaseAgent;
@@ -14,7 +15,7 @@ import cn.junhua.android.permission.utils.Executor;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/19 13:39
  */
-public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> implements OnActivityResultCallback {
+public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> implements OnActivityResultCallback, AgentExecutor {
     private static final String TAG = SpecialPermissionAgent.class.getSimpleName();
 
     private PermissionHandler mPermissionHandler;

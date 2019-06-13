@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import cn.junhua.android.permission.agent.AgentExecutor;
 import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.agent.callback.OnPermissionResultCallback;
 import cn.junhua.android.permission.agent.check.PermissionChecker;
@@ -31,6 +32,7 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
 
     private PermissionHandler mPermissionHandler;
     private List<String> mPermissions;
+    private List<String> mUserDeniedPermissions = new ArrayList<>(1);
 
     public DangerousPermissionAgent(Executor executor, PermissionHandler permissionHandler, String[] permissions) {
         super(executor);
@@ -52,6 +54,7 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
      * 执行请求操作
      */
     public void apply() {
+        mUserDeniedPermissions.clear();//必须清理，不然对后续使用继承产生影响
         mExecutor.post(new Runnable() {
             @Override
             public void run() {
@@ -61,17 +64,36 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
                 }
 
                 //给用户提示再请求权限
-                List<String> rationaleList = new ArrayList<>(1);
+                final List<String> rationaleList = new ArrayList<>(1);
                 for (String permission : getPermissions()) {
                     if (mPermissionHandler.shouldShowRationale(permission)) {
                         rationaleList.add(permission);
                     }
                 }
                 if (rationaleList.isEmpty()) {
-                    execute();
+                    requestPermission(getPermissions());
                 } else {
                     AgentLog.d(TAG, "dispatchRationale() called with: rationaleList = [" + rationaleList + "]");
-                    dispatchRationale(rationaleList, DangerousPermissionAgent.this);
+                    dispatchRationale(rationaleList, new AgentExecutor() {
+                        @Override
+                        public void execute() {
+                            //直接请求所有的请求
+                            requestPermission(getPermissions());
+                        }
+
+                        @Override
+                        public void cancel() {
+                            //请求剩下的请求
+                            List<String> tempPermissions = new ArrayList<>(getPermissions());
+                            mUserDeniedPermissions.addAll(rationaleList);
+                            tempPermissions.removeAll(rationaleList);
+                            if (tempPermissions.isEmpty()) {
+                                dispatchDenied(getPermissions());
+                            } else {
+                                requestPermission(tempPermissions);
+                            }
+                        }
+                    });
                 }
             }
         }, 100);
@@ -87,7 +109,8 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
             public void run() {
                 Context context = mPermissionHandler.getContext();
                 List<String> grantedList = new ArrayList<>(1);
-                List<String> deniedList = new ArrayList<>(1);
+                //添加用户提示时候拒绝的权限
+                List<String> deniedList = new ArrayList<>(mUserDeniedPermissions);
 
                 for (String permission : permissions) {
                     if (DOUBLE_CHECKER.hasPermissions(context, permission)) {
@@ -112,18 +135,12 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
         });
     }
 
-    @Override
-    public void execute() {
+    private void requestPermission(final List<String> permissions) {
         mExecutor.post(new Runnable() {
             @Override
             public void run() {
-                mPermissionHandler.requestPermissions(getPermissions().toArray(new String[0]), mRequestCode);
+                mPermissionHandler.requestPermissions(permissions.toArray(new String[0]), mRequestCode);
             }
         });
-    }
-
-    @Override
-    public void cancel() {
-        dispatchDenied(getPermissions());
     }
 }

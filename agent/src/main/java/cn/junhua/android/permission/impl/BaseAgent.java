@@ -11,7 +11,7 @@ import cn.junhua.android.permission.utils.Executor;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2018/12/26 19:18
  */
-public abstract class BaseAgent<T> implements Agent<T>, AgentExecutor {
+public abstract class BaseAgent<T> implements Agent<T> {
     private static final int REQUEST_CODE = 0x1226;
 
     protected int mRequestCode = REQUEST_CODE;

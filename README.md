@@ -65,7 +65,7 @@ PermissionAgent.getInstance()
 ```
 #### 并行请求多个权限
 
-并行请求时，结果会同时返回。当用户取消单个权限时，其他权限也不会请求并回调拒绝。
+并行请求时，结果会同时返回。当用户取消单某些权限时仅会取消提示用户的权利，其他权限会请求。取消的权限和请求的结果会同时回调。
 ```java
 PermissionAgent.getInstance()
                 .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_CONTACTS)

@@ -97,7 +97,7 @@ PermissionAgent.getInstance()
 #### 串行请求多个权限
 
 串行请求时，权限会顺序请求，当前一个请求处理完成后才会请求后一个权限。
-注意：``AgentExecutor``必须回调``execute()``或者``cancel()``之一，才能执行后续请求。
+注意：当使用``onRationale``回调时，``AgentExecutor``必须回调``execute()``或者``cancel()``之一，才能执行后续请求。
 ```java
 PermissionAgent.getInstance()
                 .requestEach(Manifest.permission_group.CONTACTS, Manifest.permission.ACCESS_COARSE_LOCATION)

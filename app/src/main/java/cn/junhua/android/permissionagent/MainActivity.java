@@ -1,8 +1,11 @@
 package cn.junhua.android.permissionagent;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -129,9 +132,9 @@ public class MainActivity extends AppCompatActivity {
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
                     public void onRationale(List<String> permissions, AgentExecutor executor) {
-                        executor.cancel();
                         toast("onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
                         Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
+                        showRationaleDialog(permissions, executor);
                     }
                 })
                 .apply();
@@ -158,8 +161,8 @@ public class MainActivity extends AppCompatActivity {
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
                     public void onRationale(List<String> permissions, AgentExecutor executor) {
-                        executor.execute();
                         toast("onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
+                        showRationaleDialog(permissions, executor);
                     }
                 })
                 .apply();
@@ -185,9 +188,9 @@ public class MainActivity extends AppCompatActivity {
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
                     public void onRationale(List<String> permissions, AgentExecutor executor) {
-                        executor.execute();
                         toast("onRationale() called with: permissions = [" + permissions + "]");
                         Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
+                        showRationaleDialog(permissions, executor);
                     }
                 })
                 .apply();
@@ -252,6 +255,26 @@ public class MainActivity extends AppCompatActivity {
 
     private void toast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showRationaleDialog(List<String> permissions, final AgentExecutor agentExecutor) {
+        new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("同意如下权限来就继续运行程序：\n" + TextUtils.join("\n", permissions))
+                .setCancelable(false)
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        agentExecutor.cancel();
+                    }
+                })
+                .setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        agentExecutor.execute();
+                    }
+                })
+                .show();
     }
 
 }

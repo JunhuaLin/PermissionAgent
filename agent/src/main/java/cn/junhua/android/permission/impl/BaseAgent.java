@@ -1,7 +1,10 @@
 package cn.junhua.android.permission.impl;
 
+import android.content.Context;
+
 import cn.junhua.android.permission.agent.Agent;
 import cn.junhua.android.permission.agent.AgentExecutor;
+import cn.junhua.android.permission.agent.PermissionHandler;
 import cn.junhua.android.permission.agent.callback.OnDeniedCallback;
 import cn.junhua.android.permission.agent.callback.OnGrantedCallback;
 import cn.junhua.android.permission.agent.callback.OnRationaleCallback;
@@ -16,19 +19,22 @@ public abstract class BaseAgent<T> implements Agent<T> {
 
     protected int mRequestCode = REQUEST_CODE;
     protected Executor mExecutor;
+    protected PermissionHandler mPermissionHandler;
+
 
     private OnGrantedCallback<T> mOnGrantedCallback;
     private OnDeniedCallback<T> mOnDeniedCallback;
     //默认直接请求权限
     private OnRationaleCallback<T> mOnRationaleCallback = new OnRationaleCallback<T>() {
         @Override
-        public void onRationale(T permissions, AgentExecutor executor) {
+        public void onRationale(Context context, T permissions, AgentExecutor executor) {
             executor.execute();
         }
     };
 
-    public BaseAgent(Executor executor) {
+    public BaseAgent(Executor executor, PermissionHandler permissionHandler) {
         mExecutor = executor;
+        mPermissionHandler = permissionHandler;
     }
 
     @Override
@@ -60,7 +66,7 @@ public abstract class BaseAgent<T> implements Agent<T> {
             mExecutor.post(new Runnable() {
                 @Override
                 public void run() {
-                    mOnGrantedCallback.onGranted(permissions);
+                    mOnGrantedCallback.onGranted(mPermissionHandler.getContext(), permissions);
                 }
             });
         }
@@ -71,7 +77,7 @@ public abstract class BaseAgent<T> implements Agent<T> {
             mExecutor.post(new Runnable() {
                 @Override
                 public void run() {
-                    mOnDeniedCallback.onDenied(permissions);
+                    mOnDeniedCallback.onDenied(mPermissionHandler.getContext(), permissions);
                 }
             });
         }
@@ -82,7 +88,7 @@ public abstract class BaseAgent<T> implements Agent<T> {
             mExecutor.post(new Runnable() {
                 @Override
                 public void run() {
-                    mOnRationaleCallback.onRationale(permissions, executor);
+                    mOnRationaleCallback.onRationale(mPermissionHandler.getContext(), permissions, executor);
                 }
             });
         }

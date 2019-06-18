@@ -18,12 +18,10 @@ import cn.junhua.android.permission.utils.Executor;
 public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> implements OnActivityResultCallback, AgentExecutor {
     private static final String TAG = SpecialPermissionAgent.class.getSimpleName();
 
-    private PermissionHandler mPermissionHandler;
     private SpecialPermission mSpecialPermission;
 
     public SpecialPermissionAgent(Executor executor, PermissionHandler permissionHandler, SpecialPermission specialPermission) {
-        super(executor);
-        mPermissionHandler = permissionHandler;
+        super(executor, permissionHandler);
         mSpecialPermission = specialPermission;
         mPermissionHandler.setActivityResultCallback(this);
     }

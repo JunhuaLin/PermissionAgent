@@ -160,7 +160,12 @@ public class PermissionAgent {
         return hasAlwaysDeniedPermission(deniedPermissions.toArray(new String[0]));
     }
 
-    private Activity getCurrentActivity() {
+    /**
+     * 当前栈顶activity
+     *
+     * @return Activity
+     */
+    public Activity getCurrentActivity() {
         return mActivityHolder.getCurrentActivity();
     }
 

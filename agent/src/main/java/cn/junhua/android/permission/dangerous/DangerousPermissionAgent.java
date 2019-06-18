@@ -30,13 +30,11 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
     private static final PermissionChecker DOUBLE_CHECKER = new DoublePermissionChecker();
     private static final PermissionChecker STANDARD_CHECKER = new StandardPermissionChecker();
 
-    private PermissionHandler mPermissionHandler;
     private List<String> mPermissions;
     private List<String> mUserDeniedPermissions = new ArrayList<>(1);
 
     public DangerousPermissionAgent(Executor executor, PermissionHandler permissionHandler, String[] permissions) {
-        super(executor);
-        mPermissionHandler = permissionHandler;
+        super(executor, permissionHandler);
         mPermissions = onInitPermissions(permissions);
         mPermissionHandler.setOnPermissionResultCallback(this);
     }

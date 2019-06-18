@@ -1,5 +1,7 @@
 package cn.junhua.android.permission.agent.callback;
 
+import android.content.Context;
+
 /**
  * 权限操作回调处理
  *
@@ -14,5 +16,5 @@ public interface OnGrantedCallback<T> {
      *
      * @param permissions 权限列表
      */
-    void onGranted(T permissions);
+    void onGranted(Context context, T permissions);
 }

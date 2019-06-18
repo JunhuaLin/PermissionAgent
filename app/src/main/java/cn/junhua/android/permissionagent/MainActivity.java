@@ -1,6 +1,7 @@
 package cn.junhua.android.permissionagent;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -97,13 +98,13 @@ public class MainActivity extends AppCompatActivity {
                 .request(SpecialPermission.ACCESS_NOTIFICATION_POLICY)
                 .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
-                    public void onGranted(SpecialPermission permissions) {
+                    public void onGranted(Context context, SpecialPermission permissions) {
                         toast("onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<SpecialPermission>() {
                     @Override
-                    public void onDenied(SpecialPermission permissions) {
+                    public void onDenied(Context context, SpecialPermission permissions) {
                         toast("onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
@@ -117,21 +118,21 @@ public class MainActivity extends AppCompatActivity {
                 //.code(123)//与你自定义code冲突时可以设置，一般不用自己设置
                 .onGranted(new OnGrantedCallback<List<String>>() {
                     @Override
-                    public void onGranted(List<String> permissions) {
+                    public void onGranted(Context context, List<String> permissions) {
                         toast("onGranted() called with: permissions = [" + permissions + "]");
                         Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<List<String>>() {
                     @Override
-                    public void onDenied(List<String> permissions) {
+                    public void onDenied(Context context, List<String> permissions) {
                         toast("onDenied() called with: permissions = [" + permissions + "]");
                         Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
-                    public void onRationale(List<String> permissions, AgentExecutor executor) {
+                    public void onRationale(Context context, List<String> permissions, AgentExecutor executor) {
                         toast("onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
                         Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
                         showRationaleDialog(permissions, executor);
@@ -148,19 +149,19 @@ public class MainActivity extends AppCompatActivity {
                 //.code(123)//与你自定义code冲突时可以设置，一般不用自己设置
                 .onGranted(new OnGrantedCallback<List<String>>() {
                     @Override
-                    public void onGranted(List<String> permissions) {
+                    public void onGranted(Context context, List<String> permissions) {
                         toast("onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<List<String>>() {
                     @Override
-                    public void onDenied(List<String> permissions) {
+                    public void onDenied(Context context, List<String> permissions) {
                         toast("onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
-                    public void onRationale(List<String> permissions, AgentExecutor executor) {
+                    public void onRationale(Context context, List<String> permissions, AgentExecutor executor) {
                         toast("onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
                         showRationaleDialog(permissions, executor);
                     }
@@ -173,21 +174,21 @@ public class MainActivity extends AppCompatActivity {
                 .requestEach(Manifest.permission_group.CONTACTS, Manifest.permission.ACCESS_COARSE_LOCATION)
                 .onGranted(new OnGrantedCallback<List<String>>() {
                     @Override
-                    public void onGranted(List<String> permissions) {
+                    public void onGranted(Context context, List<String> permissions) {
                         toast("onGranted() called with: permissions = [" + permissions + "]");
                         Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<List<String>>() {
                     @Override
-                    public void onDenied(List<String> permissions) {
+                    public void onDenied(Context context, List<String> permissions) {
                         toast("onDenied() called with: permissions = [" + permissions + "]");
                         Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
-                    public void onRationale(List<String> permissions, AgentExecutor executor) {
+                    public void onRationale(Context context, List<String> permissions, AgentExecutor executor) {
                         toast("onRationale() called with: permissions = [" + permissions + "]");
                         Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
                         showRationaleDialog(permissions, executor);
@@ -201,13 +202,13 @@ public class MainActivity extends AppCompatActivity {
                 .request(SpecialPermission.SYSTEM_ALERT_WINDOW)
                 .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
-                    public void onGranted(SpecialPermission permissions) {
+                    public void onGranted(Context context, SpecialPermission permissions) {
                         toast("onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<SpecialPermission>() {
                     @Override
-                    public void onDenied(SpecialPermission permissions) {
+                    public void onDenied(Context context, SpecialPermission permissions) {
                         toast("onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
@@ -220,13 +221,13 @@ public class MainActivity extends AppCompatActivity {
                 .request(SpecialPermission.WRITE_SETTINGS)
                 .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
-                    public void onGranted(SpecialPermission permissions) {
+                    public void onGranted(Context context, SpecialPermission permissions) {
                         toast("onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<SpecialPermission>() {
                     @Override
-                    public void onDenied(SpecialPermission permissions) {
+                    public void onDenied(Context context, SpecialPermission permissions) {
                         toast("onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
@@ -240,13 +241,13 @@ public class MainActivity extends AppCompatActivity {
                 .code(123)//与你自定义code冲突时可以设置，一般不用自己设置
                 .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
-                    public void onGranted(SpecialPermission permissions) {
+                    public void onGranted(Context context, SpecialPermission permissions) {
                         toast("onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<SpecialPermission>() {
                     @Override
-                    public void onDenied(SpecialPermission permissions) {
+                    public void onDenied(Context context, SpecialPermission permissions) {
                         toast("onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
@@ -260,7 +261,7 @@ public class MainActivity extends AppCompatActivity {
     private void showRationaleDialog(List<String> permissions, final AgentExecutor agentExecutor) {
         new AlertDialog.Builder(this)
                 .setTitle("提示")
-                .setMessage("同意如下权限来就继续运行程序：\n" + TextUtils.join("\n", permissions))
+                .setMessage("同意如下权限来继续运行程序：\n" + TextUtils.join("\n", permissions))
                 .setCancelable(false)
                 .setNegativeButton("取消", new DialogInterface.OnClickListener() {
                     @Override

@@ -1,5 +1,7 @@
 package cn.junhua.android.permission.agent.callback;
 
+import android.content.Context;
+
 import cn.junhua.android.permission.agent.AgentExecutor;
 
 /**
@@ -15,5 +17,5 @@ public interface OnRationaleCallback<T> {
      * @param permissions 需要解释的权限列表
      * @param executor    继续申请
      */
-    void onRationale(T permissions, AgentExecutor executor);
+    void onRationale(Context context, T permissions, AgentExecutor executor);
 }

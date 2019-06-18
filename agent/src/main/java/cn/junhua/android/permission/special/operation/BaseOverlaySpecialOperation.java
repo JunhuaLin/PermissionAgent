@@ -31,16 +31,6 @@ public abstract class BaseOverlaySpecialOperation implements SpecialOperation {
     /**
      * app详情页面
      */
-    public static Intent appDetailsIntent(Context context) {
-        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        intent.setData(Uri.fromParts("package", context.getPackageName(), null));
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        return intent;
-    }
-
-    /**
-     * app详情页面
-     */
     public ActivitiesFlat.OnIntentAction getAppDetailsIntentAction() {
         return mAppDetailsIntentAction;
     }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.junhua.android.permission.PermissionAgent;
@@ -28,6 +29,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        findViewById(R.id.tv_start_setting_page).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PermissionAgent.getInstance().startSettingPage(0x123);
+            }
+        });
         findViewById(R.id.tv_check_permission).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,19 +45,19 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.tv_cwc).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestPermission(v);
+                requestPermission(Manifest.permission.CAMERA, Manifest.permission.WRITE_CONTACTS);
             }
         });
         findViewById(R.id.tv_location).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestLocation();
+                requestPermission(Manifest.permission_group.LOCATION);
             }
         });
         findViewById(R.id.tv_serial_requests).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requestSerialRequests();
+                requestEachPermission(Manifest.permission_group.CONTACTS, Manifest.permission.ACCESS_COARSE_LOCATION);
             }
         });
         findViewById(R.id.tv_amws).setOnClickListener(new View.OnClickListener() {
@@ -112,9 +119,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void requestPermission(View view) {
+    public void requestPermission(String... permissions) {
         PermissionAgent.getInstance()
-                .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_CONTACTS)
+                .request(permissions)
                 //.code(123)//与你自定义code冲突时可以设置，一般不用自己设置
                 .onGranted(new OnGrantedCallback<List<String>>() {
                     @Override
@@ -128,6 +135,16 @@ public class MainActivity extends AppCompatActivity {
                     public void onDenied(Context context, List<String> permissions) {
                         toast("onDenied() called with: permissions = [" + permissions + "]");
                         Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+
+                        List<String> pList = new ArrayList<>();
+                        for (String p : permissions) {
+                            if (PermissionAgent.getInstance().hasAlwaysDeniedPermission(p)) {
+                                pList.add(p);
+                            }
+                        }
+                        if (!pList.isEmpty()) {
+                            startSettingPageDialog(pList);
+                        }
                     }
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
@@ -141,37 +158,9 @@ public class MainActivity extends AppCompatActivity {
                 .apply();
     }
 
-
-    public void requestLocation() {
+    private void requestEachPermission(String... permissions) {
         PermissionAgent.getInstance()
-//                .request(Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION)
-                .request(Manifest.permission_group.LOCATION)
-                //.code(123)//与你自定义code冲突时可以设置，一般不用自己设置
-                .onGranted(new OnGrantedCallback<List<String>>() {
-                    @Override
-                    public void onGranted(Context context, List<String> permissions) {
-                        toast("onGranted() called with: permissions = [" + permissions + "]");
-                    }
-                })
-                .onDenied(new OnDeniedCallback<List<String>>() {
-                    @Override
-                    public void onDenied(Context context, List<String> permissions) {
-                        toast("onDenied() called with: permissions = [" + permissions + "]");
-                    }
-                })
-                .onRationale(new OnRationaleCallback<List<String>>() {
-                    @Override
-                    public void onRationale(Context context, List<String> permissions, AgentExecutor executor) {
-                        toast("onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
-                        showRationaleDialog(permissions, executor);
-                    }
-                })
-                .apply();
-    }
-
-    private void requestSerialRequests() {
-        PermissionAgent.getInstance()
-                .requestEach(Manifest.permission_group.CONTACTS, Manifest.permission.ACCESS_COARSE_LOCATION)
+                .requestEach(permissions)
                 .onGranted(new OnGrantedCallback<List<String>>() {
                     @Override
                     public void onGranted(Context context, List<String> permissions) {
@@ -184,6 +173,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onDenied(Context context, List<String> permissions) {
                         toast("onDenied() called with: permissions = [" + permissions + "]");
                         Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
+                        if (PermissionAgent.getInstance().hasAlwaysDeniedPermission(permissions)) {
+                            startSettingPageDialog(permissions);
+                        }
                     }
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
@@ -254,10 +246,6 @@ public class MainActivity extends AppCompatActivity {
                 .apply();
     }
 
-    private void toast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-
     private void showRationaleDialog(List<String> permissions, final AgentExecutor agentExecutor) {
         new AlertDialog.Builder(this)
                 .setTitle("提示")
@@ -269,13 +257,37 @@ public class MainActivity extends AppCompatActivity {
                         agentExecutor.cancel();
                     }
                 })
-                .setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                .setPositiveButton("继续", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         agentExecutor.execute();
                     }
                 })
                 .show();
+    }
+
+    private void startSettingPageDialog(List<String> permissions) {
+        new AlertDialog.Builder(this)
+                .setTitle("提示")
+                .setMessage("请在设置中允许如下权限：\n" + TextUtils.join("\n", permissions))
+                .setCancelable(true)
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                })
+                .setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        PermissionAgent.getInstance().startSettingPage(0x123);
+                    }
+                })
+                .show();
+    }
+
+    private void toast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 
 }

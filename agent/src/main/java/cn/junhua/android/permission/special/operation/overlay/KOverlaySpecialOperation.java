@@ -6,9 +6,9 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 
 import cn.junhua.android.permission.agent.PermissionHandler;
-import cn.junhua.android.permission.special.rom.Rom;
-import cn.junhua.android.permission.special.rom.OnRomAction;
-import cn.junhua.android.permission.special.operation.RomOverlaySpecialOperation;
+import cn.junhua.android.permission.rom.Rom;
+import cn.junhua.android.permission.rom.OnRomAction;
+import cn.junhua.android.permission.special.operation.AbstractRomOverlaySpecialOperation;
 import cn.junhua.android.permission.utils.ActivitiesFlat;
 import cn.junhua.android.permission.utils.Const;
 
@@ -19,7 +19,7 @@ import cn.junhua.android.permission.utils.Const;
  * CREATED 2019/5/29 14:08
  */
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-class KOverlaySpecialOperation extends RomOverlaySpecialOperation {
+class KOverlaySpecialOperation extends AbstractRomOverlaySpecialOperation {
 
     KOverlaySpecialOperation() {
         super(Const.OP_SYSTEM_ALERT_WINDOW);

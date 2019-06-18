@@ -1,4 +1,4 @@
-package cn.junhua.android.permission.special.rom;
+package cn.junhua.android.permission.rom;
 
 import cn.junhua.android.permission.agent.PermissionHandler;
 

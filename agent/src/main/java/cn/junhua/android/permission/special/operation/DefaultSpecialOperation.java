@@ -3,6 +3,7 @@ package cn.junhua.android.permission.special.operation;
 import android.content.Context;
 
 import cn.junhua.android.permission.agent.PermissionHandler;
+import cn.junhua.android.permission.impl.SettingPage;
 
 /**
  * 默认同意所有特殊权限
@@ -14,8 +15,7 @@ public class DefaultSpecialOperation extends BaseOverlaySpecialOperation {
 
     @Override
     public void startActivityForResult(PermissionHandler permissionHandler, int requestCode) {
-        Context context = permissionHandler.getContext();
-        permissionHandler.startActivityForResult(appDetailsIntent(context), requestCode);
+        new SettingPage().start(permissionHandler, requestCode);
     }
 
     @Override

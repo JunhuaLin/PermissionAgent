@@ -15,6 +15,7 @@ import cn.junhua.android.permission.dangerous.checker.DoublePermissionChecker;
 import cn.junhua.android.permission.dangerous.checker.Permission;
 import cn.junhua.android.permission.impl.ActivityHolder;
 import cn.junhua.android.permission.impl.PermissionHandlerFactoryImp;
+import cn.junhua.android.permission.impl.SettingPage;
 import cn.junhua.android.permission.special.SpecialPermission;
 import cn.junhua.android.permission.special.SpecialPermissionAgent;
 import cn.junhua.android.permission.utils.AgentLog;
@@ -158,6 +159,15 @@ public class PermissionAgent {
      */
     public boolean hasAlwaysDeniedPermission(List<String> deniedPermissions) {
         return hasAlwaysDeniedPermission(deniedPermissions.toArray(new String[0]));
+    }
+
+    /**
+     * 启动设置页面
+     *
+     * @param requestCode 请求code
+     */
+    public void startSettingPage(int requestCode) {
+        new SettingPage().start(getPermissionHandler(), requestCode);
     }
 
     /**

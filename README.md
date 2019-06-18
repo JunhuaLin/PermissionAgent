@@ -160,6 +160,12 @@ PermissionAgent.getInstance()
 > 注：当使用权限组请求权限时，会拆分为权限组内多有的单个权限一起去请求权限。
 
 
+#### 设置页面
+
+```java
+PermissionAgent.getInstance().startSettingPage(0x123);
+```
+
 #### 检测永久拒绝权限
 
 ```java

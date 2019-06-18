@@ -9,11 +9,11 @@ import java.util.Map;
 import java.util.Set;
 
 import cn.junhua.android.permission.agent.PermissionHandler;
+import cn.junhua.android.permission.rom.OnRomAction;
+import cn.junhua.android.permission.rom.Rom;
 import cn.junhua.android.permission.utils.ActivitiesFlat;
 import cn.junhua.android.permission.utils.Const;
 import cn.junhua.android.permission.utils.PermissionUtil;
-import cn.junhua.android.permission.special.rom.Rom;
-import cn.junhua.android.permission.special.rom.OnRomAction;
 
 /**
  * 兼容rom权限操作
@@ -22,7 +22,7 @@ import cn.junhua.android.permission.special.rom.OnRomAction;
  * CREATED 2019/5/29 14:08
  */
 @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-public abstract class RomOverlaySpecialOperation extends BaseOverlaySpecialOperation {
+public abstract class AbstractRomOverlaySpecialOperation extends BaseOverlaySpecialOperation {
 
     private Map<Rom, OnRomAction> mRomRunnableMap = new HashMap<>();
     private OnRomAction mDefaultRomAction = new OnRomAction() {
@@ -37,7 +37,7 @@ public abstract class RomOverlaySpecialOperation extends BaseOverlaySpecialOpera
     @Const.OP_PERMISSION
     private String mOpPermission;
 
-    public RomOverlaySpecialOperation(@Const.OP_PERMISSION String mOpPermission) {
+    public AbstractRomOverlaySpecialOperation(@Const.OP_PERMISSION String mOpPermission) {
         this.mOpPermission = mOpPermission;
     }
 

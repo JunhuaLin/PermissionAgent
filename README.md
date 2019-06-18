@@ -65,7 +65,7 @@ PermissionAgent.getInstance()
 ```
 #### 并行请求多个权限
 
-并行请求时，结果会同时返回。当用户取消单某些权限时仅会取消提示用户的权利，其他权限会请求。取消的权限和请求的结果会同时回调。
+并行请求时，结果会同时返回。当onRationale回调时用户拒绝，不继续下面的请求，直接执行已授予的权限和拒绝(或未授予)的权限回调。
 ```java
 PermissionAgent.getInstance()
                 .request(Manifest.permission.CAMERA, Manifest.permission.WRITE_CONTACTS)
@@ -156,6 +156,9 @@ PermissionAgent.getInstance()
                 })
                 .apply();
 ```
+
+> 注：当使用权限组请求权限时，会拆分为权限组内多有的单个权限一起去请求权限。
+
 
 #### 检测永久拒绝权限
 

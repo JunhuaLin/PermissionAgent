@@ -31,7 +31,6 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
     private static final PermissionChecker STANDARD_CHECKER = new StandardPermissionChecker();
 
     private List<String> mPermissions;
-    private List<String> mUserDeniedPermissions = new ArrayList<>(1);
 
     public DangerousPermissionAgent(Executor executor, PermissionHandler permissionHandler, String[] permissions) {
         super(executor, permissionHandler);
@@ -52,20 +51,23 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
      * 执行请求操作
      */
     public void apply() {
-        mUserDeniedPermissions.clear();//必须清理，不然对后续使用继承产生影响
         mExecutor.post(new Runnable() {
             @Override
             public void run() {
-                if (STANDARD_CHECKER.hasPermissions(mPermissionHandler.getActivity(), getPermissions())) {
+                Context context = mPermissionHandler.getContext();
+                if (STANDARD_CHECKER.hasPermissions(context, getPermissions())) {
                     dispatchGranted(getPermissions());
                     return;
                 }
 
                 //给用户提示再请求权限
                 final List<String> rationaleList = new ArrayList<>(1);
+                final List<String> grantedList = new ArrayList<>(1);
                 for (String permission : getPermissions()) {
                     if (mPermissionHandler.shouldShowRationale(permission)) {
                         rationaleList.add(permission);
+                    } else if (STANDARD_CHECKER.hasPermissions(context, permission)) {
+                        grantedList.add(permission);
                     }
                 }
                 if (rationaleList.isEmpty()) {
@@ -81,14 +83,16 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
 
                         @Override
                         public void cancel() {
-                            //请求剩下的请求
+                            //处理拒绝，不继续下面的请求，直接执行已授予的权限和拒绝(或未授予)的权限回调
                             List<String> tempPermissions = new ArrayList<>(getPermissions());
-                            mUserDeniedPermissions.addAll(rationaleList);
-                            tempPermissions.removeAll(rationaleList);
-                            if (tempPermissions.isEmpty()) {
-                                dispatchDenied(getPermissions());
-                            } else {
-                                requestPermission(tempPermissions);
+                            tempPermissions.removeAll(grantedList);
+
+                            if (!tempPermissions.isEmpty()) {
+                                dispatchDenied(tempPermissions);
+                            }
+
+                            if (!grantedList.isEmpty()) {
+                                dispatchGranted(grantedList);
                             }
                         }
                     });
@@ -108,7 +112,7 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
                 Context context = mPermissionHandler.getContext();
                 List<String> grantedList = new ArrayList<>(1);
                 //添加用户提示时候拒绝的权限
-                List<String> deniedList = new ArrayList<>(mUserDeniedPermissions);
+                List<String> deniedList = new ArrayList<>(1);
 
                 for (String permission : permissions) {
                     if (DOUBLE_CHECKER.hasPermissions(context, permission)) {
@@ -122,12 +126,12 @@ public class DangerousPermissionAgent extends BaseAgent<List<String>> implements
                         + mPermissions + ", grantedList = "
                         + grantedList + ", deniedList = " + deniedList);
 
-                if (!grantedList.isEmpty()) {
-                    dispatchGranted(grantedList);
-                }
-
                 if (!deniedList.isEmpty()) {
                     dispatchDenied(deniedList);
+                }
+
+                if (!grantedList.isEmpty()) {
+                    dispatchGranted(grantedList);
                 }
             }
         });

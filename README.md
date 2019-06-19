@@ -42,19 +42,19 @@ PermissionAgent.getInstance()
                 //.code(123)//与你自定义code冲突时可以设置，一般不用自己设置
                 .onGranted(new OnGrantedCallback<List<String>>() {
                     @Override
-                    public void onGranted(List<String> permissions) {
+                    public void onGranted(Context context,List<String> permissions) {
                         //成功
                     }
                 })
                 .onDenied(new OnDeniedCallback<List<String>>() {
                     @Override
-                    public void onDenied(List<String> permissions) {
+                    public void onDenied(Context context,List<String> permissions) {
                         //拒绝
                     }
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
-                    public void onRationale(List<String> permissions, AgentExecutor executor) {
+                    public void onRationale(Context context,List<String> permissions, AgentExecutor executor) {
                         //提示用户
                         executor.execute();//继续
                         executor.cancel();//取消
@@ -72,19 +72,19 @@ PermissionAgent.getInstance()
                 //.code(123)//与你自定义code冲突时可以设置，一般不用自己设置
                 .onGranted(new OnGrantedCallback<List<String>>() {
                     @Override
-                    public void onGranted(List<String> permissions) {
+                    public void onGranted(Context context,List<String> permissions) {
                          //成功
                     }
                 })
                 .onDenied(new OnDeniedCallback<List<String>>() {
                     @Override
-                    public void onDenied(List<String> permissions) {
+                    public void onDenied(Context context,List<String> permissions) {
                        //拒绝
                     }
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
-                    public void onRationale(List<String> permissions, AgentExecutor executor) {
+                    public void onRationale(Context context,List<String> permissions, AgentExecutor executor) {
                        //提示用户
                        executor.execute();//继续
                        executor.cancel();//取消
@@ -103,21 +103,21 @@ PermissionAgent.getInstance()
                 .requestEach(Manifest.permission_group.CONTACTS, Manifest.permission.ACCESS_COARSE_LOCATION)
                 .onGranted(new OnGrantedCallback<List<String>>() {
                     @Override
-                    public void onGranted(List<String> permissions) {
+                    public void onGranted(Context context,List<String> permissions) {
                         toast("onGranted() called with: permissions = [" + permissions + "]");
                         Log.d(TAG, "onGranted() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onDenied(new OnDeniedCallback<List<String>>() {
                     @Override
-                    public void onDenied(List<String> permissions) {
+                    public void onDenied(Context context,List<String> permissions) {
                         toast("onDenied() called with: permissions = [" + permissions + "]");
                         Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
                     }
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
-                    public void onRationale(List<String> permissions, AgentExecutor executor) {
+                    public void onRationale(Context context,List<String> permissions, AgentExecutor executor) {
                         executor.execute();
                         toast("onRationale() called with: permissions = [" + permissions + "]");
                         Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
@@ -135,19 +135,19 @@ PermissionAgent.getInstance()
                 //.code(123)//与你自定义code冲突时可以设置，一般不用自己设置
                 .onGranted(new OnGrantedCallback<SpecialPermission>() {
                     @Override
-                    public void onGranted(SpecialPermission permissions) {
+                    public void onGranted(Context context,SpecialPermission permissions) {
                         //成功
                     }
                 })
                 .onDenied(new OnDeniedCallback<SpecialPermission>() {
                     @Override
-                    public void onDenied(SpecialPermission permissions) {
+                    public void onDenied(Context context,SpecialPermission permissions) {
                          //拒绝
                     }
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
-                    public void onRationale(List<String> permissions, AgentExecutor executor) {
+                    public void onRationale(Context context,List<String> permissions, AgentExecutor executor) {
                        //提示用户
                        executor.execute();//继续
                        executor.cancel();//取消

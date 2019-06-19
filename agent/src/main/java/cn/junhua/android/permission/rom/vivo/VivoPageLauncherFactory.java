@@ -1,5 +1,7 @@
 package cn.junhua.android.permission.rom.vivo;
 
+import android.os.Build;
+
 import cn.junhua.android.permission.rom.PageLauncher;
 import cn.junhua.android.permission.rom.RomPageLauncherFactory;
 import cn.junhua.android.permission.utils.RomUtils;
@@ -30,6 +32,10 @@ public class VivoPageLauncherFactory implements RomPageLauncherFactory {
 
     @Override
     public PageLauncher createOverlayLauncher() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            return new KVivoOverlayPageLauncher();
+        }
         return null;
     }
 
@@ -40,6 +46,6 @@ public class VivoPageLauncherFactory implements RomPageLauncherFactory {
 
     @Override
     public PageLauncher createAppDetailLauncher() {
-        return null;
+        return new VivoAppDetailPageLauncher();
     }
 }

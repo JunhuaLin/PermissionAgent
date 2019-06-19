@@ -1,4 +1,4 @@
-package cn.junhua.android.permission.rom.huawei.writesetting;
+package cn.junhua.android.permission.rom.default0;
 
 import android.content.Context;
 import android.content.Intent;

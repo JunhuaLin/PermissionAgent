@@ -27,21 +27,30 @@ public class Default0PageLauncherFactory implements RomPageLauncherFactory {
 
     @Override
     public PageLauncher createNotifyLauncher() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            return new ONotifyPageLauncher();
+        }
         return null;
     }
 
     @Override
     public PageLauncher createOverlayLauncher() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return new MOverlayPageLauncher();
+        }
         return null;
     }
 
     @Override
     public PageLauncher createWriteSettingsLauncher() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            return new MWriteSettingPageLauncher();
+        }
         return null;
     }
 
     @Override
     public PageLauncher createAppDetailLauncher() {
-        return null;
+        return new AppDetailPageLauncher();
     }
 }

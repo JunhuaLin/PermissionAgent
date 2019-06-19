@@ -37,7 +37,7 @@ public class ActivitiesFlat {
         return this;
     }
 
-    public void start() {
+    public boolean start() {
         Context context = mPermissionHandler.getContext();
         Intent intentTemp;
         for (OnIntentAction onIntentAction : mIntentActionList) {
@@ -49,11 +49,13 @@ public class ActivitiesFlat {
                 }
                 mPermissionHandler.startActivityForResult(intentTemp, mRequestCode);
 
-                return; //有成功启动的就退出
+                return true; //有成功启动的就退出
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
+
+        return false;//没有成功启动
     }
 
 

@@ -1,0 +1,33 @@
+package cn.junhua.android.permission.rom.huawei.writesetting;
+
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
+import android.support.annotation.RequiresApi;
+
+import cn.junhua.android.permission.agent.PermissionHandler;
+import cn.junhua.android.permission.rom.PageLauncher;
+import cn.junhua.android.permission.utils.ActivitiesFlat;
+
+/**
+ * @author junhua.lin@jinfuzi.com<br/>
+ * CREATED 2019/6/19 11:05
+ */
+@RequiresApi(api = Build.VERSION_CODES.M)
+public class MWriteSettingPageLauncher implements PageLauncher {
+    @Override
+    public boolean launch(PermissionHandler permissionHandler, int requestCode) {
+        return ActivitiesFlat.create(permissionHandler, requestCode)
+                .addAction(new ActivitiesFlat.OnIntentAction() {
+                    @Override
+                    public void onIntentAction(Context context, Intent intent) {
+                        intent.setAction(Settings.ACTION_MANAGE_WRITE_SETTINGS);
+                        intent.setData(Uri.parse("package:" + context.getPackageName()));
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    }
+                })
+                .start();
+    }
+}

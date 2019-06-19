@@ -1,4 +1,4 @@
-package cn.junhua.android.permission.rom.huawei.detail;
+package cn.junhua.android.permission.rom.huawei;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,7 @@ import cn.junhua.android.permission.utils.ActivitiesFlat;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2019/6/19 11:05
  */
-public class AppDetailPageLauncher implements PageLauncher {
+public class HuaweiAppDetailPageLauncher implements PageLauncher {
     @Override
     public boolean launch(PermissionHandler permissionHandler, int requestCode) {
         return ActivitiesFlat.create(permissionHandler, requestCode)

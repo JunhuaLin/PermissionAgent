@@ -1,5 +1,7 @@
 package cn.junhua.android.permission.rom.xiaomi;
 
+import android.os.Build;
+
 import cn.junhua.android.permission.rom.PageLauncher;
 import cn.junhua.android.permission.rom.RomPageLauncherFactory;
 import cn.junhua.android.permission.utils.RomUtils;
@@ -31,6 +33,10 @@ public class XiaomiPageLauncherFactory implements RomPageLauncherFactory {
 
     @Override
     public PageLauncher createOverlayLauncher() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            return new KXiaomiOverlayPageLauncher();
+        }
         return null;
     }
 
@@ -41,6 +47,6 @@ public class XiaomiPageLauncherFactory implements RomPageLauncherFactory {
 
     @Override
     public PageLauncher createAppDetailLauncher() {
-        return null;
+        return new XiaomiAppDetailPageLauncher();
     }
 }

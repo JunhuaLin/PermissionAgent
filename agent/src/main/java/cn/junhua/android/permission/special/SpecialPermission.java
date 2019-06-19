@@ -3,11 +3,10 @@ package cn.junhua.android.permission.special;
 import android.content.Context;
 
 import cn.junhua.android.permission.agent.PermissionHandler;
-import cn.junhua.android.permission.special.operation.DefaultSpecialOperation;
-import cn.junhua.android.permission.special.operation.install.InstallSpecialOperationFactory;
-import cn.junhua.android.permission.special.operation.notification.NotificationSpecialOperationFactory;
-import cn.junhua.android.permission.special.operation.overlay.OverlaySpecialOperationFactory;
-import cn.junhua.android.permission.special.operation.settings.SettingsSpecialOperationFactory;
+import cn.junhua.android.permission.special.operation.InstallSpecialOperation;
+import cn.junhua.android.permission.special.operation.NotificationSpecialOperation;
+import cn.junhua.android.permission.special.operation.OverlaySpecialOperation;
+import cn.junhua.android.permission.special.operation.WriteSettingsSpecialOperation;
 
 /**
  * 枚举特殊权限
@@ -19,28 +18,24 @@ public enum SpecialPermission implements SpecialOperation {
     /**
      * 安装未知apk权限
      */
-    REQUEST_INSTALL_PACKAGES(new InstallSpecialOperationFactory()),
+    REQUEST_INSTALL_PACKAGES(new InstallSpecialOperation()),
     /**
      * 修改设置权限
      */
-    WRITE_SETTINGS(new SettingsSpecialOperationFactory()),
+    WRITE_SETTINGS(new WriteSettingsSpecialOperation()),
     /**
      * 系统窗口权限
      */
-    SYSTEM_ALERT_WINDOW(new OverlaySpecialOperationFactory()),
+    SYSTEM_ALERT_WINDOW(new OverlaySpecialOperation()),
     /**
      * 推送通知权限
      */
-    ACCESS_NOTIFICATION_POLICY(new NotificationSpecialOperationFactory());
+    ACCESS_NOTIFICATION_POLICY(new NotificationSpecialOperation());
 
     private SpecialOperation mOperation;
 
-    SpecialPermission(SpecialOperationFactory operationFactory) {
-        mOperation = operationFactory.create();
-
-        if (mOperation == null) {
-            mOperation = new DefaultSpecialOperation();
-        }
+    SpecialPermission(SpecialOperation operation) {
+        mOperation = operation;
     }
 
     @Override

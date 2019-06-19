@@ -15,7 +15,7 @@ import cn.junhua.android.permission.dangerous.checker.DoublePermissionChecker;
 import cn.junhua.android.permission.dangerous.checker.Permission;
 import cn.junhua.android.permission.impl.ActivityHolder;
 import cn.junhua.android.permission.impl.PermissionHandlerFactoryImp;
-import cn.junhua.android.permission.impl.SettingPage;
+import cn.junhua.android.permission.rom.Rom;
 import cn.junhua.android.permission.special.SpecialPermission;
 import cn.junhua.android.permission.special.SpecialPermissionAgent;
 import cn.junhua.android.permission.utils.AgentLog;
@@ -167,7 +167,7 @@ public class PermissionAgent {
      * @param requestCode 请求code
      */
     public void startSettingPage(int requestCode) {
-        new SettingPage().start(getPermissionHandler(), requestCode);
+        Rom.currentRom().createAppDetailLauncher().launch(getPermissionHandler(), requestCode);
     }
 
     /**

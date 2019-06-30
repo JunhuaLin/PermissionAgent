@@ -9,13 +9,13 @@ import cn.junhua.android.permission.rom.PageLauncher;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2019/6/19 14:01
  */
-public class WrapperPagerLauncher implements PageLauncher {
+public class PageLauncherProxy implements PageLauncher {
 
     private PageLauncher mProxyPageLauncher;
     private PageLauncher mDefault0PageLauncher;
     private PageLauncher mDefault1PageLauncher = new DefaultPageLauncher();
 
-    public WrapperPagerLauncher(PageLauncher proxyPageLauncher, PageLauncher default0PageLauncher) {
+    public PageLauncherProxy(PageLauncher proxyPageLauncher, PageLauncher default0PageLauncher) {
         mProxyPageLauncher = proxyPageLauncher;
         mDefault0PageLauncher = default0PageLauncher;
     }

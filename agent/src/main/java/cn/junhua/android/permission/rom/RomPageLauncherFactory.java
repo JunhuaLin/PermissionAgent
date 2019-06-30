@@ -2,13 +2,13 @@ package cn.junhua.android.permission.rom;
 
 
 import cn.junhua.android.permission.rom.base.DefaultPageLauncher;
-import cn.junhua.android.permission.rom.base.WrapperPagerLauncher;
+import cn.junhua.android.permission.rom.base.PageLauncherProxy;
 
 /**
  * 不同机型不同页面的抽象工厂<br/>
  * 如果对应创建Launcher返回null或者没有成功启动对应页面，<br/>
  * 则使用{@link DefaultPageLauncher}，<br/>
- * 代理逻辑见{@link WrapperPagerLauncher}<br/>
+ * 代理逻辑见{@link PageLauncherProxy}<br/>
  *
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2019/6/19 10:53

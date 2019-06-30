@@ -32,11 +32,11 @@ public enum Rom implements RomPageLauncherFactory {
     private static Rom CURRENT_ROM;
 
     private RomPageLauncherFactory mRomPageLauncherFactory;
-    private RomPageLauncherFactory mDefaultRomPageLauncherFactory;
+    private RomPageLauncherFactory mDefault0RomPageLauncherFactory;
 
     Rom(RomPageLauncherFactory romFactory) {
         mRomPageLauncherFactory = romFactory;
-        mDefaultRomPageLauncherFactory = new Default0PageLauncherFactory();
+        mDefault0RomPageLauncherFactory = new Default0PageLauncherFactory();
     }
 
     /**
@@ -65,7 +65,7 @@ public enum Rom implements RomPageLauncherFactory {
     public PageLauncher createInstallLauncher() {
         return new WrapperPagerLauncher(
                 mRomPageLauncherFactory.createInstallLauncher(),
-                mDefaultRomPageLauncherFactory.createInstallLauncher()
+                mDefault0RomPageLauncherFactory.createInstallLauncher()
         );
     }
 
@@ -73,7 +73,7 @@ public enum Rom implements RomPageLauncherFactory {
     public PageLauncher createNotifyLauncher() {
         return new WrapperPagerLauncher(
                 mRomPageLauncherFactory.createNotifyLauncher(),
-                mDefaultRomPageLauncherFactory.createNotifyLauncher()
+                mDefault0RomPageLauncherFactory.createNotifyLauncher()
         );
     }
 
@@ -81,7 +81,7 @@ public enum Rom implements RomPageLauncherFactory {
     public PageLauncher createOverlayLauncher() {
         return new WrapperPagerLauncher(
                 mRomPageLauncherFactory.createOverlayLauncher(),
-                mDefaultRomPageLauncherFactory.createOverlayLauncher()
+                mDefault0RomPageLauncherFactory.createOverlayLauncher()
         );
     }
 
@@ -89,7 +89,7 @@ public enum Rom implements RomPageLauncherFactory {
     public PageLauncher createWriteSettingsLauncher() {
         return new WrapperPagerLauncher(
                 mRomPageLauncherFactory.createWriteSettingsLauncher(),
-                mDefaultRomPageLauncherFactory.createWriteSettingsLauncher()
+                mDefault0RomPageLauncherFactory.createWriteSettingsLauncher()
         );
     }
 
@@ -97,7 +97,7 @@ public enum Rom implements RomPageLauncherFactory {
     public PageLauncher createAppDetailLauncher() {
         return new WrapperPagerLauncher(
                 mRomPageLauncherFactory.createAppDetailLauncher(),
-                mDefaultRomPageLauncherFactory.createAppDetailLauncher()
+                mDefault0RomPageLauncherFactory.createAppDetailLauncher()
         );
     }
 }

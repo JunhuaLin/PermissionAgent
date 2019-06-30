@@ -3,7 +3,7 @@ package cn.junhua.android.permission.rom.oppo;
 import android.os.Build;
 
 import cn.junhua.android.permission.rom.PageLauncher;
-import cn.junhua.android.permission.rom.RomPageLauncherFactory;
+import cn.junhua.android.permission.rom.RomPageLauncherFactoryWrapper;
 import cn.junhua.android.permission.utils.RomUtils;
 
 /**
@@ -12,20 +12,10 @@ import cn.junhua.android.permission.utils.RomUtils;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2019/6/19 10:09
  */
-public class OppoPageLauncherFactory implements RomPageLauncherFactory {
+public class OppoPageLauncherFactory extends RomPageLauncherFactoryWrapper {
     @Override
     public boolean check() {
         return RomUtils.checkManufacturer("oppo");
-    }
-
-    @Override
-    public PageLauncher createInstallLauncher() {
-        return null;
-    }
-
-    @Override
-    public PageLauncher createNotifyLauncher() {
-        return null;
     }
 
     @Override
@@ -34,11 +24,6 @@ public class OppoPageLauncherFactory implements RomPageLauncherFactory {
                 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             return new KOppoOverlayPageLauncher();
         }
-        return null;
-    }
-
-    @Override
-    public PageLauncher createWriteSettingsLauncher() {
         return null;
     }
 

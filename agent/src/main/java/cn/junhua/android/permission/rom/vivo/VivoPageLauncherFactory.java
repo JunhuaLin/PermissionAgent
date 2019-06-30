@@ -3,7 +3,7 @@ package cn.junhua.android.permission.rom.vivo;
 import android.os.Build;
 
 import cn.junhua.android.permission.rom.PageLauncher;
-import cn.junhua.android.permission.rom.RomPageLauncherFactory;
+import cn.junhua.android.permission.rom.RomPageLauncherFactoryWrapper;
 import cn.junhua.android.permission.utils.RomUtils;
 
 /**
@@ -12,7 +12,7 @@ import cn.junhua.android.permission.utils.RomUtils;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2019/6/19 10:09
  */
-public class VivoPageLauncherFactory implements RomPageLauncherFactory {
+public class VivoPageLauncherFactory extends RomPageLauncherFactoryWrapper {
     @Override
     public boolean check() {
         return RomUtils.checkManufacturer("vivo")
@@ -21,26 +21,11 @@ public class VivoPageLauncherFactory implements RomPageLauncherFactory {
     }
 
     @Override
-    public PageLauncher createInstallLauncher() {
-        return null;
-    }
-
-    @Override
-    public PageLauncher createNotifyLauncher() {
-        return null;
-    }
-
-    @Override
     public PageLauncher createOverlayLauncher() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M
                 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             return new KVivoOverlayPageLauncher();
         }
-        return null;
-    }
-
-    @Override
-    public PageLauncher createWriteSettingsLauncher() {
         return null;
     }
 

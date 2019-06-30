@@ -3,7 +3,7 @@ package cn.junhua.android.permission.rom.huawei;
 import android.os.Build;
 
 import cn.junhua.android.permission.rom.PageLauncher;
-import cn.junhua.android.permission.rom.RomPageLauncherFactory;
+import cn.junhua.android.permission.rom.RomPageLauncherFactoryWrapper;
 import cn.junhua.android.permission.rom.default0.ONotifyPageLauncher;
 import cn.junhua.android.permission.utils.RomUtils;
 
@@ -13,15 +13,10 @@ import cn.junhua.android.permission.utils.RomUtils;
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2019/6/19 10:09
  */
-public class HuaweiPageLauncherFactory implements RomPageLauncherFactory {
+public class HuaweiPageLauncherFactory extends RomPageLauncherFactoryWrapper {
     @Override
     public boolean check() {
         return RomUtils.checkManufacturer("huawei");
-    }
-
-    @Override
-    public PageLauncher createInstallLauncher() {
-        return null;
     }
 
     @Override
@@ -40,11 +35,6 @@ public class HuaweiPageLauncherFactory implements RomPageLauncherFactory {
                 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             return new KHuaweiOverlayPageLauncher();
         }
-        return null;
-    }
-
-    @Override
-    public PageLauncher createWriteSettingsLauncher() {
         return null;
     }
 

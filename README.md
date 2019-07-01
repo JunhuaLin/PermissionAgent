@@ -129,7 +129,16 @@ PermissionAgent.getInstance()
 
 #### 特殊权限
 
-使用``SpecialPermission``枚举选择需要申请的特殊权限，其他操作不变
+使用``SpecialPermission``枚举选择需要申请的特殊权限，其他操作不变。
+
+SpecialPermission枚举如下：
+
+- SpecialPermission.REQUEST_INSTALL_PACKAGES   安装未知apk权限
+- SpecialPermission.WRITE_SETTINGS    修改设置权限
+- SpecialPermission.SYSTEM_ALERT_WINDOW    系统窗口权限
+- SpecialPermission.ACCESS_NOTIFICATION_POLICY  推送通知权限
+
+
 ```java
 PermissionAgent.getInstance()
                 .request(SpecialPermission.REQUEST_INSTALL_PACKAGES)

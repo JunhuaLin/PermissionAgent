@@ -19,14 +19,30 @@ public class OppoAppDetailPageLauncher implements PageLauncher {
                     @Override
                     public void onIntentAction(Context context, Intent intent) {
                         intent.putExtra("packageName", context.getPackageName());
-                        intent.setClassName("com.color.safecenter", "com.color.safecenter.permission.PermissionManagerActivity");
+                        intent.putExtra("package", context.getPackageName());
+                        intent.setClassName(
+                                "com.color.safecenter",
+                                "com.color.safecenter.permission.PermissionManagerActivity");
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
                     @Override
                     public void onIntentAction(Context context, Intent intent) {
                         intent.putExtra("packageName", context.getPackageName());
-                        intent.setClassName("com.oppo.safe", "com.oppo.safe.permission.PermissionAppListActivity");
+                        intent.putExtra("package", context.getPackageName());
+                        intent.setClassName(
+                                "com.oppo.safe",
+                                "com.oppo.safe.permission.PermissionAppListActivity");
+                    }
+                })
+                .addAction(new ActivitiesFlat.OnIntentAction() {
+                    @Override
+                    public void onIntentAction(Context context, Intent intent) {
+                        intent.putExtra("packageName", context.getPackageName());
+                        intent.putExtra("package", context.getPackageName());
+                        intent.setClassName(
+                                "com.oppo.safe",
+                                "com.coloros.safecenter.permission.singlepage.PermissionSinglePageActivity");
                     }
                 })
                 .start();

@@ -19,6 +19,13 @@ public class HuaweiAppDetailPageLauncher implements PageLauncher {
                     @Override
                     public void onIntentAction(Context context, Intent intent) {
                         intent.setClassName("com.huawei.systemmanager", "com.huawei.permissionmanager.ui.MainActivity");
+                        intent.putExtra("package", context.getPackageName());
+                    }
+                })
+                .addAction(new ActivitiesFlat.OnIntentAction() {
+                    @Override
+                    public void onIntentAction(Context context, Intent intent) {
+                        intent.setClassName("com.huawei.systemmanager", "com.huawei.permissionmanager.ui.MainActivity");
                     }
                 })
                 .start();

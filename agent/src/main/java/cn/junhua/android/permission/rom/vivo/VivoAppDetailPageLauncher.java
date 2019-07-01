@@ -19,14 +19,30 @@ public class VivoAppDetailPageLauncher implements PageLauncher {
                     @Override
                     public void onIntentAction(Context context, Intent intent) {
                         intent.putExtra("packagename", context.getPackageName());
-                        intent.setClassName("com.vivo.permissionmanager", "com.vivo.permissionmanager.activity.SoftPermissionDetailActivity");
+                        intent.putExtra("package", context.getPackageName());
+                        intent.setClassName(
+                                "com.vivo.permissionmanager",
+                                "com.vivo.permissionmanager.activity.SoftPermissionDetailActivity");
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
                     @Override
                     public void onIntentAction(Context context, Intent intent) {
                         intent.putExtra("packagename", context.getPackageName());
-                        intent.setClassName("com.iqoo.secure", "com.iqoo.secure.safeguard.SoftPermissionDetailActivity");
+                        intent.putExtra("package", context.getPackageName());
+                        intent.setClassName(
+                                "com.iqoo.secure",
+                                "com.iqoo.secure.safeguard.SoftPermissionDetailActivity");
+                    }
+                })
+                .addAction(new ActivitiesFlat.OnIntentAction() {
+                    @Override
+                    public void onIntentAction(Context context, Intent intent) {
+                        intent.putExtra("packagename", context.getPackageName());
+                        intent.putExtra("package", context.getPackageName());
+                        intent.setClassName(
+                                "com.iqoo.secure",
+                                "com.iqoo.secure.MainActivity");
                     }
                 })
                 .start();

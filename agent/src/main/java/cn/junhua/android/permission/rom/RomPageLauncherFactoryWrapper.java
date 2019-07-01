@@ -2,55 +2,61 @@ package cn.junhua.android.permission.rom;
 
 
 import cn.junhua.android.permission.rom.base.DefaultPageLauncher;
-import cn.junhua.android.permission.rom.base.PageLauncherProxy;
 
 /**
- * 不同机型不同页面的抽象工厂<br/>
- * 如果对应创建Launcher返回null或者没有成功启动对应页面，<br/>
- * 则使用{@link DefaultPageLauncher}，<br/>
- * 代理逻辑见{@link PageLauncherProxy}<br/>
+ * 包装类，简化实现
  *
  * @author junhua.lin@jinfuzi.com<br/>
  * CREATED 2019/6/19 10:53
  */
-public interface RomPageLauncherFactory {
+public abstract class RomPageLauncherFactoryWrapper implements RomPageLauncherFactory {
     /**
      * 检测Rom
      */
-    boolean check();
+    public abstract boolean check();
 
     /**
      * 创建安装未知apk权限操作页面<br/>
      *
      * @return PageLauncher 如果对应创建Launcher返回null，则使用{@link DefaultPageLauncher}
      */
-    PageLauncher createInstallLauncher();
+    public PageLauncher createInstallLauncher() {
+        return null;
+    }
 
     /**
      * 推送通知权限操作页面
      *
      * @return PageLauncher 如果对应创建Launcher返回null，则使用{@link DefaultPageLauncher}
      */
-    PageLauncher createNotifyLauncher();
+    public PageLauncher createNotifyLauncher() {
+        return null;
+    }
 
     /**
      * 浮窗权限操作页面
      *
      * @return PageLauncher 如果对应创建Launcher返回null，则使用{@link DefaultPageLauncher}
      */
-    PageLauncher createOverlayLauncher();
+    public PageLauncher createOverlayLauncher() {
+        return null;
+    }
 
     /**
      * 创建安装未知apk权限操作页面
      *
      * @return PageLauncher 如果对应创建Launcher返回null，则使用{@link DefaultPageLauncher}
      */
-    PageLauncher createWriteSettingsLauncher();
+    public PageLauncher createWriteSettingsLauncher() {
+        return null;
+    }
 
     /**
      * 跳转到应用详情页
      *
      * @return PageLauncher 如果对应创建Launcher返回null，则使用{@link DefaultPageLauncher}
      */
-    PageLauncher createAppDetailLauncher();
+    public PageLauncher createAppDetailLauncher() {
+        return null;
+    }
 }

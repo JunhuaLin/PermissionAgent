@@ -1,6 +1,6 @@
 package cn.junhua.android.permission.rom;
 
-import cn.junhua.android.permission.rom.base.WrapperPagerLauncher;
+import cn.junhua.android.permission.rom.base.PageLauncherProxy;
 import cn.junhua.android.permission.rom.default0.Default0PageLauncherFactory;
 import cn.junhua.android.permission.rom.huawei.HuaweiPageLauncherFactory;
 import cn.junhua.android.permission.rom.meizu.MeizuPageLauncherFactory;
@@ -22,8 +22,7 @@ public enum Rom implements RomPageLauncherFactory {
     Oppo(new OppoPageLauncherFactory()),
     Meizu(new MeizuPageLauncherFactory()),
     Qihu360(new Qihu360PageLauncherFactory()),
-    Default(new Default0PageLauncherFactory()),
-    ;
+    Default(new Default0PageLauncherFactory()),;
 
 
     /**
@@ -32,11 +31,11 @@ public enum Rom implements RomPageLauncherFactory {
     private static Rom CURRENT_ROM;
 
     private RomPageLauncherFactory mRomPageLauncherFactory;
-    private RomPageLauncherFactory mDefaultRomPageLauncherFactory;
+    private RomPageLauncherFactory mDefault0RomPageLauncherFactory;
 
     Rom(RomPageLauncherFactory romFactory) {
         mRomPageLauncherFactory = romFactory;
-        mDefaultRomPageLauncherFactory = new Default0PageLauncherFactory();
+        mDefault0RomPageLauncherFactory = new Default0PageLauncherFactory();
     }
 
     /**
@@ -63,41 +62,41 @@ public enum Rom implements RomPageLauncherFactory {
 
     @Override
     public PageLauncher createInstallLauncher() {
-        return new WrapperPagerLauncher(
+        return new PageLauncherProxy(
                 mRomPageLauncherFactory.createInstallLauncher(),
-                mDefaultRomPageLauncherFactory.createInstallLauncher()
+                mDefault0RomPageLauncherFactory.createInstallLauncher()
         );
     }
 
     @Override
     public PageLauncher createNotifyLauncher() {
-        return new WrapperPagerLauncher(
+        return new PageLauncherProxy(
                 mRomPageLauncherFactory.createNotifyLauncher(),
-                mDefaultRomPageLauncherFactory.createNotifyLauncher()
+                mDefault0RomPageLauncherFactory.createNotifyLauncher()
         );
     }
 
     @Override
     public PageLauncher createOverlayLauncher() {
-        return new WrapperPagerLauncher(
+        return new PageLauncherProxy(
                 mRomPageLauncherFactory.createOverlayLauncher(),
-                mDefaultRomPageLauncherFactory.createOverlayLauncher()
+                mDefault0RomPageLauncherFactory.createOverlayLauncher()
         );
     }
 
     @Override
     public PageLauncher createWriteSettingsLauncher() {
-        return new WrapperPagerLauncher(
+        return new PageLauncherProxy(
                 mRomPageLauncherFactory.createWriteSettingsLauncher(),
-                mDefaultRomPageLauncherFactory.createWriteSettingsLauncher()
+                mDefault0RomPageLauncherFactory.createWriteSettingsLauncher()
         );
     }
 
     @Override
     public PageLauncher createAppDetailLauncher() {
-        return new WrapperPagerLauncher(
+        return new PageLauncherProxy(
                 mRomPageLauncherFactory.createAppDetailLauncher(),
-                mDefaultRomPageLauncherFactory.createAppDetailLauncher()
+                mDefault0RomPageLauncherFactory.createAppDetailLauncher()
         );
     }
 }

@@ -11,8 +11,8 @@ import cn.junhua.android.permission.agent.PermissionHandlerFactory;
 import cn.junhua.android.permission.agent.check.PermissionChecker;
 import cn.junhua.android.permission.dangerous.DangerousPermissionAgent;
 import cn.junhua.android.permission.dangerous.EachDangerousPermissionAgent;
-import cn.junhua.android.permission.dangerous.checker.DoublePermissionChecker;
 import cn.junhua.android.permission.dangerous.checker.Permission;
+import cn.junhua.android.permission.dangerous.checker.StandardPermissionChecker;
 import cn.junhua.android.permission.impl.ActivityHolder;
 import cn.junhua.android.permission.impl.PermissionHandlerFactoryImp;
 import cn.junhua.android.permission.rom.Rom;
@@ -33,11 +33,11 @@ public class PermissionAgent {
     private PermissionHandlerFactory mPermissionHandlerFactory;
     private ActivityHolder mActivityHolder;
     private Executor mExecutor;
-    private PermissionChecker mDoubleChecker;
+    private PermissionChecker mPermissionChecker;
 
     private PermissionAgent() {
         mExecutor = new Executor();
-        mDoubleChecker = new DoublePermissionChecker();
+        mPermissionChecker = new StandardPermissionChecker();
     }
 
     public static PermissionAgent getInstance() {
@@ -112,7 +112,7 @@ public class PermissionAgent {
      * @return 如果存在权限没有授予就返回false
      */
     public boolean checkPermission(String... permissions) {
-        return mDoubleChecker.hasPermissions(getCurrentActivity(), Permission.handleGroup(permissions));
+        return mPermissionChecker.hasPermissions(getCurrentActivity(), Permission.handleGroup(permissions));
     }
 
     /**

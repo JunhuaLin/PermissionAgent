@@ -20,7 +20,24 @@ public class MeizuAppDetailPageLauncher implements PageLauncher {
                     public void onIntentAction(Context context, Intent intent) {
                         intent.setAction("com.meizu.safe.security.SHOW_APPSEC");
                         intent.putExtra("packageName", context.getPackageName());
+                        intent.putExtra("package", context.getPackageName());
                         intent.setClassName("com.meizu.safe", "com.meizu.safe.security.AppSecActivity");
+                    }
+                })
+                .addAction(new ActivitiesFlat.OnIntentAction() {
+                    @Override
+                    public void onIntentAction(Context context, Intent intent) {
+                        intent.putExtra("packageName", context.getPackageName());
+                        intent.putExtra("package", context.getPackageName());
+                        intent.setClassName("com.meizu.safe", "com.meizu.safe.SecurityMainActivity");
+                    }
+                })
+                .addAction(new ActivitiesFlat.OnIntentAction() {
+                    @Override
+                    public void onIntentAction(Context context, Intent intent) {
+                        intent.putExtra("packageName", context.getPackageName());
+                        intent.putExtra("package", context.getPackageName());
+                        intent.setClassName("com.meizu.safe", "com.meizu.safe.permission.PermissionMainActivity");
                     }
                 })
                 .start();

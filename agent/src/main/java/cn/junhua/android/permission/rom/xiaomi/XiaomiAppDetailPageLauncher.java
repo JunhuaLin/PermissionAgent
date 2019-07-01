@@ -18,16 +18,19 @@ public class XiaomiAppDetailPageLauncher implements PageLauncher {
                 .addAction(new ActivitiesFlat.OnIntentAction() {
                     @Override
                     public void onIntentAction(Context context, Intent intent) {
-                        intent.setAction("miui.intent.action.APP_PERM_EDITOR");
-                        intent.putExtra("extra_pkgname", context.getPackageName());
-                    }
-                })
-                .addAction(new ActivitiesFlat.OnIntentAction() {
-                    @Override
-                    public void onIntentAction(Context context, Intent intent) {
+                        // miui 6-7
                         intent.setAction("miui.intent.action.APP_PERM_EDITOR");
                         intent.putExtra("extra_pkgname", context.getPackageName());
                         intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
+                    }
+                })
+               .addAction(new ActivitiesFlat.OnIntentAction() {
+                    @Override
+                    public void onIntentAction(Context context, Intent intent) {
+                        // miui 8
+                        intent.setAction("miui.intent.action.APP_PERM_EDITOR");
+                        intent.putExtra("package", context.getPackageName());
+                        intent.setClassName("com.miui.securitycenter", "com.miui.securityscan.MainActivity");
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
@@ -36,6 +39,13 @@ public class XiaomiAppDetailPageLauncher implements PageLauncher {
                         intent.setAction("miui.intent.action.APP_PERM_EDITOR");
                         intent.putExtra("extra_pkgname", context.getPackageName());
                         intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.PermissionsEditorActivity");
+                    }
+                })
+                .addAction(new ActivitiesFlat.OnIntentAction() {
+                    @Override
+                    public void onIntentAction(Context context, Intent intent) {
+                        intent.setAction("miui.intent.action.APP_PERM_EDITOR");
+                        intent.putExtra("extra_pkgname", context.getPackageName());
                     }
                 })
                 .start();

@@ -25,7 +25,6 @@ public class MOverlayPageLauncher implements PageLauncher {
                     public void onIntentAction(Context context, Intent intent) {
                         intent.setAction(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                         intent.setData(Uri.fromParts("package", context.getPackageName(), null));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .start();

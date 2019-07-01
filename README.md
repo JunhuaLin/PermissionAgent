@@ -203,5 +203,6 @@ log格式：D/{TAG1}: {TAG2}/{log msg}
 
 感谢以下库或文章提供的思路和适配方案：
 
-- [https://github.com/yanzhenjie/AndPermission](https://github.com/yanzhenjie/AndPermission)
-- [https://github.com/zhaozepeng/FloatWindowPermission](https://github.com/zhaozepeng/FloatWindowPermission)
+- [AndPermission](https://github.com/yanzhenjie/AndPermission)
+- [FloatWindowPermission](https://github.com/zhaozepeng/FloatWindowPermission)
+- [https://github.com/jokermonn/permissions4m](https://github.com/jokermonn/permissions4m)

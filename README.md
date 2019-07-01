@@ -205,4 +205,4 @@ log格式：D/{TAG1}: {TAG2}/{log msg}
 
 - [AndPermission](https://github.com/yanzhenjie/AndPermission)
 - [FloatWindowPermission](https://github.com/zhaozepeng/FloatWindowPermission)
-- [https://github.com/jokermonn/permissions4m](https://github.com/jokermonn/permissions4m)
+- [permissions4m](https://github.com/jokermonn/permissions4m)

@@ -148,7 +148,7 @@ PermissionAgent.getInstance()
                 })
                 .onRationale(new OnRationaleCallback<List<String>>() {
                     @Override
-                    public void onRationale(Context context,List<String> permissions, AgentExecutor executor) {
+                    public void onRationale(Context context,SpecialPermission permissions, AgentExecutor executor) {
                        //提示用户
                        executor.execute();//继续
                        executor.cancel();//取消

@@ -43,6 +43,8 @@ public class ActivitiesFlat {
         for (OnIntentAction onIntentAction : mIntentActionList) {
             try {
                 intentTemp = new Intent();
+                //所有新启动页面都新建一个任务栈
+                intentTemp.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 onIntentAction.onIntentAction(context, intentTemp);
                 if (!hasActivity(intentTemp)) {
                     continue;

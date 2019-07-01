@@ -21,7 +21,6 @@ public class KOppoOverlayPageLauncher implements PageLauncher {
                         intent.putExtra("packageName", context.getPackageName());
                         intent.setClassName("com.coloros.safecenter",
                                 "com.coloros.safecenter.sysfloatwindow.FloatWindowListActivity");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
@@ -30,7 +29,6 @@ public class KOppoOverlayPageLauncher implements PageLauncher {
                         intent.putExtra("packageName", context.getPackageName());
                         intent.setClassName("com.color.safecenter",
                                 "com.color.safecenter.permission.floatwindow.FloatWindowListActivity");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
@@ -39,7 +37,6 @@ public class KOppoOverlayPageLauncher implements PageLauncher {
                         intent.putExtra("packageName", context.getPackageName());
                         intent.setClassName("com.oppo.safe",
                                 "com.oppo.safe.permission.PermissionAppListActivity");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .start();

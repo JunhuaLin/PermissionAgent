@@ -21,7 +21,6 @@ public class KMeizuOverlayPageLauncher implements PageLauncher {
                         intent.setAction("com.meizu.safe.security.SHOW_APPSEC");
                         intent.putExtra("packageName", context.getPackageName());
                         intent.setClassName("com.meizu.safe", "com.meizu.safe.security.AppSecActivity");//remove this line code for fix flyme6.3
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
 
@@ -31,7 +30,6 @@ public class KMeizuOverlayPageLauncher implements PageLauncher {
                         intent.setAction("com.meizu.safe.security.SHOW_APPSEC");
                         intent.putExtra("packageName", context.getPackageName());
 //                        intent.setClassName("com.meizu.safe", "com.meizu.safe.security.AppSecActivity");//remove this line code for fix flyme6.3
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .start();

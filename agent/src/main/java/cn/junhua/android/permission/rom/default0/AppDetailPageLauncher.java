@@ -22,7 +22,6 @@ public class AppDetailPageLauncher implements PageLauncher {
                     public void onIntentAction(Context context, Intent intent) {
                         intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                         intent.setData(Uri.fromParts("package", context.getPackageName(), null));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .start();

@@ -20,7 +20,6 @@ public class KXiaomiOverlayPageLauncher implements PageLauncher {
                     public void onIntentAction(Context context, Intent intent) {
                         intent.setAction("miui.intent.action.APP_PERM_EDITOR");
                         intent.putExtra("extra_pkgname", context.getPackageName());
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
 
@@ -30,7 +29,6 @@ public class KXiaomiOverlayPageLauncher implements PageLauncher {
                         intent.setAction("miui.intent.action.APP_PERM_EDITOR");
                         intent.putExtra("extra_pkgname", context.getPackageName());
                         intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
@@ -40,7 +38,6 @@ public class KXiaomiOverlayPageLauncher implements PageLauncher {
                         intent.putExtra("extra_pkgname", context.getPackageName());
                         intent.setClassName("com.miui.securitycenter", "com.miui.permcenter.permissions.AppPermissionsEditorActivity");
                         intent.setPackage("com.miui.securitycenter");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .start();

@@ -20,7 +20,6 @@ public class KHuaweiNotifyPageLauncher implements PageLauncher {
                     public void onIntentAction(Context context, Intent intent) {
                         intent.setClassName("com.huawei.systemmanager",
                                 "com.huawei.notificationmanager.ui.NotificationManagmentActivity");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
@@ -28,7 +27,6 @@ public class KHuaweiNotifyPageLauncher implements PageLauncher {
                     public void onIntentAction(Context context, Intent intent) {
                         intent.setClassName("com.huawei.systemmanager",
                                 "com.huawei.permissionmanager.ui.MainActivity");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
@@ -37,7 +35,6 @@ public class KHuaweiNotifyPageLauncher implements PageLauncher {
                         intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
                         intent.putExtra("app_package", context.getPackageName());
                         intent.putExtra("app_uid", context.getApplicationInfo().uid);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .start();

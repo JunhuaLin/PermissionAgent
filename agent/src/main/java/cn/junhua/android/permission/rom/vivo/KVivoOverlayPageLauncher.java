@@ -21,7 +21,6 @@ public class KVivoOverlayPageLauncher implements PageLauncher {
                         intent.setClassName("com.iqoo.secure",
                                 "com.iqoo.secure.ui.phoneoptimize.FloatWindowManager");
                         intent.putExtra("packagename", context.getPackageName());
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
@@ -30,7 +29,6 @@ public class KVivoOverlayPageLauncher implements PageLauncher {
                         intent.setClassName("com.iqoo.secure",
                                 "com.iqoo.secure.safeguard.SoftPermissionDetailActivity");
                         intent.putExtra("packagename", context.getPackageName());
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .start();

@@ -20,7 +20,6 @@ public class KQihu360OverlayPageLauncher implements PageLauncher {
                     public void onIntentAction(Context context, Intent intent) {
                         intent.setClassName("com.android.settings",
                                 "com.android.settings.Settings$OverlaySettingsActivity");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
@@ -29,7 +28,6 @@ public class KQihu360OverlayPageLauncher implements PageLauncher {
                         intent.setClassName("com.qihoo360.mobilesafe",
                                 "com.qihoo360.mobilesafe.ui.index.AppEnterActivity");
                         intent.putExtra("packagename", context.getPackageName());
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .start();

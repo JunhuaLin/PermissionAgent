@@ -20,7 +20,6 @@ public class KHuaweiOverlayPageLauncher implements PageLauncher {
                     public void onIntentAction(Context context, Intent intent) {
                         intent.setClassName("com.huawei.systemmanager",
                                 "com.huawei.notificationmanager.ui.NotificationManagmentActivity");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
@@ -28,7 +27,6 @@ public class KHuaweiOverlayPageLauncher implements PageLauncher {
                     public void onIntentAction(Context context, Intent intent) {
                         intent.setClassName("com.huawei.systemmanager",
                                 "com.huawei.permissionmanager.ui.MainActivity");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
@@ -36,7 +34,6 @@ public class KHuaweiOverlayPageLauncher implements PageLauncher {
                     public void onIntentAction(Context context, Intent intent) {
                         intent.setClassName("com.huawei.systemmanager",
                                 "com.huawei.systemmanager.addviewmonitor.AddViewMonitorActivity");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .addAction(new ActivitiesFlat.OnIntentAction() {
@@ -44,7 +41,6 @@ public class KHuaweiOverlayPageLauncher implements PageLauncher {
                     public void onIntentAction(Context context, Intent intent) {
                         intent.setClassName("com.Android.settings",
                                 "com.android.settings.permission.TabItem");
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     }
                 })
                 .start();

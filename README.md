@@ -24,7 +24,10 @@
 
 #### 添加依赖
 ```groovy
+//android support
 implementation 'cn.junhua.android:permission-agent:<latest-release>'
+//androidx
+implementation 'cn.junhua.android:permission-agent-x:<latest-release>'
 ```
 
 

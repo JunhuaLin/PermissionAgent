@@ -1,1 +1,1 @@
-include ':app', ':agent'
+include ':app', ':appx',':agent',':agentx'

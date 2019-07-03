@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        tools:context=".MainActivity">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:text="去设置页面" />
+
+        <TextView
+            android:id="@+id/tv_start_setting_page"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="start setting page" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:text="并行请求危险权限" />
+
+        <TextView
+            android:id="@+id/tv_check_permission"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="check permission" />
+
+        <TextView
+            android:id="@+id/tv_cwc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="CAMERA+WRITE_CONTACTS" />
+
+        <TextView
+            android:id="@+id/tv_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="LOCATION" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:text="串行请求危险权限" />
+
+        <TextView
+            android:id="@+id/tv_serial_requests"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="group.CONTACTS + ACCESS_COARSE_LOCATION" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:text="请求特殊权限" />
+
+        <TextView
+            android:id="@+id/tv_amws"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="ACTION_MANAGE_OVERLAY_PERMISSION" />
+
+
+        <TextView
+            android:id="@+id/tv_ws"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="WRITE_SETTINGS" />
+
+        <TextView
+            android:id="@+id/tv_amuas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="ACTION_MANAGE_UNKNOWN_APP_SOURCES" />
+
+        <TextView
+            android:id="@+id/tv_nofity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:padding="20dp"
+            android:text="ACTION_APP_NOTIFICATION_SETTINGS" />
+    </LinearLayout>
+</ScrollView>

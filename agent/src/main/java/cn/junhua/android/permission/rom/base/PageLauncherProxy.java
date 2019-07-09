@@ -23,8 +23,9 @@ public class PageLauncherProxy implements PageLauncher {
 
     @Override
     public boolean launch(PermissionHandler permissionHandler, int requestCode) {
-        return (mProxyPageLauncher != null && mProxyPageLauncher.launch(permissionHandler, requestCode))
-                || (mDefault0PageLauncher != null && mDefault0PageLauncher.launch(permissionHandler, requestCode))
+        //优先使用默认的方式启动，然后使用适配方式启动，最后使用设置页启动
+        return (mDefault0PageLauncher != null && mDefault0PageLauncher.launch(permissionHandler, requestCode))
+                || (mProxyPageLauncher != null && mProxyPageLauncher.launch(permissionHandler, requestCode))
                 || mDefault1PageLauncher.launch(permissionHandler, requestCode);
     }
 }

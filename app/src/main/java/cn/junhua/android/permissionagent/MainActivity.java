@@ -174,16 +174,8 @@ public class MainActivity extends AppCompatActivity {
                         toast("onDenied() called with: permissions = [" + permissions + "]");
                         Log.d(TAG, "onDenied() called with: permissions = [" + permissions + "]");
                         if (PermissionAgent.getInstance().hasAlwaysDeniedPermission(permissions)) {
-                            startSettingPageDialog(permissions);
+                            toast(permissions);
                         }
-                    }
-                })
-                .onRationale(new OnRationaleCallback<List<String>>() {
-                    @Override
-                    public void onRationale(Context context, List<String> permissions, AgentExecutor executor) {
-                        toast("onRationale() called with: permissions = [" + permissions + "]");
-                        Log.d(TAG, "onRationale() called with: permissions = [" + permissions + "], executor = [" + executor + "]");
-                        showRationaleDialog(permissions, executor);
                     }
                 })
                 .apply();
@@ -288,6 +280,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void toast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    private void toast(List<String> permissions) {
+        Toast.makeText(this, "请在设置中允许如下权限：\n" + TextUtils.join("\n", permissions), Toast.LENGTH_SHORT).show();
     }
 
 }

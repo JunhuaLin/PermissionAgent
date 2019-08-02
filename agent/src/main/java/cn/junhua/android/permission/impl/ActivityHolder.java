@@ -27,7 +27,16 @@ public class ActivityHolder implements Application.ActivityLifecycleCallbacks {
             throw new IllegalStateException("请在Application的onCreate中初始化");
         }
         AgentLog.d(TAG, "current activity stack " + mActivityList);
-        return mActivityList.get(mActivityList.size() - 1);
+        int size = mActivityList.size();
+        Activity activity;
+        do {
+            activity = mActivityList.get(--size);
+            if (!activity.isFinishing()) {
+                return activity;
+            }
+        } while (size > 0);
+
+        return mActivityList.get(0);
     }
 
     @Override

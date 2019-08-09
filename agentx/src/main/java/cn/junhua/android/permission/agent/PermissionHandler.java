@@ -11,7 +11,7 @@ import cn.junhua.android.permission.agent.callback.OnPermissionResultCallback;
 /**
  * 申请权限需要的操作
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2018/12/7 14:42
  */
 public interface PermissionHandler {

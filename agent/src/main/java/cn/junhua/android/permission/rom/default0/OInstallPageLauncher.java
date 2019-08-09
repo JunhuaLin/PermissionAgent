@@ -12,7 +12,7 @@ import cn.junhua.android.permission.rom.PageLauncher;
 import cn.junhua.android.permission.utils.ActivitiesFlat;
 
 /**
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/19 11:05
  */
 @RequiresApi(api = Build.VERSION_CODES.O)

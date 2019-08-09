@@ -10,7 +10,7 @@ import java.util.List;
 import cn.junhua.android.permission.utils.AgentLog;
 
 /**
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/5/29 12:38
  */
 public class ActivityHolder implements Application.ActivityLifecycleCallbacks {

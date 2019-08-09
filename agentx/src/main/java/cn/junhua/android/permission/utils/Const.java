@@ -8,7 +8,7 @@ import java.lang.annotation.RetentionPolicy;
 /**
  * 特殊权限19<=api<23检测
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/3 15:47
  */
 

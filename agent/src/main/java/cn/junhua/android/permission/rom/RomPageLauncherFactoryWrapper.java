@@ -6,7 +6,7 @@ import cn.junhua.android.permission.rom.base.DefaultPageLauncher;
 /**
  * 包装类，简化实现
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/19 10:53
  */
 public abstract class RomPageLauncherFactoryWrapper implements RomPageLauncherFactory {

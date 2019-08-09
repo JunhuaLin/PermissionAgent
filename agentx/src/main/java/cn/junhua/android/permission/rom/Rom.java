@@ -12,7 +12,7 @@ import cn.junhua.android.permission.rom.xiaomi.XiaomiPageLauncherFactory;
 /**
  * 手机厂商Rom枚举,统一检测入口,便于扩展
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/6 10:32
  */
 public enum Rom implements RomPageLauncherFactory {

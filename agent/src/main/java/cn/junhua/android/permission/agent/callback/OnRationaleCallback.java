@@ -7,7 +7,7 @@ import cn.junhua.android.permission.agent.AgentExecutor;
 /**
  * 向用户解释说明
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2018/12/7 14:51
  */
 public interface OnRationaleCallback<T> {

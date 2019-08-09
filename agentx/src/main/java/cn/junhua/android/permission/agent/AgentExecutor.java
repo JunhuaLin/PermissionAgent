@@ -3,7 +3,7 @@ package cn.junhua.android.permission.agent;
 /**
  * 用于继续执行权限申请操作
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2018/12/6 17:20
  */
 public interface AgentExecutor {

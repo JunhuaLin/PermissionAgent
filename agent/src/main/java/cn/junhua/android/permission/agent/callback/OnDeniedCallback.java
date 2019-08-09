@@ -5,7 +5,7 @@ import android.content.Context;
 /**
  * 权限操作回调处理
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2018/12/7 14:51
  */
 public interface OnDeniedCallback<T> {

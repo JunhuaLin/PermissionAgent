@@ -9,7 +9,7 @@ import cn.junhua.android.permission.utils.RomUtils;
 /**
  * Oppo手机适配工厂
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/19 10:09
  */
 public class OppoPageLauncherFactory extends RomPageLauncherFactoryWrapper {

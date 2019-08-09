@@ -12,7 +12,7 @@ import cn.junhua.android.permission.utils.Executor;
 /**
  * 特殊权限申请
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2018/12/19 13:39
  */
 public class SpecialPermissionAgent extends BaseAgent<SpecialPermission> implements OnActivityResultCallback, AgentExecutor {

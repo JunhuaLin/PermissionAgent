@@ -10,7 +10,7 @@ import cn.junhua.android.permission.rom.base.PageLauncherProxy;
  * 则使用{@link DefaultPageLauncher}，<br/>
  * 代理逻辑见{@link PageLauncherProxy}<br/>
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/19 10:53
  */
 public interface RomPageLauncherFactory {

@@ -12,7 +12,7 @@ import cn.junhua.android.permission.utils.ActivitiesFlat;
 /**
  * 默认跳转到应用详情页
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/19 11:20
  */
 public class DefaultPageLauncher implements PageLauncher {

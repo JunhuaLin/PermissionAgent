@@ -11,7 +11,7 @@ import cn.junhua.android.permission.special.operation.WriteSettingsSpecialOperat
 /**
  * 枚举特殊权限
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/5/29 10:00
  */
 public enum SpecialPermission implements SpecialOperation {

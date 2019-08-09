@@ -11,7 +11,7 @@ import cn.junhua.android.permission.utils.Executor;
 /**
  * 串行申请危险权限
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2018/12/19 13:39
  */
 public class EachDangerousPermissionAgent extends DangerousPermissionAgent {

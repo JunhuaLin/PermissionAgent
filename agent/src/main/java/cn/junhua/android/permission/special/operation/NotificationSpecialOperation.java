@@ -14,7 +14,7 @@ import cn.junhua.android.permission.utils.PermissionUtil;
 /**
  * 推送通知权限操作
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/5/29 14:08
  */
 public class NotificationSpecialOperation implements SpecialOperation {

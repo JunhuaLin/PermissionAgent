@@ -11,7 +11,7 @@ import cn.junhua.android.permission.agent.check.PermissionChecker;
 /**
  * 正常检测
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/10 10:45
  */
 public class StandardPermissionChecker implements PermissionChecker {

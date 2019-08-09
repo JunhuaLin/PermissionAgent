@@ -7,7 +7,7 @@ import cn.junhua.android.permission.agent.callback.OnRationaleCallback;
 /**
  * 申请权限相关操作
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2018/12/6 17:01
  */
 public interface Agent<T> {

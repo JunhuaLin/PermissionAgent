@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 线程切换工具
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/10 14:28
  */
 public class Executor {

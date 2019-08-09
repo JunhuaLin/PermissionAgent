@@ -6,7 +6,7 @@ import cn.junhua.android.permission.rom.PageLauncher;
 /**
  * 代理PageLauncher,组合执行Default0PageLauncher,Default1PageLauncher
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/19 14:01
  */
 public class PageLauncherProxy implements PageLauncher {

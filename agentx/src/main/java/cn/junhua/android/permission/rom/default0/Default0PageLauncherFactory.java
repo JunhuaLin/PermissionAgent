@@ -8,7 +8,7 @@ import cn.junhua.android.permission.rom.RomPageLauncherFactory;
 /**
  * 存放所有ROM都通用的操作
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/19 10:09
  */
 public class Default0PageLauncherFactory implements RomPageLauncherFactory {

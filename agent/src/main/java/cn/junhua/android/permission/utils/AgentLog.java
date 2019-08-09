@@ -9,7 +9,7 @@ import cn.junhua.android.permission.PermissionAgent;
  * 二级:TAG2=xxx.class.getSimpleName()可以过滤出xxx类的log日志<br/>
  * log格式：D/{TAG1}: {TAG2}/{log msg}<br/>
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/5/29 14:01
  */
 public class AgentLog {

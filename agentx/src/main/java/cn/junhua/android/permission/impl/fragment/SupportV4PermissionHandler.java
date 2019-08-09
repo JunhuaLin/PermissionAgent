@@ -13,7 +13,7 @@ import cn.junhua.android.permission.agent.callback.OnPermissionResultCallback;
 /**
  * 用于处理Agent权限请求相关操作
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2018/12/6 16:28
  */
 public class SupportV4PermissionHandler extends Fragment implements PermissionHandler {

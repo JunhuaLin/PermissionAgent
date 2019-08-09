@@ -11,7 +11,7 @@ import cn.junhua.android.permission.agent.callback.OnRationaleCallback;
 import cn.junhua.android.permission.utils.Executor;
 
 /**
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2018/12/26 19:18
  */
 public abstract class BaseAgent<T> implements Agent<T> {

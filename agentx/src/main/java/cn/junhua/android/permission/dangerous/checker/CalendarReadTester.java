@@ -28,7 +28,7 @@ import cn.junhua.android.permission.agent.check.PermissionTester;
  * 参考：
  * https://github.com/yanzhenjie/AndPermission/tree/master/support/src/main/java/com/yanzhenjie/permission/checker
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/6 10:37
  */
 class CalendarReadTester implements PermissionTester {

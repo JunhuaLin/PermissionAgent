@@ -5,7 +5,7 @@ import android.app.Application;
 import cn.junhua.android.permission.PermissionAgent;
 
 /**
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/5/29 17:09
  */
 public class MyApp extends Application {

@@ -14,7 +14,7 @@ import java.util.Map;
  * https://developer.android.com/guide/topics/security/permissions.html?hl=zh-cn#perm-groups
  * </p>
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/10 15:47
  */
 public class Permission {

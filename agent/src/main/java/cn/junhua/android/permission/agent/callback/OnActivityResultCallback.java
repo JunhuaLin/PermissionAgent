@@ -5,7 +5,7 @@ import android.content.Intent;
 /**
  * 处理特殊权限申请相关回调
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2018/12/6 16:29
  */
 public interface OnActivityResultCallback {

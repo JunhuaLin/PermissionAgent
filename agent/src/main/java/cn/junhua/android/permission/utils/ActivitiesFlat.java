@@ -12,7 +12,7 @@ import cn.junhua.android.permission.agent.PermissionHandler;
 /**
  * 扁平化启动目标activity
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/6/5 13:38
  */
 public class ActivitiesFlat {

@@ -25,7 +25,7 @@ import cn.junhua.android.permission.utils.Executor;
 /**
  * 权限申请代理类
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2018/12/6 16:44
  */
 public class PermissionAgent {

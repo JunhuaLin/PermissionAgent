@@ -12,7 +12,7 @@ import cn.junhua.android.permission.special.SpecialOperation;
 /**
  * 修改设置权限操作
  *
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/5/29 14:08
  */
 @TargetApi(Build.VERSION_CODES.M)

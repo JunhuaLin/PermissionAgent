@@ -12,7 +12,7 @@ import cn.junhua.android.permission.impl.fragment.DefaultPermissionHandler;
 import cn.junhua.android.permission.impl.fragment.SupportV4PermissionHandler;
 
 /**
- * @author junhua.lin@jinfuzi.com<br/>
+ * @author junhua.lin<br />
  * CREATED 2019/5/29 12:38
  */
 public class PermissionHandlerFactoryImp implements PermissionHandlerFactory {
